@@ -8,16 +8,17 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="115dp"
         android:layout_height="115dp"
-        android:src="@drawable/vulfpeck"
-        android:id="@+id/favoritosImageView"/>
+        android:src="#00BCD4"
+        android:id="@+id/playlistImageView"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="115dp"
         android:layout_height="wrap_content"
-        android:text="Vulfpeck"
+        android:text="Playlist A"
         android:textAlignment="center"
-        android:id="@+id/favoritosTextView"
+        android:id="@+id/playlistTextView"
         android:textColor="#FFFF"/>
+
 
 
 </LinearLayout>

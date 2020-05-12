@@ -8,14 +8,14 @@
         android:layout_width="115dp"
         android:layout_height="115dp"
         android:src="@drawable/playlist_a"
-        android:id="@+id/playlistImageView"/>
+        android:id="@+id/recomendadosImageView"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Una playlist"
         android:textAlignment="center"
-        android:id="@+id/playlistTextView"
+        android:id="@+id/recomendadosTextView"
         android:textColor="#FFF"/>
 
 

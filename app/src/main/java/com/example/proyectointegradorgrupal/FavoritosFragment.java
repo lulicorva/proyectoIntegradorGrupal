@@ -38,7 +38,8 @@ public class FavoritosFragment extends Fragment {
         recyclerViewFavoritos.setLayoutManager(linearLayoutManager);
         recyclerViewFavoritos.setAdapter(favoritosAdapter);
 
-
         return view;
+
+
     }
 }

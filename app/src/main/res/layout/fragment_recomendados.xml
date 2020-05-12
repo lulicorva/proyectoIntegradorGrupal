@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".FavoritosFragment"
+    android:layout_height="match_parent"
+    tools:context=".RecomendadosFragment"
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Artistas favoritos"
+        android:text="Recomendados"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="#FFFF"
@@ -19,10 +19,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragmentRecycleFavoritos"
+        android:id="@+id/fragmentRecycleRecomendados"
         android:paddingTop="20dp"/>
-
-
-
 
 </LinearLayout>

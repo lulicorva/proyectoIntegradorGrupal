@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.view;
 
 import android.os.Bundle;
 
@@ -10,8 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectointegradorgrupal.dao.PlaylistDao;
+import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Playlist;
-import com.example.proyectointegradorgrupal.view.PlaylistAdapter;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class playlist_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playlist_fragment, container, false);
 
-        List<Playlist> playlistList = ProveedorDePlaylist.getPlaylist();
+        List<Playlist> playlistList = PlaylistDao.getPlaylist();
 
         RecyclerView recyclerView = view.findViewById(R.id.fragmentRecyclePlaylist);
         PlaylistAdapter playlistAdapter = new PlaylistAdapter(playlistList);

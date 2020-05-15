@@ -6,7 +6,7 @@ import com.example.proyectointegradorgrupal.model.Favoritos;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AnimalDao {
+public abstract class FavoritosDao {
 
     public static List<Favoritos> getFavoritos() {
         List<Favoritos> favoritosList = new ArrayList<>();

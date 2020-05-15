@@ -18,9 +18,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.ViewHolderFavoritos> {
 
     private List<Favoritos> favoritosList;
+    private FavoritosAdapterListener favoritosAdapterListener;
 
-    public FavoritosAdapter(List<Favoritos> favoritosList) {
+    public FavoritosAdapter(List<Favoritos> favoritosList, FavoritosAdapterListener listener) {
         this.favoritosList = favoritosList;
+        this.favoritosAdapterListener = listener;
     }
 
     @NonNull
@@ -44,7 +46,7 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.View
         return favoritosList.size();
     }
 
-    protected class ViewHolderFavoritos extends RecyclerView.ViewHolder{
+    protected class ViewHolderFavoritos extends RecyclerView.ViewHolder {
 
         private CircleImageView circleImageViewFavoritos;
         private TextView textViewFavoritos;
@@ -55,6 +57,13 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.View
             circleImageViewFavoritos = itemView.findViewById(R.id.favoritosImageView);
             textViewFavoritos = itemView.findViewById(R.id.favoritosTextView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Favoritos favoritos = favoritosList.get(getAdapterPosition());
+                    favoritosAdapterListener.onClick(favoritos);
+                }
+            });
 
 
         }
@@ -63,6 +72,11 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.View
             circleImageViewFavoritos.setImageResource(favoritos.getImagen());
             textViewFavoritos.setText(favoritos.getNombre());
         }
+    }
+
+    public interface FavoritosAdapterListener {
+        public void onClick(Favoritos favoritos);
+
     }
 
 }

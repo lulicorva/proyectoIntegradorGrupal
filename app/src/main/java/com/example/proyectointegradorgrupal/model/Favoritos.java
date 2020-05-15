@@ -1,6 +1,8 @@
 package com.example.proyectointegradorgrupal.model;
 
-public class Favoritos {
+import java.io.Serializable;
+
+public class Favoritos implements Serializable {
 
     private String nombre;
     private Integer imagen;

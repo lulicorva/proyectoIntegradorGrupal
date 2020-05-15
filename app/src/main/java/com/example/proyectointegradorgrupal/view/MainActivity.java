@@ -1,11 +1,15 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.view.FavoritosFragment;
+import com.example.proyectointegradorgrupal.view.RecomendadosFragment;
+import com.example.proyectointegradorgrupal.view.playlist_fragment;
 
 public class MainActivity extends AppCompatActivity {
 

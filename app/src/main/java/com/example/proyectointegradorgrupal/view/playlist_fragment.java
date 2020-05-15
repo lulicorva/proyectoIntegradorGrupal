@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.view.PlaylistAdapter;
+
 import java.util.List;
 
 

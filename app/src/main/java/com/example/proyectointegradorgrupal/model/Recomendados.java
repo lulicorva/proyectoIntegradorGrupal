@@ -1,14 +1,14 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.model;
 
-public class Favoritos {
+public class Recomendados {
 
     private String nombre;
     private Integer imagen;
 
-    public Favoritos() {
+    public Recomendados() {
     }
 
-    public Favoritos(String nombre, Integer imagen) {
+    public Recomendados(String nombre, Integer imagen) {
         this.nombre = nombre;
         this.imagen = imagen;
     }

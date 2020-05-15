@@ -1,13 +1,14 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.model.Recomendados;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;

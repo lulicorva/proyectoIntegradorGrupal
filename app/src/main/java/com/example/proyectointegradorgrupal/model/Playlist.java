@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.model;
 
 public class Playlist {
 

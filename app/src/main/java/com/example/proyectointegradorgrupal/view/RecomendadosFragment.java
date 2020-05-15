@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.view;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.proyectointegradorgrupal.dao.RecomendadosDao;
+import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.model.Recomendados;
 
 import java.util.List;
 
@@ -29,7 +33,7 @@ public class RecomendadosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_recomendados, container, false);
 
-        List<Recomendados> recomendadosList = ProveedorDeRecomendados.getRecomendados();
+        List<Recomendados> recomendadosList = RecomendadosDao.getRecomendados();
 
         RecyclerView recyclerViewRecomendados = view.findViewById(R.id.fragmentRecycleRecomendados);
 

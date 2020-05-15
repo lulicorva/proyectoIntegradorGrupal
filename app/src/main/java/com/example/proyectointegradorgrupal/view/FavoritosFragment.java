@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.view;
 
 import android.os.Bundle;
 
@@ -9,6 +9,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.proyectointegradorgrupal.dao.AnimalDao;
+import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.model.Favoritos;
 
 import java.util.List;
 
@@ -31,7 +35,7 @@ public class FavoritosFragment extends Fragment {
 
         RecyclerView recyclerViewFavoritos = view.findViewById(R.id.fragmentRecycleFavoritos);
 
-        List<Favoritos> favoritosList = ProveedorDeFavoritos.getFavoritos();
+        List<Favoritos> favoritosList = AnimalDao.getFavoritos();
         FavoritosAdapter favoritosAdapter = new FavoritosAdapter(favoritosList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
 

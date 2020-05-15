@@ -1,9 +1,12 @@
-package com.example.proyectointegradorgrupal;
+package com.example.proyectointegradorgrupal.dao;
+
+import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.model.Playlist;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ProveedorDePlaylist {
+public abstract class PlaylistDao {
 
     public static List<Playlist> getPlaylist() {
         List<Playlist> playlistList = new ArrayList<>();

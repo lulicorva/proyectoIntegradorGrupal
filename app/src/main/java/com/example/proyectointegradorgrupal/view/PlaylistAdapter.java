@@ -18,9 +18,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolderPlaylist> {
 
     private List<Playlist> playlistList;
+    private PlaylistAdapterListener playlistAdapterListener;
 
-    public PlaylistAdapter(List<Playlist> playlistList) {
+    public PlaylistAdapter(List<Playlist> playlistList, PlaylistAdapterListener listener) {
         this.playlistList = playlistList;
+        this.playlistAdapterListener = listener;
     }
 
     @NonNull
@@ -55,7 +57,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             circleImageViewPlaylist = itemView.findViewById(R.id.playlistImageView);
             textViewPlaylist = itemView.findViewById(R.id.playlistTextView);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Playlist playlist = playlistList.get(getAdapterPosition());
+                    playlistAdapterListener.onClick(playlist);
 
+                }
+            });
 
         }
 
@@ -63,6 +72,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             circleImageViewPlaylist.setImageResource(playlist.getImagen());
             textViewPlaylist.setText(playlist.getNombre());
         }
+    }
+
+    public interface PlaylistAdapterListener {
+        public void onClick(Playlist playlist);
     }
 
 }

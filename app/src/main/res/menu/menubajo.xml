@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuInicio"
+        android:title="Inicio"
+        android:icon="@drawable/ic_home_black_24dp"/>
+
+    <item
+        android:id="@+id/menuBuscar"
+        android:title="Buscar"
+        android:icon="@drawable/ic_search_black_24dp"/>
+
+    <item
+        android:id="@+id/menuTuBiblioteca"
+        android:title="Tu Biblioteca"
+        android:icon="@drawable/ic_headset_black_24dp"/>
+</menu>

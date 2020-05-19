@@ -1,7 +1,9 @@
 package com.example.proyectointegradorgrupal.view;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +22,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class playlist_fragment extends Fragment {
+public class PlaylistFragment extends Fragment implements PlaylistAdapter.PlaylistAdapterListener{
 
-    public playlist_fragment() {
+    private RecyclerViewFragmentPlaylistListener recyclerViewFragmentPlaylistListener;
+
+    public PlaylistFragment() {
         // Required empty public constructor
     }
 
+    //solucionar
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +41,7 @@ public class playlist_fragment extends Fragment {
         List<Playlist> playlistList = PlaylistDao.getPlaylist();
 
         RecyclerView recyclerView = view.findViewById(R.id.fragmentRecyclePlaylist);
-        PlaylistAdapter playlistAdapter = new PlaylistAdapter(playlistList);
+        PlaylistAdapter playlistAdapter = new PlaylistAdapter(playlistList, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -45,6 +50,14 @@ public class playlist_fragment extends Fragment {
 
         return view;
 
+    }
 
+    @Override
+    public void onClick(Playlist playlist) {
+        recyclerViewFragmentPlaylistListener.onClick(playlist);
+    }
+
+    public interface RecyclerViewFragmentPlaylistListener {
+        public void onClick(Playlist playlist);
     }
 }

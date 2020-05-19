@@ -31,7 +31,6 @@ public class FavoritosFragment extends Fragment implements FavoritosAdapter.Favo
         // Required empty public constructor
     }
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

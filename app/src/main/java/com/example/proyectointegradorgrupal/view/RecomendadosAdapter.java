@@ -18,8 +18,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RecomendadosAdapter extends RecyclerView.Adapter<RecomendadosAdapter.ViewHolderRecomendados> {
 
     private List<Recomendados> recomendadosList;
+    private RecomendadosAdapterListener recomendadosAdapterListener;
 
-    public RecomendadosAdapter(List<Recomendados> recomendadosList) {
+    public RecomendadosAdapter(List<Recomendados> recomendadosList, RecomendadosAdapterListener listener) {
         this.recomendadosList = recomendadosList;
     }
 
@@ -62,6 +63,10 @@ public class RecomendadosAdapter extends RecyclerView.Adapter<RecomendadosAdapte
             materialTextViewNombreRecomendados.setText(recomendados.getNombre());
 
         }
+    }
+
+    public interface RecomendadosAdapterListener{
+        public void onClick(Recomendados recomendados);
     }
 
 }

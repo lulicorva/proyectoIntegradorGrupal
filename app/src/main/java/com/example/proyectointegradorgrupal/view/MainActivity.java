@@ -2,6 +2,7 @@ package com.example.proyectointegradorgrupal.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -12,8 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -28,6 +32,16 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AlbumController albumController = new AlbumController();
+        albumController.getAlbum(new ResultListener<Album>() {
+            @Override
+            public void onFinish(Album result) {
+                //aca hace algo cuando llega el resultado
+            }
+        });
+
+
+
         bottomNavigationView = findViewById(R.id.activityMainBottomNavigation);
 
 
@@ -39,17 +53,16 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         pegarFragmentRecomendados(recomendadosFragment);
 
 
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.menuInicio:
                         Toast.makeText(MainActivity.this, "Inicio", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menuBuscar:
-                        Intent intent= new Intent(MainActivity.this,Main2Activity.class);
+                        Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                         startActivity(intent);
                         break;
                     case R.id.menuTuBiblioteca:
@@ -75,10 +88,17 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         Intent intent = new Intent(this, ListadoCancionesActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("favorito", favoritos);
+
+        /**
+        FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
+        fragmentListadoCanciones.setArguments(bundle);
+        pegarFragment(fragmentListadoCanciones);
+        Estas lineas se reemplazan por las 75, 82 y 83 y pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
+         */
+
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
 
 
     private void pegarFragmentPlaylist(PlaylistFragment playlistFragment) {

@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         albumController.getAlbum(new ResultListener<Album>() {
             @Override
             public void onFinish(Album result) {
-                //aca hace algo cuando llega el resultado
+        //hace algo
             }
+
         });
 
 

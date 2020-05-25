@@ -18,6 +18,7 @@ public class AlbumController {
             public void onFinish(Album result) {
                 resultListenerFromView.onFinish(result);
             }
+
         });
     }
 }

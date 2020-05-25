@@ -17,7 +17,7 @@ public class AlbumDao extends RetrofitDao {
     }
 
     public void getAlbum(ResultListener<Album> resultListenerPorController) {
-        Call<Album> call = this.albumService.getAlbum("103248");
+        Call<Album> call = this.albumService.getAlbumById("103248");
 
         call.enqueue(new Callback<Album>() {
             @Override

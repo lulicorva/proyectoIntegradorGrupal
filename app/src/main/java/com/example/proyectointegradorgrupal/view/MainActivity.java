@@ -14,11 +14,15 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.PlaylistController;
 import com.example.proyectointegradorgrupal.model.Album;
+import com.example.proyectointegradorgrupal.model.ConteinerPlayList;
 import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements FavoritosFragment.RecyclerViewFragmentFavoritosListener {
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
             }
 
         });
+
 
 
 

@@ -2,30 +2,41 @@ package com.example.proyectointegradorgrupal.model;
 
 public class Playlist {
 
-    private String nombre;
-    private Integer Imagen;
+    private String id;
+    private String title;
+    private String picture;
 
     public Playlist() {
     }
 
-    public Playlist(String nombre, Integer imagen) {
-        this.nombre = nombre;
-        Imagen = imagen;
+    public Playlist(String id, String title, String picture) {
+        this.id = id;
+        this.title = title;
+        this.picture = picture;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getId() {
+        return id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Integer getImagen() {
-        return Imagen;
+    public String getTitle() {
+        return title;
     }
 
-    public void setImagen(Integer imagen) {
-        Imagen = imagen;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String Picture) {
+        this.picture = picture;
     }
 }
+

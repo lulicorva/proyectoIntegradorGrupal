@@ -12,9 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.proyectointegradorgrupal.controller.PlaylistController;
 import com.example.proyectointegradorgrupal.dao.PlaylistDao;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.dao.ProveedorDeFavoritos;
+import com.example.proyectointegradorgrupal.model.ConteinerPlayList;
+import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 
 import java.util.List;
 
@@ -26,9 +31,13 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.Playli
 
     private RecyclerViewFragmentPlaylistListener recyclerViewFragmentPlaylistListener;
 
+    private RecyclerView recyclerView;
+
+
     public PlaylistFragment() {
         // Required empty public constructor
     }
+
 
     //solucionar
 
@@ -38,14 +47,26 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.Playli
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_playlist_fragment, container, false);
 
-        List<Playlist> playlistList = PlaylistDao.getPlaylist();
 
-        RecyclerView recyclerView = view.findViewById(R.id.fragmentRecyclePlaylist);
-        PlaylistAdapter playlistAdapter = new PlaylistAdapter(playlistList, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
+        recyclerView = view.findViewById(R.id.fragmentRecyclePlaylist);
 
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(playlistAdapter);
+
+
+        PlaylistController playlistController = new PlaylistController();
+        playlistController.getPlaylistPorSearch(new ResultListener<List<Playlist>>() {
+            @Override
+            public void onFinish(List<Playlist> result){
+             PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, PlaylistFragment.this);
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setAdapter(playlistAdapter);
+
+            }
+        });
+
+
 
 
         return view;

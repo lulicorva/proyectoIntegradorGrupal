@@ -8,12 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Playlist;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+//import static com.example.proyectointegradorgrupal.model.ConteinerPlayList.listaDePlaylist;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolderPlaylist> {
 
@@ -23,7 +28,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public PlaylistAdapter(List<Playlist> playlistList, PlaylistAdapterListener listener) {
         this.playlistList = playlistList;
         this.playlistAdapterListener = listener;
+
     }
+
+
 
     @NonNull
     @Override
@@ -44,6 +52,12 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     @Override
     public int getItemCount() {
         return playlistList.size();
+    }
+
+    public void SetPlaylistList(List<Playlist> playlistList){
+        this.playlistList = playlistList;
+        notifyDataSetChanged();
+
     }
 
     protected class ViewHolderPlaylist extends RecyclerView.ViewHolder{
@@ -69,8 +83,11 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         }
 
         public void onBind(Playlist playlist) {
-            circleImageViewPlaylist.setImageResource(playlist.getImagen());
-            textViewPlaylist.setText(playlist.getNombre());
+                    Glide.with(textViewPlaylist.getContext())
+                    .load(playlist.getPicture())
+                    .into(circleImageViewPlaylist);
+
+                    textViewPlaylist.setText(playlist.getTitle());
         }
     }
 

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlaylistFragment extends Fragment implements PlaylistAdapter.PlaylistAdapterListener{
+public class PlaylistFragment extends Fragment implements PlaylistAdapter.PlaylistAdapterListener {
 
     private RecyclerViewFragmentPlaylistListener recyclerViewFragmentPlaylistListener;
 
@@ -51,22 +51,17 @@ public class PlaylistFragment extends Fragment implements PlaylistAdapter.Playli
         recyclerView = view.findViewById(R.id.fragmentRecyclePlaylist);
 
 
-
         PlaylistController playlistController = new PlaylistController();
         playlistController.getPlaylistPorSearch(new ResultListener<List<Playlist>>() {
             @Override
-            public void onFinish(List<Playlist> result){
-             PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, PlaylistFragment.this);
-
+            public void onFinish(List<Playlist> result) {
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, PlaylistFragment.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-
                 recyclerView.setLayoutManager(linearLayoutManager);
                 recyclerView.setAdapter(playlistAdapter);
 
             }
         });
-
-
 
 
         return view;

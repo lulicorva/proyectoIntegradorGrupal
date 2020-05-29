@@ -13,34 +13,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PlaylistDao extends RetrofitDao{
+public class PlaylistDao extends RetrofitDao {
 
 
+    private PlayListService playListService;
 
-private PlayListService playListService;
+    public PlaylistDao() {
+        playListService = retrofit.create(PlayListService.class);
+    }
 
-public PlaylistDao(){playListService = retrofit.create(PlayListService.class);}
+    public void getPlaylistPorSearch(final ResultListener<List<Playlist>> resultListenerPorController) {
+        Call<ConteinerPlayList> call = this.playListService.getPlaylistporSearch("Regaetton");
+        call.enqueue(new Callback<ConteinerPlayList>() {
+            @Override
+            public void onResponse(Call<ConteinerPlayList> call, Response<ConteinerPlayList> response) {
+                if (response.isSuccessful()) {
+                    ConteinerPlayList conteinerPlayList = response.body();
+                    resultListenerPorController.onFinish(conteinerPlayList.getListaDePlaylist());
 
-public void getPlaylistPorSearch(final ResultListener<List<Playlist>> resultListenerPorController){
-    Call<ConteinerPlayList> call = this.playListService.getPlaylistporSearch("Regaetton");
-    call.enqueue(new Callback<ConteinerPlayList>() {
-        @Override
-        public void onResponse(Call<ConteinerPlayList> call, Response<ConteinerPlayList> response) {
-            if(response.isSuccessful()) {
-                ConteinerPlayList conteinerPlayList = response.body();
-                resultListenerPorController.onFinish(conteinerPlayList.getListaDePlaylist());
-
-            }else{
-                response.errorBody();
+                } else {
+                    response.errorBody();
+                }
             }
-        }
 
-        @Override
-        public void onFailure(Call<ConteinerPlayList> call, Throwable t) {
-        t.printStackTrace();
-        }
-    });
-}
+            @Override
+            public void onFailure(Call<ConteinerPlayList> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
 }
 

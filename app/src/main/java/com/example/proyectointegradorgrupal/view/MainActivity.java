@@ -28,7 +28,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FavoritosFragment.RecyclerViewFragmentFavoritosListener {
 
-    private BottomNavigationView bottomNavigationView;
 
     @Override
 //TODO me parece que el FavoritosFragment deveria ser un FragmentPantallaInicio y dentro de ese poner 3 recyclerview, uno de favoritos, otro de
@@ -48,32 +47,7 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         });
 
 
-
-        bottomNavigationView = findViewById(R.id.activityMainBottomNavigation);
-
-
         pegarFragmentsMainActivity();
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch (item.getItemId()) {
-                    case R.id.menuInicio:
-                        Toast.makeText(MainActivity.this, "Inicio", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menuBuscar:
-                        Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.menuTuBiblioteca:
-                        Toast.makeText(MainActivity.this, "Tu Biblioteca", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                return false;
-            }
-        });
 
 
     }
@@ -83,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
         pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
         pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
+        pegarFragment(new BottomNavigationFragment(),R.id.activityMainContenedorFragmentBottomNavigation);
     }
 
     private void pegarFragment(Fragment favoritosFragment, int id) {

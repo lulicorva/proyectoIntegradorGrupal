@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#000"
     android:orientation="vertical"
     tools:context=".view.MainActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
 
-         <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="60dp">
 
             <FrameLayout
                 android:id="@+id/activityMainContenedorFragmenFavoritos"
@@ -34,18 +35,14 @@
 
         </LinearLayout>
 
-
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/activityMainBottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#272525"
-        android:layout_marginTop="560dp"
-        app:menu="@menu/menubajo"
-        app:itemIconTint="#EAEAEA"
-        app:itemTextColor="#EAEAEA"/>
+
+        <FrameLayout
+            android:id="@+id/activityMainContenedorFragmentBottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/scrollView"/>
 
 
 </RelativeLayout>

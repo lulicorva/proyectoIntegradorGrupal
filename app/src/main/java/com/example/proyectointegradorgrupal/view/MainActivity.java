@@ -16,6 +16,7 @@ import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.controller.PlaylistController;
 import com.example.proyectointegradorgrupal.model.Album;
+import com.example.proyectointegradorgrupal.model.AlbumContainer;
 import com.example.proyectointegradorgrupal.model.ConteinerPlayList;
 import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.model.Playlist;
@@ -36,27 +37,22 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+       //Esta parte iria en el fragment, aca está para probar el pedido
         AlbumController albumController = new AlbumController();
-        albumController.getAlbum(new ResultListener<Album>() {
+        albumController.getAlbumById(new ResultListener<Album>() {
             @Override
             public void onFinish(Album result) {
-        //hace algo
+
             }
-
         });
-
 
 
 
         bottomNavigationView = findViewById(R.id.activityMainBottomNavigation);
 
 
-        FavoritosFragment favoritosFragment = new FavoritosFragment();
-        pegarFragment(favoritosFragment);
-        PlaylistFragment playlistFragment = new PlaylistFragment();
-        pegarFragmentPlaylist(playlistFragment);
-        RecomendadosFragment recomendadosFragment = new RecomendadosFragment();
-        pegarFragmentRecomendados(recomendadosFragment);
+        pegarFragmentsMainActivity();
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -82,28 +78,18 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
 
     }
 
-    private void pegarFragment(FavoritosFragment favoritosFragment) {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.activityMainContenedorFragmenFavoritos, favoritosFragment);
-        fragmentTransaction.commit();
+    private void pegarFragmentsMainActivity() {
+
+        pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
+        pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
+        pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
     }
 
-    @Override
-    public void onClick(Favoritos favoritos) {
-        Intent intent = new Intent(this, ListadoCancionesActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("favorito", favoritos);
-
-        /**
-        FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
-        fragmentListadoCanciones.setArguments(bundle);
-        pegarFragment(fragmentListadoCanciones);
-        Estas lineas se reemplazan por las 75, 82 y 83 y pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
-         */
-
-        intent.putExtras(bundle);
-        startActivity(intent);
+    private void pegarFragment(Fragment favoritosFragment, int id) {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.replace(id, favoritosFragment);
+        fragmentTransaction.commit();
     }
 
 
@@ -121,6 +107,23 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         FragmentTransaction fragmentTransactionRecomendados = supprtFragmentManagerRecomendados.beginTransaction();
         fragmentTransactionRecomendados.replace(R.id.activityMainContenedorFragmenRecomendados, recomendadosFragment);
         fragmentTransactionRecomendados.commit();
+    }
+
+    @Override
+    public void onClick(Album album) {
+        Intent intent = new Intent(this, ListadoCancionesActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("favorito", album);
+
+        /**
+         FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
+         fragmentListadoCanciones.setArguments(bundle);
+         pegarFragment(fragmentListadoCanciones);
+         Estas lineas se reemplazan por el intent (primera linea y ultimas 2 del metodo) pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
+         */
+
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     //Solucionar

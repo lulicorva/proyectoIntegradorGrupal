@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Favoritos;
 
 
@@ -31,13 +32,13 @@ public class FragmentListadoCanciones extends Fragment {
         View view = inflater.inflate(R.layout.fragment_listado_canciones, container, false);
 
         Bundle bundle = getArguments();
-        Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
-
+        //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
+        Album album = (Album) bundle.getSerializable("favorito") ;
         ImageView fragmentListadoCancionesImagen = view.findViewById(R.id.fragmentlistadoCancionesImagen);
         TextView fragmentListadoCancionesArtista = view.findViewById(R.id.fragmentListadoCancionesArtista);
 
-        fragmentListadoCancionesArtista.setText(favoritos.getNombre());
-        fragmentListadoCancionesImagen.setImageResource(favoritos.getImagen());
+        fragmentListadoCancionesArtista.setText(album.getTitle());
+//        fragmentListadoCancionesImagen.setImageResource(album.getCover());
 
 
         return view;

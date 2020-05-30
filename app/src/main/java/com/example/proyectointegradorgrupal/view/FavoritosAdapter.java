@@ -80,4 +80,3 @@ public class FavoritosAdapter extends RecyclerView.Adapter<FavoritosAdapter.View
     }
 
 }
-

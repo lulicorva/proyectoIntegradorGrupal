@@ -7,11 +7,6 @@
         android:icon="@drawable/ic_home_black_24dp"/>
 
     <item
-        android:id="@+id/menuBuscar"
-        android:title="Buscar"
-        android:icon="@drawable/ic_search_black_24dp"/>
-
-    <item
         android:id="@+id/menuTuBiblioteca"
         android:title="Tu Biblioteca"
         android:icon="@drawable/ic_headset_black_24dp"/>

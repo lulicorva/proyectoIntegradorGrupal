@@ -5,18 +5,22 @@
     android:layout_height="wrap_content"
     android:background="#000"
     android:orientation="vertical"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainActivity"
+    android:id="@+id/activityMainRelativeLayout">
+
+    <include layout="@layout/my_toolbar"/>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="60dp">
+            android:layout_marginBottom="60dp"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/activityMainContenedorFragmenFavoritos"
@@ -37,12 +41,11 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
-        <FrameLayout
-            android:id="@+id/activityMainContenedorFragmentBottomNavigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/scrollView"/>
+    <FrameLayout
+        android:id="@+id/activityMainContenedorFragmentBottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scrollView" />
 
 
 </RelativeLayout>

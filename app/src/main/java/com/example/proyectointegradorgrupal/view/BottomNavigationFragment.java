@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BottomNavigationFragment extends Fragment {
+public class BottomNavigationFragment extends Fragment{
 
     private BottomNavigationView bottomNavigationView;
 
@@ -42,9 +42,6 @@ public class BottomNavigationFragment extends Fragment {
                     case R.id.menuInicio:
                         Toast.makeText(getContext(), "Inicio", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.menuBuscar:
-                        Toast.makeText(getContext(), "Buscar", Toast.LENGTH_SHORT).show();
-                        break;
                     case R.id.menuTuBiblioteca:
                         Toast.makeText(getContext(), "Tu Biblioteca", Toast.LENGTH_SHORT).show();
                         break;
@@ -52,6 +49,8 @@ public class BottomNavigationFragment extends Fragment {
                 return false;
             }
         });
+
+
 
         return view;
     }

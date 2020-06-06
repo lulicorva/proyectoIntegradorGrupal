@@ -34,6 +34,7 @@ public class BottomNavigationFragment extends Fragment{
 
         bottomNavigationView = view.findViewById(R.id.fragmentBottomNavigation);
 
+        //todo configurar esto en la main
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

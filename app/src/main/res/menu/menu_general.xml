@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuGeneral">
+
+    <item
+        android:id="@+id/menuGeneralBuscar"
+        android:title="Buscar"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
+    <item
+        android:title="Configuraciones"
+        android:id="@+id/menuGeneralConfiguracion"
+        android:icon="@drawable/ic_build_black_24dp"
+        app:showAsAction="always" />
+
+
+
+</menu>

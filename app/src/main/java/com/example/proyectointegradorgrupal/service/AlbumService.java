@@ -2,7 +2,9 @@ package com.example.proyectointegradorgrupal.service;
 
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.AlbumContainer;
+import com.example.proyectointegradorgrupal.model.Track;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,5 +22,10 @@ public interface AlbumService {
     //Consultar un search dentro de albums
     @GET("search/album")
     Call<AlbumContainer> getAlbumPorSearch(@Query("q") String album);
+
+    //Construla los tracks del album por ID
+    @GET("album/{id}/tracks")
+    Call<Track> getAlbumTracks(@Path("id") String id);
+
 
 }

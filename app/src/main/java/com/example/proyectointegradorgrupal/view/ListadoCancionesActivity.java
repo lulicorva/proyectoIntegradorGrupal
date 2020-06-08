@@ -1,13 +1,12 @@
 package com.example.proyectointegradorgrupal.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
 
 public class ListadoCancionesActivity extends AppCompatActivity {
 

@@ -1,9 +1,7 @@
-package com.example.proyectointegradorgrupal.view;
+package com.example.proyectointegradorgrupal.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.proyectointegradorgrupal.dao.RecomendadosDao;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.view.adapter.RecomendadosAdapter;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal.view;
+package com.example.proyectointegradorgrupal.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

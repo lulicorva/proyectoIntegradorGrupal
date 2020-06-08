@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal.view;
+package com.example.proyectointegradorgrupal.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,11 +14,9 @@ import android.view.ViewGroup;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
-import com.example.proyectointegradorgrupal.dao.ProveedorDeFavoritos;
 import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.util.ResultListener;
-import com.example.proyectointegradorgrupal.view.FavoritosAdapter;
+import com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter;
 
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class FavoritosFragment extends Fragment implements AlbumAdapter.AlbumAda
 
 
         AlbumController albumController = new AlbumController();
-        albumController.getAlbumPorSearch(new ResultListener<List<Album>>() {
+        albumController.getAlbumPorSearch("Beatles", new ResultListener<List<Album>>() {
             @Override
             public void onFinish(List<Album> result) {
 
@@ -61,8 +59,6 @@ public class FavoritosFragment extends Fragment implements AlbumAdapter.AlbumAda
 
             }
         });
-
-
 
         return view;
     }

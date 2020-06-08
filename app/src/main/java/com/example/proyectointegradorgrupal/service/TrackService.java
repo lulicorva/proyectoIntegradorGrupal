@@ -16,6 +16,6 @@ public interface TrackService {
     //Call<AlbumTracks.Track> getTrack(@Path("id") String id);
 
 
-    //@GET("album")
-    //Call<Object> getAlbum();
+    @GET("album/{id}/tracks")
+    Call<Object> getAlbumTracks(@Path("id") String id);
 }

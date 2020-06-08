@@ -2,9 +2,11 @@ package com.example.proyectointegradorgrupal.dao;
 
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.AlbumContainer;
+import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.service.AlbumService;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -20,8 +22,8 @@ public class AlbumDao extends RetrofitDao {
     }
 
     //Este metodo devuelve un contenedor de albums con los que coinciden con el search
-    public void getAlbumPorSearch(final ResultListener<List<Album>> resultListenerPorController) {
-        Call<AlbumContainer> call = this.albumService.getAlbumPorSearch("Beatles");
+    public void getAlbumPorSearch(String search, final ResultListener<List<Album>> resultListenerPorController) {
+        Call<AlbumContainer> call = this.albumService.getAlbumPorSearch(search);
 
         call.enqueue(new Callback<AlbumContainer>() {
             @Override
@@ -44,8 +46,8 @@ public class AlbumDao extends RetrofitDao {
     }
 
     //Este metodo es para consultar un solo album (cuando alguien hace click acceder a la info)
-    public void getAlbumById(final ResultListener<Album> resultListenerFromController) {
-        Call<Album> call = this.albumService.getAlbumById("302127");
+    public void getAlbumById(String id, final ResultListener<Album> resultListenerFromController) {
+        Call<Album> call = this.albumService.getAlbumById(id);
         call.enqueue(new Callback<Album>() {
             @Override
             public void onResponse(Call<Album> call, Response<Album> response) {
@@ -64,4 +66,26 @@ public class AlbumDao extends RetrofitDao {
         });
 
     }
+
+    public void getAlbumTracks(String id, final ResultListener<Track> objectResultListenerFromController) {
+        Call<Track> call = this.albumService.getAlbumTracks(id);
+        call.enqueue(new Callback<Track>() {
+            @Override
+            public void onResponse(Call<Track> call, Response<Track> response) {
+                if (response.isSuccessful()) {
+                    Track body = response.body();
+                    objectResultListenerFromController.onFinish(body);
+                } else {
+                    response.errorBody();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Track> call, Throwable t) {
+                t.printStackTrace();
+            }
+
+        });
+    }
+
 }

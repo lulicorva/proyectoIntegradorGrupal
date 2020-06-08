@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal.view;
+package com.example.proyectointegradorgrupal.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.Favoritos;
 
 import java.util.List;
 

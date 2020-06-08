@@ -1,4 +1,4 @@
-package com.example.proyectointegradorgrupal.view;
+package com.example.proyectointegradorgrupal.view.fragment;
 
 import android.os.Bundle;
 

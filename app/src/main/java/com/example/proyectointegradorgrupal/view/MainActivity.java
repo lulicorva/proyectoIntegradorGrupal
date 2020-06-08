@@ -1,6 +1,5 @@
 package com.example.proyectointegradorgrupal.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,22 +7,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
-import com.example.proyectointegradorgrupal.controller.PlaylistController;
 import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.AlbumContainer;
-import com.example.proyectointegradorgrupal.model.ConteinerPlayList;
-import com.example.proyectointegradorgrupal.model.Favoritos;
-import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
+import com.example.proyectointegradorgrupal.view.fragment.FavoritosFragment;
+import com.example.proyectointegradorgrupal.view.fragment.PlaylistFragment;
+import com.example.proyectointegradorgrupal.view.fragment.RecomendadosFragment;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements FavoritosFragment.RecyclerViewFragmentFavoritosListener {
@@ -37,14 +32,14 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         setContentView(R.layout.activity_main);
 
 
-       //Esta parte iria en el fragment, aca está para probar el pedido
         AlbumController albumController = new AlbumController();
-        albumController.getAlbumById(new ResultListener<Album>() {
+        albumController.getAlbumTracks("12047960", new ResultListener<Track>() {
             @Override
-            public void onFinish(Album result) {
+            public void onFinish(Track result) {
 
             }
         });
+
 
 
         pegarFragmentsMainActivity();
@@ -68,21 +63,6 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
     }
 
 
-    private void pegarFragmentPlaylist(PlaylistFragment playlistFragment) {
-        FragmentManager supportFragmentManagerPlaylist = getSupportFragmentManager();
-        FragmentTransaction fragmentTransactionPlaylist = supportFragmentManagerPlaylist.beginTransaction();
-        fragmentTransactionPlaylist.replace(R.id.activityMainContenedorFragmenPlaylist, playlistFragment);
-        fragmentTransactionPlaylist.commit();
-    }
-
-    //Solucionar
-
-    private void pegarFragmentRecomendados(RecomendadosFragment recomendadosFragment) {
-        FragmentManager supprtFragmentManagerRecomendados = getSupportFragmentManager();
-        FragmentTransaction fragmentTransactionRecomendados = supprtFragmentManagerRecomendados.beginTransaction();
-        fragmentTransactionRecomendados.replace(R.id.activityMainContenedorFragmenRecomendados, recomendadosFragment);
-        fragmentTransactionRecomendados.commit();
-    }
 
     @Override
     public void onClick(Album album) {

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+
     android:orientation="vertical"
-    tools:context=".view.FragmentListadoCanciones">
+    tools:context=".view.fragment.FragmentListadoCanciones">
 
     <FrameLayout
         android:layout_width="wrap_content"

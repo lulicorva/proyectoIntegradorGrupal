@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragme
 import com.example.proyectointegradorgrupal.view.fragment.FavoritosFragment;
 import com.example.proyectointegradorgrupal.view.fragment.PlaylistFragment;
 import com.example.proyectointegradorgrupal.view.fragment.RecomendadosFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 

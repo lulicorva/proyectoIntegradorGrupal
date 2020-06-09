@@ -52,5 +52,6 @@ dependencies {
     //libreria de Google
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
-
+    //libreria de Facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

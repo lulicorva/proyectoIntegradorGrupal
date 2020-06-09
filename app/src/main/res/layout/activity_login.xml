@@ -47,12 +47,27 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_buttonFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/loginActivityBotonGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
+
     <Button
         android:id="@+id/loginActivityButtonLogIn"
         android:layout_width="125dp"
         android:layout_height="45dp"
         android:background="@drawable/botonaleatorio"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="5dp"
         android:text="Log in">
 
     </Button>
@@ -64,6 +79,16 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/botonaleatorio"
         android:text="Register">
+
+    </Button>
+
+    <Button
+        android:id="@+id/loginActivityButtonLogOut"
+        android:layout_width="125dp"
+        android:layout_height="45dp"
+        android:background="@drawable/botonaleatorio"
+        android:layout_marginTop="50dp"
+        android:text="Log out">
 
     </Button>
 

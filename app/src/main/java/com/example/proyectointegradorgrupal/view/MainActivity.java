@@ -1,8 +1,10 @@
 package com.example.proyectointegradorgrupal.view;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,20 +17,23 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.SearchController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipalPrueba;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipalPrueba.FragmentPrincipalListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener {
 
-    private RelativeLayout relativeLayout;
+    private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
 
@@ -40,22 +45,28 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         setContentView(R.layout.activity_main);
 
 
-       //Esta parte iria en el fragment, aca está para probar el pedido
-        AlbumController albumController = new AlbumController();
-        albumController.getAlbumTracks("12047960", new ResultListener<Track>() {
-            @Override
-            public void onFinish(Track result) {
 
-            }
-        });
+
+
+        findViewsById();
+
+        configuracionToolbar();
 
 
         pegarFragmentsMainActivity();
 
     }
-/**
- * Esto es para que al apretar atras no se cierre la app
- * */
+
+    private void configuracionToolbar() {
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawers, R.string.close_drawers);
+        //drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        // actionBarDrawerToggle.syncState();
+    }
+
+    /**
+     * Esto es para que al apretar atras no se cierre la app
+     */
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -67,12 +78,13 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         }
 
     }
+
     /**
      * Método para los FindViewsByIds
      */
     private void findViewsById() {
         bottomNavigationView = findViewById(R.id.fragmentBottomNavigation);
-        relativeLayout = findViewById(R.id.activityMainRelativeLayout);
+        drawerLayout = findViewById(R.id.activityMainDrawerLayout);
         toolbar = findViewById(R.id.activityMainToolbar);
     }
 
@@ -81,10 +93,9 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     private void pegarFragmentsMainActivity() {
 
-        pegarFragment(new FragmentPrincipalPrueba(), R.id.activityMainContenedorPrincipalPrueba);
-       // pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
-       // pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
-        //pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
+        pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+
+        //Este siempre esta, va cambiando el de arriba
         pegarFragment(new BottomNavigationFragment(), R.id.activityMainContenedorFragmentBottomNavigation);
 
     }
@@ -97,42 +108,40 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
     @Override
     public void onClick(Album album) {
-       // Intent intent = new Intent(this, ListadoCancionesActivity.class);
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("favorito", album);
 
 
-         FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
-         fragmentListadoCanciones.setArguments(bundle);
-         pegarFragment(fragmentListadoCanciones, R.id.activityMainContenedorPrincipalPrueba);
-         //Estas lineas se reemplazan por el intent (primera linea y ultimas 2 del metodo) pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
+        FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
+        fragmentListadoCanciones.setArguments(bundle);
+        pegarFragment(fragmentListadoCanciones, R.id.activityMainContenedorPrincipal);
 
-  /*      intent.putExtras(bundle);
-        startActivity(intent);
-  */  }
+
+    }
 
     @Override
     public void onClick(Playlist playlist) {
-
+        //abrir fragment con temas de playlist
     }
 
     @Override
     public void onClick(Recomendados recomendados) {
-
+        //abrir fragment con recomendados
     }
 
     /**
      * Configuracion del Appbar superior, Buscador y Configuracion - CHEQUEAR color
+     *
      * @param menu
      * @return
      */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_general,menu);
+        getMenuInflater().inflate(R.menu.menu_general, menu);
 
         final MenuItem configuracionItem = menu.findItem(R.id.menuGeneralConfiguracion);
         final MenuItem buscarItem = menu.findItem(R.id.menuGeneralBuscar);
@@ -152,6 +161,13 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("query", query);
+                FragmentSearch fragmentSearch = new FragmentSearch();
+                fragmentSearch.setArguments(bundle);
+                pegarFragment(fragmentSearch, R.id.activityMainContenedorPrincipal);
+
                 return false;
             }
 

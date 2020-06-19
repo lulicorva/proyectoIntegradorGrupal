@@ -27,16 +27,16 @@ import com.example.proyectointegradorgrupal.view.adapter.RecomendadosAdapter;
 import java.util.List;
 
 
-public class FragmentPrincipalPrueba extends Fragment implements AlbumAdapter.AlbumAdapterListener, PlaylistAdapter.PlaylistAdapterListener, RecomendadosAdapter.RecomendadosAdapterListener {
+public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAdapterListener, PlaylistAdapter.PlaylistAdapterListener, RecomendadosAdapter.RecomendadosAdapterListener {
 
 
-    private RecyclerView recyclerViewFavoritosPRUEBA;
-    private RecyclerView recyclerViewPlaylistPRUEBA;
-    private RecyclerView recyclerViewRecomendadosPRUEBA;
+    private RecyclerView recyclerViewFavoritos;
+    private RecyclerView recyclerViewPlaylist;
+    private RecyclerView recyclerViewRecomendados;
 
     private FragmentPrincipalListener fragmentPrincipalListener;
 
-    public FragmentPrincipalPrueba() {
+    public FragmentPrincipal() {
         // Required empty public constructor
     }
 
@@ -49,53 +49,57 @@ public class FragmentPrincipalPrueba extends Fragment implements AlbumAdapter.Al
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_principal_prueba, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_principal, container, false);
 
 
-        //FRAGMENT FAVORITOS (ALBUM)
-        recyclerViewFavoritosPRUEBA = view.findViewById(R.id.fragmentRecycleFavoritosPRUEBA);
+        /**
+         * FAVORITOS (ALBUM)
+         * */
+        recyclerViewFavoritos = view.findViewById(R.id.fragmentRecycleFavoritos);
         AlbumController albumController = new AlbumController();
         albumController.getAlbumPorSearch("Beatles", new ResultListener<List<Album>>() {
             @Override
             public void onFinish(List<Album> result) {
 
-                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipalPrueba.this);
+                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipal.this);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-                recyclerViewFavoritosPRUEBA.setLayoutManager(linearLayoutManager);
-                recyclerViewFavoritosPRUEBA.setAdapter(albumAdapter);
+                recyclerViewFavoritos.setLayoutManager(linearLayoutManager);
+                recyclerViewFavoritos.setAdapter(albumAdapter);
 
             }
         });
 
 
-        //FRAGMENT PLAYLIST
-        recyclerViewPlaylistPRUEBA = view.findViewById(R.id.fragmentRecyclePlaylistPRUEBA);
-
-
+        /**
+         * PLAYLIST
+         * */
+        recyclerViewPlaylist = view.findViewById(R.id.fragmentRecyclePlaylist);
         PlaylistController playlistController = new PlaylistController();
         playlistController.getPlaylistPorSearch(new ResultListener<List<Playlist>>() {
             @Override
             public void onFinish(List<Playlist> result) {
-                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipalPrueba.this);
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-                recyclerViewPlaylistPRUEBA.setLayoutManager(linearLayoutManager);
-                recyclerViewPlaylistPRUEBA.setAdapter(playlistAdapter);
+                recyclerViewPlaylist.setLayoutManager(linearLayoutManager);
+                recyclerViewPlaylist.setAdapter(playlistAdapter);
 
             }
         });
 
-        //FRAGMENT RECOMENDADOS (SIGUE HARDCODEADO)
+        /**
+         * RECOMENDADOS (SIGUE HARDCODEADO)
+         * */
         List<Recomendados> recomendadosList = RecomendadosDao.getRecomendados();
 
-        recyclerViewRecomendadosPRUEBA = view.findViewById(R.id.fragmentRecycleRecomendadosPRUEBA);
+        recyclerViewRecomendados = view.findViewById(R.id.fragmentRecycleRecomendados);
 
-        RecomendadosAdapter recomendadosAdapter = new RecomendadosAdapter(recomendadosList, FragmentPrincipalPrueba.this);
+        RecomendadosAdapter recomendadosAdapter = new RecomendadosAdapter(recomendadosList, FragmentPrincipal.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
 
-        recyclerViewRecomendadosPRUEBA.setLayoutManager(linearLayoutManager);
-        recyclerViewRecomendadosPRUEBA.setAdapter(recomendadosAdapter);
+        recyclerViewRecomendados.setLayoutManager(linearLayoutManager);
+        recyclerViewRecomendados.setAdapter(recomendadosAdapter);
 
 
         return view;

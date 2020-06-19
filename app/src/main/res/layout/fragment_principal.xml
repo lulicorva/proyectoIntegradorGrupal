@@ -5,7 +5,7 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-tools:context=".view.fragment.FragmentPrincipalPrueba"
+tools:context=".view.fragment.FragmentPrincipal"
 android:orientation="vertical">
 
 <!-- TODO: Update blank fragment layout -->
@@ -22,7 +22,7 @@ android:orientation="vertical">
 <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragmentRecycleFavoritosPRUEBA"
+    android:id="@+id/fragmentRecycleFavoritos"
     android:paddingTop="20dp"/>
 
 
@@ -39,7 +39,7 @@ android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragmentRecyclePlaylistPRUEBA"
+        android:id="@+id/fragmentRecyclePlaylist"
         android:paddingTop="20dp"/>
 
     <TextView
@@ -55,7 +55,7 @@ android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragmentRecycleRecomendadosPRUEBA"
+        android:id="@+id/fragmentRecycleRecomendados"
         android:paddingTop="20dp"/>
 
 

@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Track;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTrack> {
 
-    private List<Track> trackList;
+    private ArrayList<Track> trackList;
     private TrackAdapterListener trackAdapterListener;
 
-    public TrackAdapter(List<Track> trackList, TrackAdapterListener listener) {
+    public TrackAdapter(ArrayList<Track> trackList, TrackAdapterListener listener) {
         this.trackList = trackList;
         this.trackAdapterListener = listener;
     }

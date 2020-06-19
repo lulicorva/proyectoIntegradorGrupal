@@ -1,7 +1,5 @@
 package com.example.proyectointegradorgrupal.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -9,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,18 +16,17 @@ import android.widget.Toast;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.model.Album;
+import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.model.Recomendados;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
-import com.example.proyectointegradorgrupal.view.fragment.FavoritosFragment;
-import com.example.proyectointegradorgrupal.view.fragment.PlaylistFragment;
-import com.example.proyectointegradorgrupal.view.fragment.RecomendadosFragment;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipalPrueba;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 
-
-public class MainActivity extends AppCompatActivity implements FavoritosFragment.RecyclerViewFragmentFavoritosListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipalPrueba.FragmentPrincipalListener {
 
     private RelativeLayout relativeLayout;
     private BottomNavigationView bottomNavigationView;
@@ -57,7 +53,20 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         pegarFragmentsMainActivity();
 
     }
+/**
+ * Esto es para que al apretar atras no se cierre la app
+ * */
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
 
+        } else {
+            super.onBackPressed();
+
+        }
+
+    }
     /**
      * Método para los FindViewsByIds
      */
@@ -72,9 +81,10 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
      */
     private void pegarFragmentsMainActivity() {
 
-        pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
-        pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
-        pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
+        pegarFragment(new FragmentPrincipalPrueba(), R.id.activityMainContenedorPrincipalPrueba);
+       // pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
+       // pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
+        //pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
         pegarFragment(new BottomNavigationFragment(), R.id.activityMainContenedorFragmentBottomNavigation);
 
     }
@@ -90,19 +100,28 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
 
     @Override
     public void onClick(Album album) {
-        Intent intent = new Intent(this, ListadoCancionesActivity.class);
+       // Intent intent = new Intent(this, ListadoCancionesActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("favorito", album);
 
-        /**
+
          FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
          fragmentListadoCanciones.setArguments(bundle);
-         pegarFragment(fragmentListadoCanciones);
-         Estas lineas se reemplazan por el intent (primera linea y ultimas 2 del metodo) pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
-         */
+         pegarFragment(fragmentListadoCanciones, R.id.activityMainContenedorPrincipalPrueba);
+         //Estas lineas se reemplazan por el intent (primera linea y ultimas 2 del metodo) pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
 
-        intent.putExtras(bundle);
+  /*      intent.putExtras(bundle);
         startActivity(intent);
+  */  }
+
+    @Override
+    public void onClick(Playlist playlist) {
+
+    }
+
+    @Override
+    public void onClick(Recomendados recomendados) {
+
     }
 
     /**

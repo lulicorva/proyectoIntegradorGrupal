@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+tools:context=".view.fragment.FragmentPrincipalPrueba"
+android:orientation="vertical">
+
+<!-- TODO: Update blank fragment layout -->
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Artistas favoritos"
+    android:textSize="20dp"
+    android:textStyle="bold"
+    android:textColor="#FFFF"
+    android:paddingTop="20dp"
+    android:layout_marginLeft="10dp"/>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragmentRecycleFavoritosPRUEBA"
+    android:paddingTop="20dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tus playlists"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#FFFF"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentRecyclePlaylistPRUEBA"
+        android:paddingTop="20dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recomendados"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#FFFF"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentRecycleRecomendadosPRUEBA"
+        android:paddingTop="20dp"/>
+
+
+
+</LinearLayout>

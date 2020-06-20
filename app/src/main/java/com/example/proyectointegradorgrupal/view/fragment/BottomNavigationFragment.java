@@ -1,5 +1,6 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -41,11 +43,14 @@ public class BottomNavigationFragment extends Fragment{
 
                 switch (item.getItemId()) {
                     case R.id.menuInicio:
-                        Toast.makeText(getContext(), "Inicio", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getContext(), MainActivity.class);
+                        startActivity(i);
                         break;
                     case R.id.menuTuBiblioteca:
                         Toast.makeText(getContext(), "Tu Biblioteca", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.menuPerfil:
+                        Toast.makeText(getContext(), "Mi Perfil", Toast.LENGTH_SHORT).show();
                 }
                 return false;
             }

@@ -1,5 +1,11 @@
 package com.example.proyectointegradorgrupal.view;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,49 +15,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
-import com.example.proyectointegradorgrupal.controller.SearchController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
-import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
-<<<<<<< HEAD
-import com.example.proyectointegradorgrupal.view.fragment.FavoritosFragment;
-import com.example.proyectointegradorgrupal.view.fragment.PlaylistFragment;
-import com.example.proyectointegradorgrupal.view.fragment.RecomendadosFragment;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-=======
 import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
->>>>>>> master
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 
 public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener {
@@ -76,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
                 .requestEmail()
                 .build();
 
-<<<<<<< HEAD
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
@@ -84,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
         toolbar.setTitle("Jaxoo");
         setSupportActionBar(toolbar);
+
+        configuracionToolbar();
 
         pegarFragmentsMainActivity();
 
@@ -97,18 +80,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         });
     }
 
-=======
-
-
-
-        findViewsById();
-
-        configuracionToolbar();
-
-
-        pegarFragmentsMainActivity();
-
-    }
 
     private void configuracionToolbar() {
         setSupportActionBar(toolbar);
@@ -131,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         }
 
     }
->>>>>>> master
 
     /**
      * Método para los FindViewsByIds

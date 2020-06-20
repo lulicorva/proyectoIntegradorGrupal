@@ -7,14 +7,7 @@
     android:background="#000"
     tools:context=".view.MainActivity">
 
-
-<<<<<<< HEAD
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
-        android:layout_marginTop="55dp"
-=======
     <LinearLayout
->>>>>>> master
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

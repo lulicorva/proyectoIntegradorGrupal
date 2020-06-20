@@ -15,7 +15,7 @@ public class Track {
     private Double trackPosition;
     private String preview;
 
-    public List<Track> getData() {
+    public ArrayList<Track> getData() {
         return data;
     }
 

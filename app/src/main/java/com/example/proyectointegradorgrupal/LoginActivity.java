@@ -17,6 +17,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.view.MainActivity;
+<<<<<<< HEAD
+=======
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+>>>>>>> master
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -82,6 +90,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Obtenemos el cliente
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+<<<<<<< HEAD
+=======
+        /**
+         * Log in de Facebook
+         */
+
+        callbackManager = CallbackManager.Factory.create();
+
+
+        botonFacebook.setReadPermissions(Arrays.asList(EMAIL));
+        // If you are using in a fragment, call loginButton.setFragment(this);
+
+        // Callback registration
+        botonFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, "¡Vuelve pronto!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(LoginActivity.this, "Ocurrió un error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+>>>>>>> master
     }
 
 

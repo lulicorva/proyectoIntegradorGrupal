@@ -107,25 +107,25 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
 
     @Override
     public void onClick(Album album) {
-        fragmentPrincipalListener.onClick(album);
+        fragmentPrincipalListener.onClickAlbum(album);
     }
 
     @Override
     public void onClick(Playlist playlist) {
-        fragmentPrincipalListener.onClick(playlist);
+        fragmentPrincipalListener.onClickPlaylist(playlist);
     }
 
     @Override
     public void onClick(Recomendados recomendados) {
-        fragmentPrincipalListener.onClick(recomendados);
+        fragmentPrincipalListener.onClickRecomendado(recomendados);
     }
 
     public interface FragmentPrincipalListener {
-        public void onClick(Album album);
+        public void onClickAlbum(Album album);
 
-        public void onClick(Playlist playlist);
+        public void onClickPlaylist(Playlist playlist);
 
-        public void onClick(Recomendados recomendados);
+        public void onClickRecomendado(Recomendados recomendados);
 
     }
 }

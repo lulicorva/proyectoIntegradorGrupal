@@ -2,10 +2,11 @@ package com.example.proyectointegradorgrupal.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Track {
+public class Track implements Serializable {
 
     @SerializedName("data")
     private ArrayList<Track> data;

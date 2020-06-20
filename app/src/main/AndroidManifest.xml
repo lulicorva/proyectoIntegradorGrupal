@@ -3,6 +3,7 @@
     package="com.example.proyectointegradorgrupal">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -13,24 +14,15 @@
         android:textColor="#FFF"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-
-        <activity android:name=".SplashScreenActivity">
-
+        <activity android:name=".ReproductorActivity"></activity>
+        <activity android:name=".SplashScreenActivity"></activity>
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".view.MainActivity">
-
-
-
-        </activity>
-
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -44,6 +36,8 @@
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
+
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -52,12 +46,7 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-
-
-        </activity>
-
-
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

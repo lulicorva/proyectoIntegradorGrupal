@@ -31,7 +31,7 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-//        this.fragmentSearchListener = (FragmentSearchListener) context;
+        this.fragmentSearchListener = (FragmentSearchListener) context;
 
     }
 
@@ -71,11 +71,11 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
 
     @Override
     public void onClick(Track track) {
-        fragmentSearchListener.onClickDesdeSearch(track);
+        fragmentSearchListener.onClickTrackDesdeSearch(track);
     }
 
     public interface FragmentSearchListener {
-        public void onClickDesdeSearch(Track track);
+        public void onClickTrackDesdeSearch(Track track);
 
     }
 }

@@ -56,6 +56,16 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
 
             nombreTrack = itemView.findViewById(R.id.celdaNombreCancion);
             duracion = itemView.findViewById(R.id.celdaDuracionCancion);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Track track = trackList.get(getAdapterPosition());
+                    trackAdapterListener.onClick(track);
+                }
+            });
+
         }
 
         public void onBind(Track track) {

@@ -65,6 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         botonLogIn.setOnClickListener(this);
         botonRegister.setOnClickListener(this);
         botonGoogle.setOnClickListener(this);
+        //Esto hace al boton mas grande
+        botonGoogle.setSize(SignInButton.SIZE_WIDE);
 
 
 

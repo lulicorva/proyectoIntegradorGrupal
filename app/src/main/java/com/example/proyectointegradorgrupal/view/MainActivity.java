@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.ReproductorActivity;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
@@ -36,7 +37,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener {
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
@@ -64,26 +65,14 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
 
         findViewsById();
-
-        toolbar.setTitle("Jaxoo");
-        setSupportActionBar(toolbar);
-
         configuracionToolbar();
-
         pegarFragmentsMainActivity();
 
-        //Esta parte iria en el fragment, aca está para probar el pedido
-        AlbumController albumController = new AlbumController();
-        albumController.getAlbumTracks("12047960", new ResultListener<Track>() {
-            @Override
-            public void onFinish(Track result) {
-
-            }
-        });
     }
 
 
     private void configuracionToolbar() {
+        toolbar.setTitle("Jaxoo");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawers, R.string.close_drawers);
         //drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -130,12 +119,16 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.replace(id, favoritosFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
 
+    /**
+     * Metodos onCLick de los fragments
+     */
     @Override
-    public void onClick(Album album) {
+    public void onClickAlbum(Album album) {
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(MainActivity.FAVORITO, album);
@@ -149,14 +142,26 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
     @Override
-    public void onClick(Playlist playlist) {
+    public void onClickPlaylist(Playlist playlist) {
         //abrir fragment con temas de playlist
     }
 
     @Override
-    public void onClick(Recomendados recomendados) {
+    public void onClickRecomendado(Recomendados recomendados) {
         //abrir fragment con recomendados
     }
+
+    @Override
+    public void onClickTrackDesdeSearch(Track track) {
+        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track", track);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+
+    }
+
 
     /**
      * Configuracion del Appbar superior, Buscador y Configuracion - CHEQUEAR color
@@ -178,12 +183,12 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         cerrarItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.menuGeneralCerrar:
                         logOutFirebaseUser();
                         logOutGoogle();
 
-                        Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(i);
                         break;
                 }
@@ -237,5 +242,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             }
         });
     }
+
 
 }

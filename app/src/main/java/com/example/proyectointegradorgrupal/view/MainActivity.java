@@ -1,15 +1,14 @@
 package com.example.proyectointegradorgrupal.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -20,10 +19,15 @@ import android.widget.Toast;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.SearchController;
 import com.example.proyectointegradorgrupal.model.Album;
+import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
+<<<<<<< HEAD
 import com.example.proyectointegradorgrupal.view.fragment.FavoritosFragment;
 import com.example.proyectointegradorgrupal.view.fragment.PlaylistFragment;
 import com.example.proyectointegradorgrupal.view.fragment.RecomendadosFragment;
@@ -36,6 +40,11 @@ import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+=======
+import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
+>>>>>>> master
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
@@ -44,12 +53,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener {
 
-public class MainActivity extends AppCompatActivity implements FavoritosFragment.RecyclerViewFragmentFavoritosListener {
-
-    private RelativeLayout relativeLayout;
+    private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
@@ -69,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
                 .requestEmail()
                 .build();
 
+<<<<<<< HEAD
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
@@ -89,13 +97,48 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
         });
     }
 
+=======
+
+
+
+        findViewsById();
+
+        configuracionToolbar();
+
+
+        pegarFragmentsMainActivity();
+
+    }
+
+    private void configuracionToolbar() {
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawers, R.string.close_drawers);
+        //drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        // actionBarDrawerToggle.syncState();
+    }
+
+    /**
+     * Esto es para que al apretar atras no se cierre la app
+     */
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            finish();
+
+        } else {
+            super.onBackPressed();
+
+        }
+
+    }
+>>>>>>> master
 
     /**
      * Método para los FindViewsByIds
      */
     private void findViewsById() {
         bottomNavigationView = findViewById(R.id.fragmentBottomNavigation);
-        relativeLayout = findViewById(R.id.activityMainRelativeLayout);
+        drawerLayout = findViewById(R.id.activityMainDrawerLayout);
         toolbar = findViewById(R.id.activityMainToolbar);
     }
 
@@ -104,9 +147,9 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
      */
     private void pegarFragmentsMainActivity() {
 
-        pegarFragment(new FavoritosFragment(), R.id.activityMainContenedorFragmenFavoritos);
-        pegarFragment(new PlaylistFragment(), R.id.activityMainContenedorFragmenPlaylist);
-        pegarFragment(new RecomendadosFragment(), R.id.activityMainContenedorFragmenRecomendados);
+        pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+
+        //Este siempre esta, va cambiando el de arriba
         pegarFragment(new BottomNavigationFragment(), R.id.activityMainContenedorFragmentBottomNavigation);
 
     }
@@ -121,19 +164,26 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
 
     @Override
     public void onClick(Album album) {
-        Intent intent = new Intent(this, ListadoCancionesActivity.class);
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("favorito", album);
 
-        /**
-         FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
-         fragmentListadoCanciones.setArguments(bundle);
-         pegarFragment(fragmentListadoCanciones);
-         Estas lineas se reemplazan por el intent (primera linea y ultimas 2 del metodo) pasas directamente al fragmentListadoFavoritos sin pasar por ListadoCancionesActivity
-         */
 
-        intent.putExtras(bundle);
-        startActivity(intent);
+        FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
+        fragmentListadoCanciones.setArguments(bundle);
+        pegarFragment(fragmentListadoCanciones, R.id.activityMainContenedorPrincipal);
+
+
+    }
+
+    @Override
+    public void onClick(Playlist playlist) {
+        //abrir fragment con temas de playlist
+    }
+
+    @Override
+    public void onClick(Recomendados recomendados) {
+        //abrir fragment con recomendados
     }
 
     /**
@@ -176,6 +226,13 @@ public class MainActivity extends AppCompatActivity implements FavoritosFragment
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("query", query);
+                FragmentSearch fragmentSearch = new FragmentSearch();
+                fragmentSearch.setArguments(bundle);
+                pegarFragment(fragmentSearch, R.id.activityMainContenedorPrincipal);
+
                 return false;
             }
 

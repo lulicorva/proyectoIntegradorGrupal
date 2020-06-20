@@ -32,6 +32,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
     private RecyclerView recyclerViewListaCanciones;
     private RecyclerViewListaCancionesListener recyclerViewListaCancionesListener;
     private AlbumController albumController;
+    private TrackAdapter trackAdapter;
 
     public FragmentListadoCanciones() {
         // Required empty public constructor
@@ -41,7 +42,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_listado_canciones, container, false);
 
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
@@ -58,7 +59,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
         albumController.getAlbumTracks(album.getId().toString(), new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
-                TrackAdapter trackAdapter = new TrackAdapter(result.getData(), FragmentListadoCanciones.this);
+                trackAdapter = new TrackAdapter(result.getData(), FragmentListadoCanciones.this);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 recyclerViewListaCanciones.setLayoutManager(linearLayoutManager);
@@ -71,7 +72,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
                 .into(fragmentListadoCancionesImagen);
 
 
-//        fragmentListadoCancionesImagen.setImageResource(album.getCover());
+
 
 
         return view;

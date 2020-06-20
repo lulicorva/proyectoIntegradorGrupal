@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     private Toolbar toolbar;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    public static final String QUERY = "query";
+    public static final String FAVORITO = "favorito";
 
     @Override
 //TODO me parece que el FavoritosFragment deveria ser un FragmentPantallaInicio y dentro de ese poner 3 recyclerview, uno de favoritos, otro de
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     public void onClick(Album album) {
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("favorito", album);
+        bundle.putSerializable(MainActivity.FAVORITO, album);
 
 
         FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
@@ -198,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
                 Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
 
                 Bundle bundle = new Bundle();
-                bundle.putString("query", query);
+                bundle.putString(MainActivity.QUERY, query);
                 FragmentSearch fragmentSearch = new FragmentSearch();
                 fragmentSearch.setArguments(bundle);
                 pegarFragment(fragmentSearch, R.id.activityMainContenedorPrincipal);

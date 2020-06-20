@@ -13,8 +13,8 @@ public class PlaylistController {
 
     public PlaylistController() { this.playlistDao = new PlaylistDao(); }
 
-            public void getPlaylistPorSearch(final ResultListener<List<Playlist>> resultListenerFromView) {
-                playlistDao.getPlaylistPorSearch(new ResultListener<List<Playlist>>() {
+            public void getPlaylistPorSearch(String playlist, final ResultListener<List<Playlist>> resultListenerFromView) {
+                playlistDao.getPlaylistPorSearch(playlist, new ResultListener<List<Playlist>>() {
                     @Override
                     public void onFinish(List<Playlist> result) {
                         resultListenerFromView.onFinish(result);

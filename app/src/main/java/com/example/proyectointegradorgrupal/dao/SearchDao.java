@@ -1,13 +1,8 @@
 package com.example.proyectointegradorgrupal.dao;
 
-import com.example.proyectointegradorgrupal.controller.SearchController;
-import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.service.SearhService;
 import com.example.proyectointegradorgrupal.util.ResultListener;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

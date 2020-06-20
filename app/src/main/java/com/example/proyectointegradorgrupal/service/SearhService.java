@@ -1,7 +1,5 @@
 package com.example.proyectointegradorgrupal.service;
 
-import com.example.proyectointegradorgrupal.model.AlbumContainer;
-import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 
 import retrofit2.Call;

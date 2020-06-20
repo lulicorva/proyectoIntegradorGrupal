@@ -23,7 +23,7 @@ public interface AlbumService {
     @GET("search/album")
     Call<AlbumContainer> getAlbumPorSearch(@Query("q") String album);
 
-    //Construla los tracks del album por ID
+    //Construla los tracks del album por ID del album
     @GET("album/{id}/tracks")
     Call<Track> getAlbumTracks(@Path("id") String id);
 

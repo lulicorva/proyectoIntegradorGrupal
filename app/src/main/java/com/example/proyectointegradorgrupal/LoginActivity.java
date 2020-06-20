@@ -16,8 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.proyectointegradorgrupal.view.MainActivity;
 
+import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -266,7 +266,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param acct
      */
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("GOOGLE", "firebaseAuthWithGoogle:" + acct.getId());
+       // Log.d("GOOGLE", "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)

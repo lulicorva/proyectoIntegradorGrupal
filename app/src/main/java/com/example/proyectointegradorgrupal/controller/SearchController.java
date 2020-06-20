@@ -1,12 +1,8 @@
 package com.example.proyectointegradorgrupal.controller;
 
 import com.example.proyectointegradorgrupal.dao.SearchDao;
-import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
-
-import java.util.List;
 
 public class SearchController {
 

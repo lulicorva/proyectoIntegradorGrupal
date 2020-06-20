@@ -19,10 +19,13 @@ public class PlaylistDao extends RetrofitDao{
 
 private PlayListService playListService;
 
-public PlaylistDao(){playListService = retrofit.create(PlayListService.class);}
+public PlaylistDao(){
+    playListService = retrofit.create(PlayListService.class);
 
-public void getPlaylistPorSearch(final ResultListener<List<Playlist>> resultListenerPorController){
-    Call<ConteinerPlayList> call = this.playListService.getPlaylistporSearch("Regaetton");
+}
+
+public void getPlaylistPorSearch(String playlist, final ResultListener<List<Playlist>> resultListenerPorController){
+    Call<ConteinerPlayList> call = this.playListService.getPlaylistporSearch(playlist);
     call.enqueue(new Callback<ConteinerPlayList>() {
         @Override
         public void onResponse(Call<ConteinerPlayList> call, Response<ConteinerPlayList> response) {

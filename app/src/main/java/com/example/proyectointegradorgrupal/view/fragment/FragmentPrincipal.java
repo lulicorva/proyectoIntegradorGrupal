@@ -58,7 +58,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
          * */
         recyclerViewFavoritos = view.findViewById(R.id.fragmentRecycleFavoritos);
         AlbumController albumController = new AlbumController();
-        albumController.getAlbumPorSearch("Beatles", new ResultListener<List<Album>>() {
+        albumController.getAlbumPorSearch("Red Hot Chilli Peppers", new ResultListener<List<Album>>() {
             @Override
             public void onFinish(List<Album> result) {
 
@@ -77,7 +77,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
          * */
         recyclerViewPlaylist = view.findViewById(R.id.fragmentRecyclePlaylist);
         PlaylistController playlistController = new PlaylistController();
-        playlistController.getPlaylistPorSearch(new ResultListener<List<Playlist>>() {
+        playlistController.getPlaylistPorSearch("Cumbia", new ResultListener<List<Playlist>>() {
             @Override
             public void onFinish(List<Playlist> result) {
                 PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this);

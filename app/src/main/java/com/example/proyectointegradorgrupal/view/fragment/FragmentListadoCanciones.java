@@ -16,12 +16,10 @@ import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.Favoritos;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
+import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
-
-import java.util.List;
 
 
 /**
@@ -49,7 +47,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
 
         Bundle bundle = getArguments();
         //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
-        Album album = (Album) bundle.getSerializable("favorito");
+        Album album = (Album) bundle.getSerializable(MainActivity.FAVORITO);
         ImageView fragmentListadoCancionesImagen = view.findViewById(R.id.fragmentlistadoCancionesImagen);
         TextView fragmentListadoCancionesArtista = view.findViewById(R.id.fragmentListadoCancionesArtista);
 

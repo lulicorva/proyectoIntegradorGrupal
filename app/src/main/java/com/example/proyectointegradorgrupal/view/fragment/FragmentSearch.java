@@ -11,16 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.proyectointegradorgrupal.R;
-import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.controller.SearchController;
-import com.example.proyectointegradorgrupal.model.Album;
-import com.example.proyectointegradorgrupal.model.SearchContainer;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
+import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 
 
@@ -53,7 +49,7 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
 
         Bundle bundle = getArguments();
         //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
-        String query = (String) bundle.getSerializable("query");
+        String query = (String) bundle.getSerializable(MainActivity.QUERY);
 
 
         searchController = new SearchController();

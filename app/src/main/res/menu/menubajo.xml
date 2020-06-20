@@ -3,11 +3,16 @@
 
     <item
         android:id="@+id/menuInicio"
-        android:title="Inicio"
+        android:title=" "
         android:icon="@drawable/ic_home_black_24dp"/>
 
     <item
         android:id="@+id/menuTuBiblioteca"
-        android:title="Tu Biblioteca"
-        android:icon="@drawable/ic_headset_black_24dp"/>
+        android:title=" "
+        android:icon="@drawable/ic_format_list_bulleted_white_24dp"/>
+
+    <item
+        android:id="@+id/menuPerfil"
+        android:title=" "
+        android:icon="@drawable/ic_person_white_24dp"/>
 </menu>

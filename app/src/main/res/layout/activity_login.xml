@@ -1,95 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:orientation="vertical"
+    android:background="#000000"
     android:gravity="center"
-    android:background="#000000">
-
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    android:id="@+id/loginActivity">
 
     <ImageView
+        android:id="@+id/activityLoginImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginActivityTextInputLayoutEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/loginActivityEditTextEmail"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/white"
+            android:hint="Email"
+            android:textColor="#FFFF" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginActivityTextInputLayoutPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/cardview_light_background">
+
+        <EditText
+            android:id="@+id/loginActivityEditTextPassword"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@android:color/white"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="#FFFF" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/activityLoginImage"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginActivityTextInputLayoutEmail">
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textColor="#FFFF"
-            android:layout_gravity="center"
-            android:id="@+id/loginActivityEditTextEmail"
-            android:backgroundTint="@android:color/white"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginActivityTextInputLayoutPassword">
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColor="#FFFF"
-            android:layout_gravity="center"
-            android:id="@+id/loginActivityEditTextPassword"
-            android:inputType="textPassword"
-            android:backgroundTint="@android:color/white"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_buttonFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="5dp" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/loginActivityBotonGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"/>
-
-    <Button
-        android:id="@+id/loginActivityButtonLogIn"
-        android:layout_width="125dp"
-        android:layout_height="45dp"
-        android:background="@drawable/botonaleatorio"
-        android:layout_marginTop="5dp"
-        android:text="Log in">
-
-    </Button>
-
-    <Button
-        android:id="@+id/loginActivityButtonRegister"
-        android:layout_width="125dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/botonaleatorio"
-        android:text="Register">
-
-    </Button>
-
-    <Button
-        android:id="@+id/loginActivityButtonLogOut"
-        android:layout_width="125dp"
-        android:layout_height="45dp"
-        android:background="@drawable/botonaleatorio"
         android:layout_marginTop="50dp"
-        android:text="Log out">
+        android:gravity="center"
+        android:orientation="vertical">
 
-    </Button>
+
+        <Button
+            android:id="@+id/loginActivityButtonLogIn"
+            android:layout_width="125dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/botonaleatorio"
+            android:text="Log in">
+
+        </Button>
+
+        <Button
+            android:id="@+id/loginActivityButtonRegister"
+            android:layout_width="125dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/botonaleatorio"
+            android:text="Register">
+
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFF"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:text="Accedé con tu usuario Google:"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/loginActivityBotonGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -8,13 +8,14 @@
         android:title="Buscar"
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"
+        android:iconTint="#FFFF"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
-        android:title="Configuraciones"
-        android:id="@+id/menuGeneralConfiguracion"
-        android:icon="@drawable/ic_build_black_24dp"
-        app:showAsAction="always" />
+        android:id="@+id/menuGeneralCerrar"
+        android:title="Cerrar sesion"
+        android:iconTint="#FFFF"
+        android:icon="@drawable/ic_power_settings_new_white_24dp"/>
 
 
 

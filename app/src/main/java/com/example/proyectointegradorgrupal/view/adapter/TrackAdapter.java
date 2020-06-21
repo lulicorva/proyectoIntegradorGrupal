@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +51,14 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
 
         private TextView nombreTrack;
         private TextView duracion;
+        private MaterialTextView albumCancion;
 
         public ViewHolderTrack(@NonNull View itemView) {
             super(itemView);
 
             nombreTrack = itemView.findViewById(R.id.celdaNombreCancion);
             duracion = itemView.findViewById(R.id.celdaDuracionCancion);
+            albumCancion = itemView.findViewById(R.id.celdaAlbumCancion);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +73,43 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
 
         public void onBind(Track track) {
 
+            // Double duracionDouble = track.getDuration();
+
+            String totalTime = segundosTotalesAMinutosYSegundos(track.getDuration());
+
             nombreTrack.setText(track.getTitle());
-            duracion.setText(track.getDuration().toString());
+            duracion.setText(totalTime);
+
+            if(track.getAlbum() != null){
+                albumCancion.setText(track.getAlbum().getTitle());
+
+            }
         }
 
     }
 
+
+
+
+
+    private String segundosTotalesAMinutosYSegundos(Double tsegundos){
+
+        int horas = (int) (tsegundos / 3600);
+        int minutos = (int) ((tsegundos-horas*3600)/60);
+        int segundos =(int) (tsegundos-(horas*3600+minutos*60));
+
+        String tiempoTotal = minutos + ":" + segundos;
+
+        return tiempoTotal;
+    }
+
+
+
+
     public interface TrackAdapterListener {
         public void onClick(Track track);
     }
+
+
+
 }

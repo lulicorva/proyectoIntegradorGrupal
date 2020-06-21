@@ -16,6 +16,9 @@ public class Track implements Serializable {
     private Double trackPosition;
     private String preview;
 
+    @SerializedName("album")
+    private Album album;
+
     public ArrayList<Track> getData() {
         return data;
     }
@@ -64,13 +67,26 @@ public class Track implements Serializable {
         this.preview = preview;
     }
 
-    public Track(ArrayList<Track> data, String id, String title, Double duration, Double trackPosition, String preview) {
+    public void setData(ArrayList<Track> data) {
+        this.data = data;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Track(ArrayList<Track> data, String id, String title, Double duration, Double trackPosition, String preview, Album album) {
         this.data = data;
         this.id = id;
         this.title = title;
         this.duration = duration;
         this.trackPosition = trackPosition;
         this.preview = preview;
+        this.album = album;
     }
 
     public Track() {

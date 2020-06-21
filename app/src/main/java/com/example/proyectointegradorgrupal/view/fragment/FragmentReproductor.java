@@ -118,14 +118,7 @@ public class FragmentReproductor extends Fragment {
     private void prepareMediaPlayer() {
         try {
 
-          /*  Intent intent = getIntent();
-            Bundle bundle = intent.getExtras();
-            Track track = (Track) bundle.get("track");
-            final String preview = track.getPreview();
-            Uri uri = Uri.parse(preview);*/
 
-
-            //mediaPlayer.setDataSource(preview);
             mediaPlayer.setDataSource(getContext(), uriTrack);
             mediaPlayer.prepare();
             long durationMediaPlayer = mediaPlayer.getDuration();

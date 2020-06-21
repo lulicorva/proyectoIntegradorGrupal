@@ -18,12 +18,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.ReproductorActivity;
-import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
 import com.example.proyectointegradorgrupal.model.Track;
-import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
@@ -37,7 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentListadoCanciones.FragmentListaCancionesListener {
 
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
@@ -153,16 +151,25 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onClickTrackDesdeSearch(Track track) {
+        abrirReproductorActivity(track);
+    }
+
+    @Override
+    public void onClickTrackDesdeAlbum(Track track) {
+        abrirReproductorActivity(track);
+
+    }
+
+    private void abrirReproductorActivity(Track track) {
         Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("track", track);
         intent.putExtras(bundle);
         startActivity(intent);
-
-
     }
 
 
+    
     /**
      * Configuracion del Appbar superior, Buscador y Configuracion - CHEQUEAR color
      *
@@ -242,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             }
         });
     }
+
 
 
 }

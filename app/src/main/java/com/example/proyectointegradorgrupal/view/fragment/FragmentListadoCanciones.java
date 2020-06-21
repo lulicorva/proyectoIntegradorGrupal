@@ -1,7 +1,9 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +30,16 @@ import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 public class FragmentListadoCanciones extends Fragment implements TrackAdapter.TrackAdapterListener {
 
     private RecyclerView recyclerViewListaCanciones;
-    private RecyclerViewListaCancionesListener recyclerViewListaCancionesListener;
+    private FragmentListaCancionesListener fragmentListaCancionesListener;
     private AlbumController albumController;
     private TrackAdapter trackAdapter;
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.fragmentListaCancionesListener = (FragmentListaCancionesListener) context;
+    }
 
     public FragmentListadoCanciones() {
         // Required empty public constructor
@@ -46,7 +55,6 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
 
         Bundle bundle = getArguments();
-        //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
         Album album = (Album) bundle.getSerializable(MainActivity.FAVORITO);
         ImageView fragmentListadoCancionesImagen = view.findViewById(R.id.fragmentlistadoCancionesImagen);
         TextView fragmentListadoCancionesArtista = view.findViewById(R.id.fragmentListadoCancionesArtista);
@@ -70,9 +78,6 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
                 .into(fragmentListadoCancionesImagen);
 
 
-
-
-
         return view;
 
 
@@ -80,11 +85,11 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
 
     @Override
     public void onClick(Track track) {
-
+        fragmentListaCancionesListener.onClickTrackDesdeAlbum(track);
     }
 
-    public interface RecyclerViewListaCancionesListener {
-        public void onClick(Track track);
+    public interface FragmentListaCancionesListener {
+        public void onClickTrackDesdeAlbum(Track track);
     }
 
 }

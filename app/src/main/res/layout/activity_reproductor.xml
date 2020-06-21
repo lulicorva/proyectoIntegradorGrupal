@@ -11,60 +11,12 @@
 
 
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:id="@+id/reproductorActivityPlayPause"
-        android:background="#FAF6F6"
-        android:src="@drawable/ic_play_circle_filled"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reproductorActivityCurrentTime"
-            android:text="0:00"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="#FAF6F6">
-        </TextView>
-
-        <SeekBar
-            android:layout_width="0dp"
-            android:id="@+id/reproductorActivitySeekBar"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="#EDF3EDED"
-            android:thumbTint="#000"
-            android:progressBackgroundTint="#000">
-
-        </SeekBar>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reproductorActivityDuration"
-            android:text="0:00"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="#FAF6F6">
-        </TextView>
+   <androidx.viewpager.widget.ViewPager
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/activityReproductorViewPager"/>
 
 
 
-    </LinearLayout>
 
 </LinearLayout>

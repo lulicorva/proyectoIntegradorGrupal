@@ -3,6 +3,7 @@ package com.example.proyectointegradorgrupal.controller;
 import com.example.proyectointegradorgrupal.dao.AlbumDao;
 import com.example.proyectointegradorgrupal.dao.PlaylistDao;
 import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 
 import java.util.List;
@@ -23,6 +24,18 @@ public class PlaylistController {
 
 
             }
+
+
+            public void getPlaylistTracks(String playlist, final ResultListener<Track> resultListenerFromView){
+        playlistDao.getPlaylistTracks(playlist, new ResultListener<Track>() {
+            @Override
+            public void onFinish(Track result) {
+                resultListenerFromView.onFinish(result);
+            }
+        });
+
+            }
+
         }
 
 

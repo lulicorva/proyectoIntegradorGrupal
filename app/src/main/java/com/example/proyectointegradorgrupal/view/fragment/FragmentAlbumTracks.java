@@ -27,7 +27,7 @@ import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentListadoCanciones extends Fragment implements TrackAdapter.TrackAdapterListener {
+public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackAdapterListener {
 
     private RecyclerView recyclerViewListaCanciones;
     private FragmentListaCancionesListener fragmentListaCancionesListener;
@@ -41,7 +41,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
         this.fragmentListaCancionesListener = (FragmentListaCancionesListener) context;
     }
 
-    public FragmentListadoCanciones() {
+    public FragmentAlbumTracks() {
         // Required empty public constructor
     }
 
@@ -50,7 +50,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_listado_canciones, container, false);
+        View view = inflater.inflate(R.layout.fragment_album_tracks, container, false);
 
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
 
@@ -65,7 +65,7 @@ public class FragmentListadoCanciones extends Fragment implements TrackAdapter.T
         albumController.getAlbumTracks(album.getId().toString(), new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
-                trackAdapter = new TrackAdapter(result.getData(), FragmentListadoCanciones.this);
+                trackAdapter = new TrackAdapter(result.getData(), FragmentAlbumTracks.this);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                 recyclerViewListaCanciones.setLayoutManager(linearLayoutManager);

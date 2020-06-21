@@ -23,7 +23,8 @@ import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentListadoCanciones;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -35,8 +36,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentListadoCanciones.FragmentListaCancionesListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentAlbumTracks.FragmentListaCancionesListener, FragmentPlaylistTracks.FragmentPlaylistTracksListener {
 
+    public static final String PLAYLIST = "playlist";
     private DrawerLayout drawerLayout;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
@@ -132,16 +134,22 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         bundle.putSerializable(MainActivity.FAVORITO, album);
 
 
-        FragmentListadoCanciones fragmentListadoCanciones = new FragmentListadoCanciones();
-        fragmentListadoCanciones.setArguments(bundle);
-        pegarFragment(fragmentListadoCanciones, R.id.activityMainContenedorPrincipal);
+        FragmentAlbumTracks fragmentAlbumTracks = new FragmentAlbumTracks();
+        fragmentAlbumTracks.setArguments(bundle);
+        pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);
 
 
     }
 
     @Override
     public void onClickPlaylist(Playlist playlist) {
-        //abrir fragment con temas de playlist
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PLAYLIST, playlist);
+        FragmentPlaylistTracks fragmentPlaylistTracks = new FragmentPlaylistTracks();
+        fragmentPlaylistTracks.setArguments(bundle);
+        pegarFragment(fragmentPlaylistTracks, R.id.activityMainContenedorPrincipal);
+
+
     }
 
     @Override
@@ -158,6 +166,11 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     public void onClickTrackDesdeAlbum(Track track) {
         abrirReproductorActivity(track);
 
+    }
+
+    @Override
+    public void onClickTrackDesdePlaylist(Track track) {
+abrirReproductorActivity(track);
     }
 
     private void abrirReproductorActivity(Track track) {

@@ -1,6 +1,8 @@
 package com.example.proyectointegradorgrupal.model;
 
-public class Playlist {
+import java.io.Serializable;
+
+public class Playlist implements Serializable {
 
     private String id;
     private String title;

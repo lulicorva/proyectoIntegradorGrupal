@@ -2,7 +2,7 @@
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
-    android:background="#CA1919"
+    android:background="#6E1717"
     android:id="@+id/activityMainToolbar">
 
 </androidx.appcompat.widget.Toolbar>

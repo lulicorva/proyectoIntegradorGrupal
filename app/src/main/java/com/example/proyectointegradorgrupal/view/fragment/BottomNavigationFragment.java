@@ -1,5 +1,6 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,11 +23,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class BottomNavigationFragment extends Fragment{
 
     private BottomNavigationView bottomNavigationView;
+    private FragmentBottomNavigationListener fragmentBottomNavigationListener;
 
     public BottomNavigationFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.fragmentBottomNavigationListener = (FragmentBottomNavigationListener) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,10 +54,13 @@ public class BottomNavigationFragment extends Fragment{
                         startActivity(i);
                         break;
                     case R.id.menuTuBiblioteca:
+                        fragmentBottomNavigationListener.onClickTuBiblioteca();
                         Toast.makeText(getContext(), "Tu Biblioteca", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.menuPerfil:
+                        fragmentBottomNavigationListener.onCLickPerfil();
                         Toast.makeText(getContext(), "Mi Perfil", Toast.LENGTH_SHORT).show();
+                        break;
                 }
                 return false;
             }
@@ -60,4 +70,12 @@ public class BottomNavigationFragment extends Fragment{
 
         return view;
     }
+
+    public interface FragmentBottomNavigationListener{
+        public void onClickTuBiblioteca();
+        public void onCLickPerfil();
+
+    }
+
+
 }

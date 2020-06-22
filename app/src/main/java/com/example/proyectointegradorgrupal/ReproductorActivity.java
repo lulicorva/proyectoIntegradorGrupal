@@ -22,6 +22,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
 
 import org.w3c.dom.Text;
@@ -47,11 +48,12 @@ public class ReproductorActivity extends AppCompatActivity {
         final String preview = track.getPreview();
         uriTrack = Uri.parse(preview);
 
+        FragmentDetalleCancion fragmentDetalleCancion = new FragmentDetalleCancion();
         FragmentReproductor fragmentReproductor = new FragmentReproductor();
         fragmentReproductor.setArguments(bundle);
 
         viewPager = findViewById(R.id.activityReproductorViewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion);
         viewPager.setAdapter(viewPagerAdapter);
 
 

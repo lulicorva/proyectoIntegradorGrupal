@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.proyectointegradorgrupal.model.DatosUsuario;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,6 +27,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +37,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,6 +45,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String DATOS_USUARIO = "DatosUsuario";
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPassword;
     private EditText editTextEmail;
@@ -51,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private SignInButton botonGoogle;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private FirebaseUser currentUser;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1;
 
@@ -59,7 +65,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-
+        currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
         findViewsByID();
 
         botonLogIn.setOnClickListener(this);
@@ -67,7 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         botonGoogle.setOnClickListener(this);
         //Esto hace al boton mas grande
         botonGoogle.setSize(SignInButton.SIZE_WIDE);
-
 
 
         /**
@@ -104,7 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * OnStart es para chequear si la persona esta logueada o no y en donde
      */
-  @Override
+    @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentuser = mAuth.getCurrentUser();
@@ -153,6 +159,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            crearBaseDeDatosUsuario(user);
                             updateUI(user);
                         } else {
                             Toast.makeText(LoginActivity.this, "Usuario ya registrado",
@@ -265,10 +272,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * Autenticacion de Usuario de Google en Firebase
+     *
      * @param acct
      */
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-       // Log.d("GOOGLE", "firebaseAuthWithGoogle:" + acct.getId());
+        // Log.d("GOOGLE", "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -277,6 +285,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            crearBaseDeDatosUsuario(user);
                             updateUI(user);
                         } else {
                             Snackbar.make(findViewById(R.id.loginActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
@@ -304,5 +313,28 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         } catch (NoSuchAlgorithmException e) {
         }
+    }
+
+
+    private void crearBaseDeDatosUsuario(FirebaseUser currentUser) {
+        DatosUsuario datosUsuario = new DatosUsuario(null, null, null, null);
+
+
+        db.collection(DATOS_USUARIO)
+                .document(currentUser.getUid())
+                .set(datosUsuario)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(LoginActivity.this, "Se creo base de datos", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(LoginActivity.this, "Error al crear base de datos", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
 }

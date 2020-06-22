@@ -3,15 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReproductorActivity"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".view.fragment.biblioteca.FragmentTuBiblioteca">
 
 
-   <androidx.viewpager.widget.ViewPager
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/activityReproductorViewPager"/>
+
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/fragmentTuBibliotecaViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="700dp" />
+
+
 
 
 </LinearLayout>

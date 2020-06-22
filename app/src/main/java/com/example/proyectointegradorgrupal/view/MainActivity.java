@@ -27,6 +27,7 @@ import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
+import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentTuBiblioteca;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -36,7 +37,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentAlbumTracks.FragmentListaCancionesListener, FragmentPlaylistTracks.FragmentPlaylistTracksListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentAlbumTracks.FragmentListaCancionesListener, FragmentPlaylistTracks.FragmentPlaylistTracksListener, BottomNavigationFragment.FragmentBottomNavigationListener {
 
     public static final String PLAYLIST = "playlist";
     private DrawerLayout drawerLayout;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     private GoogleSignInClient mGoogleSignInClient;
     public static final String QUERY = "query";
     public static final String FAVORITO = "favorito";
+    private FragmentTuBiblioteca fragmentTuBiblioteca;
 
     @Override
 //TODO me parece que el FavoritosFragment deveria ser un FragmentPantallaInicio y dentro de ese poner 3 recyclerview, uno de favoritos, otro de
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        fragmentTuBiblioteca = new FragmentTuBiblioteca();
 
         findViewsById();
         configuracionToolbar();
@@ -115,10 +117,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
-    private void pegarFragment(Fragment favoritosFragment, int id) {
+    private void pegarFragment(Fragment fragment, int id) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.replace(id, favoritosFragment);
+        fragmentTransaction.replace(id, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -152,6 +154,9 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
+    /**
+     * onCLick FragmentPrincipal
+     */
     @Override
     public void onClickRecomendado(Recomendados recomendados) {
         //abrir fragment con recomendados
@@ -170,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onClickTrackDesdePlaylist(Track track) {
-abrirReproductorActivity(track);
+        abrirReproductorActivity(track);
     }
 
     private void abrirReproductorActivity(Track track) {
@@ -182,7 +187,6 @@ abrirReproductorActivity(track);
     }
 
 
-    
     /**
      * Configuracion del Appbar superior, Buscador y Configuracion - CHEQUEAR color
      *
@@ -264,5 +268,20 @@ abrirReproductorActivity(track);
     }
 
 
+    /**
+     * onCLick BottomNavigationFragmenet
+     */
+    @Override
+    public void onClickTuBiblioteca() {
 
+
+        pegarFragment(fragmentTuBiblioteca, R.id.activityMainContenedorPrincipal);
+
+
+    }
+
+    @Override
+    public void onCLickPerfil() {
+        //pegar fragment Mi perfil
+    }
 }

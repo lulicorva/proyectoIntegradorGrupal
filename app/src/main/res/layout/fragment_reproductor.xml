@@ -1,67 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.FragmentReproductor"
-    android:orientation="vertical">
+    android:background="@drawable/gradient_background"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    tools:context=".view.fragment.FragmentReproductor">
 
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:id="@+id/reproductorActivityPlayPause"
-        android:background="#FAF6F6"
-        android:src="@drawable/ic_play_circle_filled"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="70dp"
+                android:background="#00000000"
+                android:elevation="5dp"
+
+                app:cardCornerRadius="40dp">
+
+                <ImageView
+                    android:id="@+id/fragmentReproductorImgeView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="#00000000"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/jaxoo">
+
+                </ImageView>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragmentReproductorNombreArtista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:text="Artista"
+                android:textAlignment="center"
+                android:textColor="#FFFF"
+
+                android:textSize="30dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/fragmentReproductorNombreTrack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NombreTrack"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:textAlignment="center"
+                android:textColor="#FFFF"
+                android:textSize="40dp"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/fragmentReproductorPlayPause"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="#00FAF6F6"
+            android:src="@drawable/ic_play_circle_filled" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/reproductorActivityCurrentTime"
-            android:text="0:00"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="#FAF6F6">
-        </TextView>
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <SeekBar
-            android:layout_width="0dp"
-            android:id="@+id/reproductorActivitySeekBar"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:background="#EDF3EDED"
-            android:thumbTint="#000"
-            android:progressBackgroundTint="#000">
+            <TextView
+                android:id="@+id/fragmentReproductorCurrentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00F8F8F8"
+                android:text="0:00"
+                android:textColor="#FDFDFD"
+                android:textSize="18dp"
+                android:textStyle="bold"></TextView>
 
-        </SeekBar>
+            <SeekBar
+                android:id="@+id/fragmentReproductorSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:background="#00F3EDED"
+                android:progressBackgroundTint="#ECE4E4"
+                android:thumbTint="#FFFFFF">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/reproductorActivityDuration"
-            android:text="0:00"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:background="#FAF6F6">
-        </TextView>
+            </SeekBar>
 
 
+            <TextView
+                android:id="@+id/fragmentReproductorDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FAF6F6"
+                android:text="0:00"
+                android:textColor="#FFFFFF"
+                android:textSize="18dp"
+                android:textStyle="bold"></TextView>
 
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

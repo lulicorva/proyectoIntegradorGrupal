@@ -77,7 +77,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
 
             String totalTime = segundosTotalesAMinutosYSegundos(track.getDuration());
 
-            nombreTrack.setText(track.getTitle());
+            nombreTrack.setText(track.getTitleShort());
             duracion.setText(totalTime);
 
             if(track.getAlbum() != null){

@@ -74,7 +74,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
             }
         });
         Glide.with(fragmentListadoCancionesImagen.getContext())
-                .load(album.getCover())
+                .load(album.getCoverXL())
                 .into(fragmentListadoCancionesImagen);
 
 

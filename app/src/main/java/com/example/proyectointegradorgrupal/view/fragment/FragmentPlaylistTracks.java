@@ -75,7 +75,7 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
             }
         });
         Glide.with(fragmentPlaylistImagen.getContext())
-                .load(playlist.getPicture())
+                .load(playlist.getPictureXL())
                 .into(fragmentPlaylistImagen);
 
 

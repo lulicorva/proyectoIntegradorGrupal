@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.google.android.material.textview.MaterialTextView;
 
 
 public class FragmentReproductor extends Fragment {
@@ -31,6 +32,8 @@ public class FragmentReproductor extends Fragment {
     private TextView currentTime;
     private TextView duration;
     private SeekBar seekBar;
+    private MaterialTextView nombreTrack;
+    private MaterialTextView nombreArtista;
     private Handler handler = new Handler();
     private Uri uriTrack;
 
@@ -44,19 +47,26 @@ public class FragmentReproductor extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_reproductor, container, false);
+             View view = inflater.inflate(R.layout.fragment_reproductor, container, false);
 
-        imageViewPlayPause = view.findViewById(R.id.reproductorActivityPlayPause);
-        currentTime = view.findViewById(R.id.reproductorActivityCurrentTime);
-        duration = view.findViewById(R.id.reproductorActivityDuration);
-        seekBar = view.findViewById(R.id.reproductorActivitySeekBar);
+        imageViewPlayPause = view.findViewById(R.id.fragmentReproductorPlayPause);
+        currentTime = view.findViewById(R.id.fragmentReproductorCurrentTime);
+        duration = view.findViewById(R.id.fragmentReproductorDuration);
+        nombreTrack = view.findViewById(R.id.fragmentReproductorNombreTrack);
+        nombreArtista = view.findViewById(R.id.fragmentReproductorNombreArtista);
+        seekBar = view.findViewById(R.id.fragmentReproductorSeekBar);
+
 
 
         Bundle bundle = getArguments();
         Track track = (Track) bundle.get("track");
         final String preview = track.getPreview();
         uriTrack = Uri.parse(preview);
+
+
+        nombreArtista.setText(track.getArtist().getName());
+        nombreTrack.setText(track.getTitleShort());
+
 
         mediaPlayer = new MediaPlayer();
         seekBar.setMax(100);

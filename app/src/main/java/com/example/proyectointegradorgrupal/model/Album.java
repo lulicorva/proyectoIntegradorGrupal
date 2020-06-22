@@ -1,5 +1,7 @@
 package com.example.proyectointegradorgrupal.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -12,13 +14,16 @@ public class Album implements Serializable {
     private Integer rating;
     private String tracklist;
 
+    @SerializedName("cover_xl")
+    private String coverXL;
+
 
 
     public Album() {
 
     }
 
-    public Album(Integer id, String title, String link, String cover, Integer duration, Integer rating, String tracklist) {
+    public Album(Integer id, String title, String link, String cover, Integer duration, Integer rating, String tracklist,String coverXL) {
         this.id = id;
         this.title = title;
         this.link = link;
@@ -26,8 +31,17 @@ public class Album implements Serializable {
         this.duration = duration;
         this.rating = rating;
         this.tracklist = tracklist;
+        this.coverXL = coverXL;
 
 
+    }
+
+    public String getCoverXL() {
+        return coverXL;
+    }
+
+    public void setCoverXL(String coverXL) {
+        this.coverXL = coverXL;
     }
 
     public Integer getId() {

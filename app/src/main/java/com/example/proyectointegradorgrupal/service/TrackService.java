@@ -13,7 +13,7 @@ public interface TrackService {
 
     //Metodo para consultar 1 solo album
     //@GET("track/{id}")
-    //Call<AlbumTracks.Track> getTrack(@Path("id") String id);
+    //Call<Track> getTrack(@Path("id") String id);
 
 
     @GET("album/{id}/tracks")

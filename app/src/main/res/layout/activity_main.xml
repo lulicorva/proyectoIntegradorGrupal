@@ -22,19 +22,14 @@
 
             <include layout="@layout/my_toolbar" />
 
-            <ScrollView
-                android:id="@+id/scrollView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
 
                 <FrameLayout
                     android:id="@+id/activityMainContenedorPrincipal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
 
 
-            </ScrollView>
+
 
         </LinearLayout>
 

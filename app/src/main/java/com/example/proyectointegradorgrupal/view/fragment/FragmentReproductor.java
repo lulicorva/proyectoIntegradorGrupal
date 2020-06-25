@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -13,14 +14,23 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.view.MainActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class FragmentReproductor extends Fragment {
@@ -32,10 +42,16 @@ public class FragmentReproductor extends Fragment {
     private TextView currentTime;
     private TextView duration;
     private SeekBar seekBar;
+    private ImageButton botonFavoritos;
     private MaterialTextView nombreTrack;
     private MaterialTextView nombreArtista;
     private Handler handler = new Handler();
     private Uri uriTrack;
+    private Track track;
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
 
     public FragmentReproductor() {
@@ -47,7 +63,11 @@ public class FragmentReproductor extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-             View view = inflater.inflate(R.layout.fragment_reproductor, container, false);
+        View view = inflater.inflate(R.layout.fragment_reproductor, container, false);
+
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         imageViewPlayPause = view.findViewById(R.id.fragmentReproductorPlayPause);
         currentTime = view.findViewById(R.id.fragmentReproductorCurrentTime);
@@ -55,11 +75,11 @@ public class FragmentReproductor extends Fragment {
         nombreTrack = view.findViewById(R.id.fragmentReproductorNombreTrack);
         nombreArtista = view.findViewById(R.id.fragmentReproductorNombreArtista);
         seekBar = view.findViewById(R.id.fragmentReproductorSeekBar);
-
+        botonFavoritos = view.findViewById(R.id.reproductorFavoritos);
 
 
         Bundle bundle = getArguments();
-        Track track = (Track) bundle.get("track");
+        track = (Track) bundle.get("track");
         final String preview = track.getPreview();
         uriTrack = Uri.parse(preview);
 
@@ -89,6 +109,36 @@ public class FragmentReproductor extends Fragment {
 
 
         prepareMediaPlayer();
+
+
+        botonFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAuth.getCurrentUser() != null) {
+                    db.collection(LoginActivity.DATOS_USUARIO)
+                            .document(currentUser.getUid())
+                            .update("tracksFavoritos", FieldValue.arrayUnion(track))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity(), "Track gregado a favoritos", Toast.LENGTH_SHORT).show();
+                                    botonFavoritos.setImageResource(R.drawable.ic_favorite);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Salio mal agregar favorito", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
 
         /**
          * Esto hace que puedas adelantar la cancion con la barra

@@ -47,10 +47,11 @@ public class FragmentTuBiblioteca extends Fragment {
 
         viewPager = view.findViewById(R.id.fragmentTuBibliotecaViewPager);
 
-        FragmentDetalleCancion fragmentDetalleCancion1 = new FragmentDetalleCancion();
-        FragmentDetalleCancion fragmentDetalleCancion2 = new FragmentDetalleCancion();
+        FragmentTracksFavoritos fragmentTracksFavoritos = new FragmentTracksFavoritos();
+        FragmentAlbumsFavoritos fragmentAlbumsFavoritos = new FragmentAlbumsFavoritos();
+        FragmentPLaylistsFavoritos fragmentPLaylistsFavoritos = new FragmentPLaylistsFavoritos();
 
-        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), 2, fragmentDetalleCancion1, fragmentDetalleCancion2);
+        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), 2, fragmentTracksFavoritos, fragmentAlbumsFavoritos, fragmentPLaylistsFavoritos);
         viewPager.setAdapter(viewPagerAdapter);
 
 

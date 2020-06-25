@@ -49,11 +49,12 @@ public class ReproductorActivity extends AppCompatActivity {
         uriTrack = Uri.parse(preview);
 
         FragmentDetalleCancion fragmentDetalleCancion = new FragmentDetalleCancion();
+        FragmentDetalleCancion fragmentDetalleCancion2 = new FragmentDetalleCancion();
         FragmentReproductor fragmentReproductor = new FragmentReproductor();
         fragmentReproductor.setArguments(bundle);
 
         viewPager = findViewById(R.id.activityReproductorViewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion);
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion, fragmentDetalleCancion2);
         viewPager.setAdapter(viewPagerAdapter);
 
 

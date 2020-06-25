@@ -16,12 +16,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList;
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, Fragment fragment1, Fragment fragment2) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, Fragment fragment1, Fragment fragment2, Fragment fragment3) {
         super(fm, behavior);
 
         fragmentList = new ArrayList<>();
         fragmentList.add(fragment1);
         fragmentList.add(fragment2);
+        fragmentList.add(fragment3);
 
     }
 

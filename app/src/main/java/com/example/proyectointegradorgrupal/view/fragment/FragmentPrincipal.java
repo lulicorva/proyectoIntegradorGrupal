@@ -62,7 +62,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
             @Override
             public void onFinish(List<Album> result) {
 
-                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipal.this);
+                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipal.this, R.layout.celda_albums_inicio);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                 recyclerViewFavoritos.setLayoutManager(linearLayoutManager);
@@ -80,7 +80,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
         playlistController.getPlaylistPorSearch("Cumbia", new ResultListener<List<Playlist>>() {
             @Override
             public void onFinish(List<Playlist> result) {
-                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this);
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this, R.layout.celda_playlist_inicio);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
                 recyclerViewPlaylist.setLayoutManager(linearLayoutManager);
                 recyclerViewPlaylist.setAdapter(playlistAdapter);

@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.model.Album;
@@ -22,6 +25,12 @@ import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 /**
@@ -33,6 +42,13 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     private FragmentListaCancionesListener fragmentListaCancionesListener;
     private AlbumController albumController;
     private TrackAdapter trackAdapter;
+    private ImageButton albumFavoritoButtom;
+
+    private Album album;
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
 
     @Override
@@ -52,10 +68,15 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
 
         View view = inflater.inflate(R.layout.fragment_album_tracks, container, false);
 
+        albumFavoritoButtom = view.findViewById(R.id.albumBotonFavoritos);
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
         Bundle bundle = getArguments();
-        Album album = (Album) bundle.getSerializable(MainActivity.FAVORITO);
+        album = (Album) bundle.getSerializable(MainActivity.FAVORITO);
         ImageView fragmentListadoCancionesImagen = view.findViewById(R.id.fragmentlistadoCancionesImagen);
         TextView fragmentListadoCancionesArtista = view.findViewById(R.id.fragmentListadoCancionesArtista);
 
@@ -76,6 +97,34 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         Glide.with(fragmentListadoCancionesImagen.getContext())
                 .load(album.getCoverXL())
                 .into(fragmentListadoCancionesImagen);
+
+        albumFavoritoButtom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAuth.getCurrentUser() != null) {
+                    db.collection(LoginActivity.DATOS_USUARIO)
+                            .document(currentUser.getUid())
+                            .update("albumesFavoritos", FieldValue.arrayUnion(album))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity(), "Album gregado a favoritos", Toast.LENGTH_SHORT).show();
+                                    albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Salio mal agregar album", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
 
         return view;

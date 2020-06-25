@@ -22,10 +22,12 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     private List<Playlist> playlistList;
     private PlaylistAdapterListener playlistAdapterListener;
+    private int celda_playlist;
 
-    public PlaylistAdapter(List<Playlist> playlistList, PlaylistAdapterListener listener) {
+    public PlaylistAdapter(List<Playlist> playlistList, PlaylistAdapterListener listener, int celda_playlist) {
         this.playlistList = playlistList;
         this.playlistAdapterListener = listener;
+        this.celda_playlist = celda_playlist;
 
     }
 
@@ -36,7 +38,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public ViewHolderPlaylist onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.celda_playlist, parent, false);
+        View view = layoutInflater.inflate(celda_playlist, parent, false);
 
         return new ViewHolderPlaylist(view);
     }
@@ -82,7 +84,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
         public void onBind(Playlist playlist) {
                     Glide.with(textViewPlaylist.getContext())
-                    .load(playlist.getPicture())
+                    .load(playlist.getPictureXL())
                     .into(circleImageViewPlaylist);
 
                     textViewPlaylist.setText(playlist.getTitle());

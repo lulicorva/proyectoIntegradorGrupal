@@ -27,6 +27,9 @@ import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
+import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentAlbumsFavoritos;
+import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentPLaylistsFavoritos;
+import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentTracksFavoritos;
 import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentTuBiblioteca;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,7 +40,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentAlbumTracks.FragmentListaCancionesListener, FragmentPlaylistTracks.FragmentPlaylistTracksListener, BottomNavigationFragment.FragmentBottomNavigationListener {
+public class MainActivity extends AppCompatActivity implements FragmentPrincipal.FragmentPrincipalListener, FragmentSearch.FragmentSearchListener, FragmentAlbumTracks.FragmentListaCancionesListener, FragmentPlaylistTracks.FragmentPlaylistTracksListener, BottomNavigationFragment.FragmentBottomNavigationListener, FragmentTracksFavoritos.FragmentTracksFavoritosListener, FragmentAlbumsFavoritos.FragmentAlbumsFavoritosListener, FragmentPLaylistsFavoritos.FragmentPlaylistsFavoritosListener {
 
     public static final String PLAYLIST = "playlist";
     private DrawerLayout drawerLayout;
@@ -105,6 +108,42 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         toolbar = findViewById(R.id.activityMainToolbar);
     }
 
+
+
+    private void pegarFragment(Fragment fragment, int id) {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.replace(id, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * Metodos que se usan varias veces
+     * */
+    private void abrirAlbumTracks(Album album) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(MainActivity.FAVORITO, album);
+
+
+        FragmentAlbumTracks fragmentAlbumTracks = new FragmentAlbumTracks();
+        fragmentAlbumTracks.setArguments(bundle);
+        pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);
+    }
+    private void abrirReproductorActivity(Track track) {
+        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track", track);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+    private void abrirPlaylistTracks(Playlist playlist) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(PLAYLIST, playlist);
+        FragmentPlaylistTracks fragmentPlaylistTracks = new FragmentPlaylistTracks();
+        fragmentPlaylistTracks.setArguments(bundle);
+        pegarFragment(fragmentPlaylistTracks, R.id.activityMainContenedorPrincipal);
+    }
     /**
      * Metodo para pegar fragments
      */
@@ -117,14 +156,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
-    private void pegarFragment(Fragment fragment, int id) {
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.replace(id, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
 
     /**
      * Metodos onCLick de los fragments
@@ -132,24 +163,14 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     @Override
     public void onClickAlbum(Album album) {
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(MainActivity.FAVORITO, album);
-
-
-        FragmentAlbumTracks fragmentAlbumTracks = new FragmentAlbumTracks();
-        fragmentAlbumTracks.setArguments(bundle);
-        pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);
+        abrirAlbumTracks(album);
 
 
     }
 
     @Override
     public void onClickPlaylist(Playlist playlist) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(PLAYLIST, playlist);
-        FragmentPlaylistTracks fragmentPlaylistTracks = new FragmentPlaylistTracks();
-        fragmentPlaylistTracks.setArguments(bundle);
-        pegarFragment(fragmentPlaylistTracks, R.id.activityMainContenedorPrincipal);
+        abrirPlaylistTracks(playlist);
 
 
     }
@@ -178,13 +199,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         abrirReproductorActivity(track);
     }
 
-    private void abrirReproductorActivity(Track track) {
-        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("track", track);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+
 
 
     /**
@@ -273,8 +288,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     @Override
     public void onClickTuBiblioteca() {
-
-
         pegarFragment(fragmentTuBiblioteca, R.id.activityMainContenedorPrincipal);
 
 
@@ -284,4 +297,27 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     public void onCLickPerfil() {
         //pegar fragment Mi perfil
     }
+
+    /**
+     * Interfaces de fragments dentro de TuBiblioteca
+     * */
+
+    @Override
+    public void onClickTrackFavorito(Track track) {
+        abrirReproductorActivity(track);
+    }
+
+    @Override
+    public void onClickAlbumFavorito(Album album) {
+        abrirAlbumTracks(album);
+    }
+
+
+    @Override
+    public void onClickPlaylistFavorito(Playlist playlist) {
+        abrirPlaylistTracks(playlist);
+    }
+
+
 }
+

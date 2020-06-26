@@ -56,6 +56,18 @@ public class FragmentReproductor extends Fragment {
 
     public FragmentReproductor() {
         // Required empty public constructor
+
+
+    }
+
+    public static FragmentReproductor getFragmentReproductor(Track track) {
+
+        FragmentReproductor fragmentReproductor = new FragmentReproductor();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("track", track);
+        fragmentReproductor.setArguments(bundle);
+        return fragmentReproductor;
+
     }
 
 

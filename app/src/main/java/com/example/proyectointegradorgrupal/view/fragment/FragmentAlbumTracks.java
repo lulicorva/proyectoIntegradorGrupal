@@ -32,6 +32,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -133,12 +135,19 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     }
 
     @Override
+    public void onClick(List<Track> trackList) {
+        fragmentListaCancionesListener.onClickTrackDesdeAlbum(trackList);
+    }
+
+    @Override
     public void onClick(Track track) {
         fragmentListaCancionesListener.onClickTrackDesdeAlbum(track);
     }
 
     public interface FragmentListaCancionesListener {
         public void onClickTrackDesdeAlbum(Track track);
+
+        public void onClickTrackDesdeAlbum(List<Track> trackList);
     }
 
 }

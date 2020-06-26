@@ -10,7 +10,7 @@ import java.util.PriorityQueue;
 public class Track implements Serializable {
 
     @SerializedName("data")
-    private ArrayList<Track> data;
+    private List<Track> data;
     private String id;
 
     @SerializedName("title")
@@ -46,11 +46,11 @@ public class Track implements Serializable {
         this.titleShort = titleShort;
     }
 
-    public ArrayList<Track> getData() {
+    public List<Track> getData() {
         return data;
     }
 
-    public void setTrackList(ArrayList<Track> data) {
+    public void setTrackList(List<Track> data) {
         this.data = data;
     }
 
@@ -94,7 +94,7 @@ public class Track implements Serializable {
         this.preview = preview;
     }
 
-    public void setData(ArrayList<Track> data) {
+    public void setData(List<Track> data) {
         this.data = data;
     }
 
@@ -106,7 +106,7 @@ public class Track implements Serializable {
         this.album = album;
     }
 
-    public Track(ArrayList<Track> data, String id, String title, Double duration, Double trackPosition, String preview, Album album, String titleShort, Artist artist) {
+    public Track(List<Track> data, String id, String title, Double duration, Double trackPosition, String preview, Album album, String titleShort, Artist artist) {
         this.data = data;
         this.id = id;
         this.title = title;

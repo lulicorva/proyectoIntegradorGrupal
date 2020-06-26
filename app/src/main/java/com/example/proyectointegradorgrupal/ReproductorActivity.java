@@ -21,9 +21,12 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
+import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterPrueba;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
@@ -32,8 +35,8 @@ import java.io.IOException;
 public class ReproductorActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
-    private Uri uriTrack;
+    private ViewPagerAdapterPrueba viewPagerAdapter;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,18 +47,28 @@ public class ReproductorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Track track = (Track) bundle.get("track");
-        final String preview = track.getPreview();
-        uriTrack = Uri.parse(preview);
+        Track trackList = (Track) bundle.get("trackList");
 
-        FragmentDetalleCancion fragmentDetalleCancion = new FragmentDetalleCancion();
-        FragmentDetalleCancion fragmentDetalleCancion2 = new FragmentDetalleCancion();
-        FragmentReproductor fragmentReproductor = new FragmentReproductor();
-        fragmentReproductor.setArguments(bundle);
 
         viewPager = findViewById(R.id.activityReproductorViewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion, fragmentDetalleCancion2);
+        viewPagerAdapter = new ViewPagerAdapterPrueba(getSupportFragmentManager(), 2, trackList.getData());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
     }

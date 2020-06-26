@@ -19,6 +19,8 @@ import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 
+import java.util.List;
+
 
 public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapterListener {
 
@@ -67,6 +69,11 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
 
 
         return view;
+    }
+
+    @Override
+    public void onClick(List<Track> trackList) {
+
     }
 
     @Override

@@ -34,6 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+
 
 public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.TrackAdapterListener {
 
@@ -126,6 +128,11 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
         });
 
         return view;
+    }
+
+    @Override
+    public void onClick(List<Track> trackList) {
+
     }
 
     @Override

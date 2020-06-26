@@ -73,6 +73,11 @@ public class FragmentTracksFavoritos extends Fragment {
                     trackListFavoritos = datosUsuario.getTracksFavoritos();
                     trackAdapter = new TrackAdapter(trackListFavoritos, new TrackAdapter.TrackAdapterListener() {
                         @Override
+                        public void onClick(List<Track> trackList) {
+
+                        }
+
+                        @Override
                         public void onClick(Track track) {
                             fragmentTracksFavoritosListener.onClickTrackFavorito(track);
                         }

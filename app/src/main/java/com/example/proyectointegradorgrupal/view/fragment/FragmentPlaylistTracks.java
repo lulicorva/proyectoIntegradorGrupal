@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +25,6 @@ import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
-import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -130,17 +128,15 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
         return view;
     }
 
-    @Override
-    public void onClick(List<Track> trackList) {
-
-    }
 
     @Override
-    public void onClick(Track track) {
-        fragmentPlaylistTracksListener.onClickTrackDesdePlaylist(track);
+    public void onClick(List<Track> trackList, int position) {
+        fragmentPlaylistTracksListener.onClickTrackDesdePlaylist(trackList, position);
     }
+
 
     public interface FragmentPlaylistTracksListener {
-        public void onClickTrackDesdePlaylist(Track track);
+
+        public void onClickTrackDesdePlaylist(List<Track> trackList, int position);
     }
 }

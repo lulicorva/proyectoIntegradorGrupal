@@ -62,7 +62,7 @@ public class BottomNavigationFragment extends Fragment{
                         Toast.makeText(getContext(), "Mi Perfil", Toast.LENGTH_SHORT).show();
                         break;
                 }
-                return false;
+                return true;
             }
         });
 

@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
     private void pegarFragment(Fragment fragment, int id) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     /**
      * Metodos que se usan varias veces
-     * */
+     */
     private void abrirAlbumTracks(Album album) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(MainActivity.FAVORITO, album);
@@ -134,13 +133,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);
     }
 
-    private void abrirReproductorActivity(Track track) {
-        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("track", track);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+
     private void abrirPlaylistTracks(Playlist playlist) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(PLAYLIST, playlist);
@@ -148,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         fragmentPlaylistTracks.setArguments(bundle);
         pegarFragment(fragmentPlaylistTracks, R.id.activityMainContenedorPrincipal);
     }
+
     /**
      * Metodo para pegar fragments
      */
@@ -187,35 +181,25 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         //abrir fragment con recomendados
     }
 
+
+
     @Override
-    public void onClickTrackDesdeSearch(Track track) {
-        abrirReproductorActivity(track);
+    public void onClickTrackDesdeSearch(List<Track> trackList, int position) {
+        abrirReproductorActivity(trackList, position);
     }
 
     @Override
-    public void onClickTrackDesdeAlbum(Track track) {
-      //  abrirReproductorActivity(track);
-
+    public void onClickTrackDesdePlaylist(List<Track> trackList, int position) {
+        abrirReproductorActivity(trackList, position);
     }
 
-    @Override
-    public void onClickTrackDesdeAlbum(List<Track> trackList) {
-
-        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
-        Bundle bundle = new Bundle();
-        Track track = new Track();
-        track.setData(trackList);
-
-        bundle.putSerializable("trackList", track);
-        intent.putExtras(bundle);
-        startActivity(intent);
-
-
-    }
 
     @Override
-    public void onClickTrackDesdePlaylist(Track track) {
-        abrirReproductorActivity(track);
+    public void onClickTrackDesdeAlbum(List<Track> trackList, int position) {
+
+        abrirReproductorActivity(trackList, position);
+
+
     }
 
 
@@ -322,11 +306,12 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     /**
      * Interfaces de fragments dentro de TuBiblioteca
-     * */
+     */
+
 
     @Override
-    public void onClickTrackFavorito(Track track) {
-        abrirReproductorActivity(track);
+    public void onClickTrackFavoritos(List<Track> trackList, int position) {
+        abrirReproductorActivity(trackList, position);
     }
 
     @Override
@@ -341,5 +326,17 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
+
+
+    private void abrirReproductorActivity(List<Track> trackList, int position) {
+        Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
+        Bundle bundle = new Bundle();
+        Track track = new Track();
+        track.setData(trackList);
+        bundle.putInt("position", position);
+        bundle.putSerializable("trackList", track);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }
 

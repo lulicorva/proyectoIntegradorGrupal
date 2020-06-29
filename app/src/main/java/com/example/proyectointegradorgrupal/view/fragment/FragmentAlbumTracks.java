@@ -135,19 +135,16 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     }
 
     @Override
-    public void onClick(List<Track> trackList) {
-        fragmentListaCancionesListener.onClickTrackDesdeAlbum(trackList);
+    public void onClick(List<Track> trackList, int position) {
+        fragmentListaCancionesListener.onClickTrackDesdeAlbum(trackList, position);
     }
 
-    @Override
-    public void onClick(Track track) {
-        fragmentListaCancionesListener.onClickTrackDesdeAlbum(track);
-    }
+
 
     public interface FragmentListaCancionesListener {
-        public void onClickTrackDesdeAlbum(Track track);
 
-        public void onClickTrackDesdeAlbum(List<Track> trackList);
+
+        public void onClickTrackDesdeAlbum(List<Track> trackList, int position);
     }
 
 }

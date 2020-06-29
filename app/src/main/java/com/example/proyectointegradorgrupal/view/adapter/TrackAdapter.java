@@ -64,9 +64,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Track track = trackList.get(getAdapterPosition());
-                    trackAdapterListener.onClick(track);
-                    trackAdapterListener.onClick(trackList);
+                    trackAdapterListener.onClick(trackList, getAdapterPosition());
                 }
             });
 
@@ -108,8 +106,8 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
 
 
     public interface TrackAdapterListener {
-        public void onClick(List<Track> trackList);
-        public void onClick(Track track);
+        public void onClick(List<Track> trackList, int position);
+
     }
 
 

@@ -3,9 +3,7 @@ package com.example.proyectointegradorgrupal.view.fragment.biblioteca;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
@@ -13,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.proyectointegradorgrupal.R;
-import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
+import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterTuBiblioteca;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,7 +24,7 @@ public class FragmentTuBiblioteca extends Fragment {
     private FirebaseFirestore db;
 
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
+    private ViewPagerAdapterTuBiblioteca viewPagerAdapter;
 
     public FragmentTuBiblioteca() {
 
@@ -51,7 +47,7 @@ public class FragmentTuBiblioteca extends Fragment {
         FragmentAlbumsFavoritos fragmentAlbumsFavoritos = new FragmentAlbumsFavoritos();
         FragmentPLaylistsFavoritos fragmentPLaylistsFavoritos = new FragmentPLaylistsFavoritos();
 
-        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), 2, fragmentTracksFavoritos, fragmentAlbumsFavoritos, fragmentPLaylistsFavoritos);
+        viewPagerAdapter = new ViewPagerAdapterTuBiblioteca(getActivity().getSupportFragmentManager(), 2, fragmentTracksFavoritos, fragmentAlbumsFavoritos, fragmentPLaylistsFavoritos);
         viewPager.setAdapter(viewPagerAdapter);
 
 

@@ -71,18 +71,18 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
         return view;
     }
 
-    @Override
-    public void onClick(List<Track> trackList) {
-
-    }
 
     @Override
-    public void onClick(Track track) {
-        fragmentSearchListener.onClickTrackDesdeSearch(track);
+    public void onClick(List<Track> trackList, int position) {
+        fragmentSearchListener.onClickTrackDesdeSearch(trackList, position);
     }
+
+
 
     public interface FragmentSearchListener {
-        public void onClickTrackDesdeSearch(Track track);
+
+
+        public void onClickTrackDesdeSearch(List<Track> trackList, int position);
 
     }
 }

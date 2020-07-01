@@ -1,6 +1,7 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,6 +40,8 @@ public class FragmentReproductorSingleton extends Fragment {
 
 
     private ImageView imageViewPlayPause;
+    private ImageView botonNextTrack;
+    private ImageView botonPreviousTrack;
     private TextView currentTime;
     private TextView duration;
     private SeekBar seekBar;
@@ -60,11 +63,18 @@ public class FragmentReproductorSingleton extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
+    private FragmentReproductorSingletonListener fragmentReproductorSingletonListener;
+
 
     public FragmentReproductorSingleton() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.fragmentReproductorSingletonListener = (FragmentReproductorSingletonListener) context;
+    }
 
     public static FragmentReproductorSingleton getFragmentReproductorSingleton(Track track) {
 
@@ -92,8 +102,6 @@ public class FragmentReproductorSingleton extends Fragment {
 
         Bundle bundle = getArguments();
         track = (Track) bundle.get("track");
-        String preview = track.getPreview();
-        uriTrack = Uri.parse(preview);
 
 
         nombreArtista.setText(track.getArtist().getName());
@@ -102,10 +110,6 @@ public class FragmentReproductorSingleton extends Fragment {
 
 
         reproductorSingleton = ReproductorSingleton.getInstance();
-        reproductorSingleton.prepareMediaPlayer(getActivity(), uriTrack);
-
-
-
 
 
         long durationMediaPlayer = reproductorSingleton.getMediaPlayer().getDuration();
@@ -146,7 +150,7 @@ public class FragmentReproductorSingleton extends Fragment {
         });
 
 
-/*        *//**
+        /*        *//**
          * Este metodo hace que se almacene la cancion en el buffer
          * */
         reproductorSingleton.getMediaPlayer().setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
@@ -186,17 +190,31 @@ public class FragmentReproductorSingleton extends Fragment {
             }
         });
 
+        botonNextTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentReproductorSingletonListener.onClickNext();
+            }
+        });
+
+        botonPreviousTrack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragmentReproductorSingletonListener.onClickPrevious();
+            }
+        });
+
 
         return view;
     }
 
     public void setPlayPause() {
         if (reproductorSingleton.getMediaPlayer().isPlaying()) {
-            //handler.post(updater);
-            //reproductorSingleton.getMediaPlayer().pause();
+
             imageViewPlayPause.setImageResource(R.drawable.ic_pause_circle_filled);
 
         } else {
+
             imageViewPlayPause.setImageResource(R.drawable.ic_play_circle_filled);
 
         }
@@ -210,6 +228,8 @@ public class FragmentReproductorSingleton extends Fragment {
         nombreArtista = view.findViewById(R.id.fragmentReproductorNombreArtista);
         seekBar = view.findViewById(R.id.fragmentReproductorSeekBar);
         botonFavoritos = view.findViewById(R.id.reproductorFavoritos);
+        botonNextTrack = view.findViewById(R.id.botonNextTrack);
+        botonPreviousTrack = view.findViewById(R.id.botonPreviousTrack);
     }
 
 
@@ -257,5 +277,12 @@ public class FragmentReproductorSingleton extends Fragment {
     }
 
 
+    public interface FragmentReproductorSingletonListener {
+        public void onClickNext();
+        public void onClickPrevious();
+    }
+
 }
+
+
 

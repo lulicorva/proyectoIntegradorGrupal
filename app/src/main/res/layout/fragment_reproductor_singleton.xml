@@ -7,7 +7,7 @@
     android:background="@drawable/gradient_background"
     android:gravity="bottom"
     android:orientation="vertical"
-    tools:context=".view.fragment.FragmentReproductor">
+    tools:context=".view.fragment.FragmentReproductorSingleton">
 
 
     <FrameLayout
@@ -91,6 +91,16 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_previous_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/botonPreviousTrack"
+                android:background="#00FAF6F6"
+                android:paddingRight="15dp"
+                app:layout_constraintRight_toLeftOf="@+id/fragmentReproductorPlayPause"/>
+
+            <ImageView
                 android:id="@+id/fragmentReproductorPlayPause"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -102,6 +112,16 @@
                 android:background="#00FAF6F6"
                 android:src="@drawable/ic_play_circle_filled" />
 
+            <ImageView
+                android:layout_width="70dp"
+                android:id="@+id/botonNextTrack"
+                android:layout_height="70dp"
+                android:src="@drawable/ic_next_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="#00FAF6F6"
+                android:paddingLeft="15dp"
+                app:layout_constraintLeft_toRightOf="@+id/fragmentReproductorPlayPause"/>
+
 
             <ImageButton
                 android:id="@+id/reproductorFavoritos"
@@ -110,7 +130,7 @@
                 android:background="#00FFFFFF"
                 android:src="@drawable/ic_favorite_border"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/fragmentReproductorPlayPause"
+                app:layout_constraintLeft_toRightOf="@+id/botonNextTrack"
 
                 app:layout_constraintRight_toRightOf="parent" />
 

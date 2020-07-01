@@ -14,10 +14,13 @@ import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterReproductor;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
 
-public class ReproductorActivity extends AppCompatActivity {
+public class ReproductorActivity extends AppCompatActivity implements FragmentReproductorSingleton.FragmentReproductorSingletonListener {
 
     private ViewPager viewPager;
-    private ViewPagerAdapterReproductor viewPagerAdapter;
+    private ViewPagerAdapterReproductor viewPagerAdapterReproductor;
+
+    private int posicionAlScrollear;
+    private Track trackList;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -29,21 +32,21 @@ public class ReproductorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        final Track trackList = (Track) bundle.get("trackList");
+        trackList = (Track) bundle.get("trackList");
 
         //Posicion del track al que hacen click
-        int position = bundle.getInt("position");
+       int position = bundle.getInt("position");
 
         viewPager = findViewById(R.id.activityReproductorViewPager);
-        viewPagerAdapter = new ViewPagerAdapterReproductor(getSupportFragmentManager(), 2, trackList.getData());
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPagerAdapterReproductor = new ViewPagerAdapterReproductor(getSupportFragmentManager(), 2, trackList.getData());
+        viewPager.setAdapter(viewPagerAdapterReproductor);
         viewPager.setCurrentItem(position);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-
+                posicionAlScrollear = position;
 
                 ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
                 reproductorSingleton.getMediaPlayer().pause();
@@ -56,7 +59,7 @@ public class ReproductorActivity extends AppCompatActivity {
                 reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
                 reproductorSingleton.getMediaPlayer().start();
 
-                FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapter.getItem(position);
+                FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(position);
                 fragmentReproductorSingleton.updateSeekBar();
                 fragmentReproductorSingleton.setPlayPause();
 
@@ -78,4 +81,45 @@ public class ReproductorActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClickNext() {
+        viewPager.setCurrentItem(posicionAlScrollear + 1);
+        ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
+        reproductorSingleton.getMediaPlayer().pause();
+
+        String preview = trackList.getData().get(posicionAlScrollear + 1).getPreview();
+        Uri uriTrack = Uri.parse(preview);
+
+
+        reproductorSingleton.setNewMediaPlayer();
+        reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
+        reproductorSingleton.getMediaPlayer().start();
+
+        FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(posicionAlScrollear + 1);
+        fragmentReproductorSingleton.updateSeekBar();
+        fragmentReproductorSingleton.setPlayPause();
+
+    }
+
+    @Override
+    public void onClickPrevious() {
+        viewPager.setCurrentItem(posicionAlScrollear - 1);
+
+        ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
+        reproductorSingleton.getMediaPlayer().pause();
+
+        String preview = trackList.getData().get(posicionAlScrollear - 1).getPreview();
+        Uri uriTrack = Uri.parse(preview);
+
+
+        reproductorSingleton.setNewMediaPlayer();
+        reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
+        reproductorSingleton.getMediaPlayer().start();
+
+        FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(posicionAlScrollear - 1);
+        fragmentReproductorSingleton.updateSeekBar();
+        fragmentReproductorSingleton.setPlayPause();
+
+
+    }
 }

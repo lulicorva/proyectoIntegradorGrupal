@@ -45,7 +45,7 @@ public class FragmentReproductorSingleton extends Fragment {
     private ImageButton botonFavoritos;
     private MaterialTextView nombreTrack;
     private MaterialTextView nombreArtista;
-    private static Handler handler = new Handler();
+    private Handler handler = new Handler();
 
     private Uri uriTrack;
     private Track track;
@@ -104,20 +104,6 @@ public class FragmentReproductorSingleton extends Fragment {
         reproductorSingleton = ReproductorSingleton.getInstance();
         reproductorSingleton.prepareMediaPlayer(getActivity(), uriTrack);
 
-        //handler.removeCallbacks(updater);
-        //updateSeekBar();
-
-
-
-        if (reproductorSingleton.getMediaPlayer().isPlaying()) {
-            handler.post(updater);
-            //reproductorSingleton.getMediaPlayer().pause();
-            imageViewPlayPause.setImageResource(R.drawable.ic_pause_circle_filled);
-
-        } else {
-            imageViewPlayPause.setImageResource(R.drawable.ic_play_circle_filled);
-
-        }
 
 
 
@@ -162,14 +148,14 @@ public class FragmentReproductorSingleton extends Fragment {
 
 /*        *//**
          * Este metodo hace que se almacene la cancion en el buffer
-         * *//*
+         * */
         reproductorSingleton.getMediaPlayer().setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
             @Override
             public void onBufferingUpdate(MediaPlayer mp, int percent) {
                 seekBar.setSecondaryProgress(percent);
 
             }
-        });*/
+        });
 
 
         botonFavoritos.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +188,18 @@ public class FragmentReproductorSingleton extends Fragment {
 
 
         return view;
+    }
+
+    public void setPlayPause() {
+        if (reproductorSingleton.getMediaPlayer().isPlaying()) {
+            //handler.post(updater);
+            //reproductorSingleton.getMediaPlayer().pause();
+            imageViewPlayPause.setImageResource(R.drawable.ic_pause_circle_filled);
+
+        } else {
+            imageViewPlayPause.setImageResource(R.drawable.ic_play_circle_filled);
+
+        }
     }
 
     private void findViewById(View view) {

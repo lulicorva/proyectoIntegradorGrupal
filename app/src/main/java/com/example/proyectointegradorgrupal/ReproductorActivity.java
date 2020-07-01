@@ -44,17 +44,22 @@ public class ReproductorActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 
-                //Estoy seguro que no es la mejor manera de hacerlo (porque esta info ya la tiene el fragmentReprSing)
+
                 ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
-                String preview = trackList.getData().get(position).getPreview();
-                Uri uriTrack = Uri.parse(preview);
                 reproductorSingleton.getMediaPlayer().pause();
 
-                //Este metodo es necesario?
-                reproductorSingleton.setNewMediaPlayer();
+                String preview = trackList.getData().get(position).getPreview();
+                Uri uriTrack = Uri.parse(preview);
 
+
+                reproductorSingleton.setNewMediaPlayer();
                 reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
                 reproductorSingleton.getMediaPlayer().start();
+
+                FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapter.getItem(position);
+                fragmentReproductorSingleton.updateSeekBar();
+                fragmentReproductorSingleton.setPlayPause();
+
             }
 
             @Override

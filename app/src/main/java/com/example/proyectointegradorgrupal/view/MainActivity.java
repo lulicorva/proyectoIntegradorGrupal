@@ -298,8 +298,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onCLickPerfil() {
-        FragmentReproductorSingleton fragmentReproductorSingleton = new FragmentReproductorSingleton();
-        pegarFragment(fragmentReproductorSingleton, R.id.activityMainContenedorPrincipal);
 
         //pegar fragment Mi perfil
     }

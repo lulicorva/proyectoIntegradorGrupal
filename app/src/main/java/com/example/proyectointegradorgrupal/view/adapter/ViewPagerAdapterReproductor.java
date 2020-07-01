@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.proyectointegradorgrupal.model.Track;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
+
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
 
 import java.util.ArrayList;

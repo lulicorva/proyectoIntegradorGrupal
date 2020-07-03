@@ -20,13 +20,12 @@ import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.ReproductorActivity;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
-import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.model.Podcast;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
 import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentAlbumsFavoritos;
 import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentPLaylistsFavoritos;
@@ -173,15 +172,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
-    /**
-     * onCLick FragmentPrincipal
-     */
     @Override
-    public void onClickRecomendado(Recomendados recomendados) {
-        //abrir fragment con recomendados
+    public void onClickPodcast(Podcast podcast) {
+
     }
-
-
 
     @Override
     public void onClickTrackDesdeSearch(List<Track> trackList, int position) {

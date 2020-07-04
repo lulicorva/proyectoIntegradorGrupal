@@ -30,7 +30,6 @@ public class CreateNotification {
     private static CreateNotification INSTANCE = null;
 
 
-
     private synchronized static void createInstance() {
         if (INSTANCE == null) {
             INSTANCE = new CreateNotification();
@@ -44,9 +43,6 @@ public class CreateNotification {
         }
         return INSTANCE;
     }
-
-
-
 
 
     public static void createNotificacion(Context context, Track track, int playButtonID, int position, int size) {
@@ -107,8 +103,8 @@ public class CreateNotification {
                     .setOnlyAlertOnce(true) //muestra notif solo la primera vez
                     .setShowWhen(false)
                     .addAction(drw_previous, "Previous", pendingIntentPrevious)
-                    .addAction(drw_next, "Next", pendingIntentNext)
                     .addAction(playButtonID, "Play", pendingIntentPlayPause)
+                    .addAction(drw_next, "Next", pendingIntentNext)
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setShowActionsInCompactView(0, 1, 2)
                             .setMediaSession(mediaSessionCompat.getSessionToken()))

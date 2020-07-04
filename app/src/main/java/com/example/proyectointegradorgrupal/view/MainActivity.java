@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     private NotificationManager notificationManager;
 
+    private ReproductorSingleton reproductorSingleton;
+    //Este bundle me lo trae el metodo onActivityResult(), de ahi saco la trackList y la posicion
     private Bundle bundleDesdeReprAct;
+    private int position;
 
 
     @Override
@@ -348,25 +351,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         startActivityForResult(intent, 10);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /*
-         */
-/**
- * Notificacion usa metodo createChannel
- * *//*
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createChannel();
-            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
-            startService(new Intent(MainActivity.this, OnClearFromNotificationService.class));
-
-        }
-*/
-
-    }
-
 
     //NOTIFICACIONES PRUEBA
 
@@ -375,37 +359,60 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
 
             String action = intent.getExtras().getString("actionName");
 
 
-            //Bundle bundle = broadcastReceiver.getResultExtras(true);
             Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
-            int position = bundleDesdeReprAct.getInt("position");
+            //position = bundleDesdeReprAct.getInt("position");
+
 
             switch (action) {
 
                 case CreateNotification.NEXT_TRACK:
-                    String previewNext = trackList.getData().get(position + 1).getPreview();
-                    Uri uriTrackNext = Uri.parse(previewNext);
+
+                    if(position + 1 < trackList.getData().size()) {
+                        position = position + 1;
+                        reproductorSingleton = ReproductorSingleton.getInstance();
+                        reproductorSingleton.getMediaPlayer().pause();
+                        String previewNext = trackList.getData().get(position).getPreview();
+                        Uri uriTrackNext = Uri.parse(previewNext);
 
 
-                    reproductorSingleton.setNewMediaPlayer();
-                    reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackNext);
-                    reproductorSingleton.getMediaPlayer().start();
+                        reproductorSingleton.setNewMediaPlayer();
+                        reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackNext);
+                        reproductorSingleton.getMediaPlayer().start();
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+                    }
 
                     // onClickNext();
                     break;
                 case CreateNotification.PREVIOUS_TRACK:
-                    String previewPrevious = trackList.getData().get(position - 1).getPreview();
-                    Uri uriTrackPrevious = Uri.parse(previewPrevious);
+
+                    if (position > 0) {
+                        position = position - 1;
+                        reproductorSingleton = ReproductorSingleton.getInstance();
+                        reproductorSingleton.getMediaPlayer().pause();
+                        String previewPrevious = trackList.getData().get(position).getPreview();
+                        Uri uriTrackPrevious = Uri.parse(previewPrevious);
 
 
-                    reproductorSingleton.setNewMediaPlayer();
-                    reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackPrevious);
-                    reproductorSingleton.getMediaPlayer().start();
+                        reproductorSingleton.setNewMediaPlayer();
+                        reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackPrevious);
+                        reproductorSingleton.getMediaPlayer().start();
 
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+                    }
 
                     // onClickPrevious();
                     break;
@@ -416,9 +423,22 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
                         reproductorSingleton.getMediaPlayer().pause();
 
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_play_circle_filled, 1,
+                                trackList.getData().size());
+
+
                     } else {
 
                         reproductorSingleton.getMediaPlayer().start();
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
 
                     }
 
@@ -451,19 +471,16 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
         bundleDesdeReprAct = data.getExtras();
         Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
-        int position = bundleDesdeReprAct.getInt("position");
+        position = bundleDesdeReprAct.getInt("position");
 
 
-        //PendingIntent pendingDataIntent = PendingIntent.getBroadcast(MainActivity.this, 0, data, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
-//        broadcastReceiver.setResultExtras(bundle);
 
 
         createNotification = CreateNotification.getInstance();
         createNotification.createNotificacion(MainActivity.this,
                 trackList.getData().get(position),
-                R.drawable.ic_baseline_play_circle_outline_24, 1,
+                R.drawable.ic_pause_circle_filled, 1,
                 trackList.getData().size());
 
 
@@ -477,7 +494,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
             startService(new Intent(MainActivity.this, OnClearFromNotificationService.class));
 
-            // broadcastReceiver.setResult(requestCode, "bundle", bundle);
+
         }
 
 

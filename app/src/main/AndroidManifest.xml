@@ -51,10 +51,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity">
-
-
-
         </activity>
+
+        <receiver android:name=".service.NotificationActionService"/>
+        <service android:name=".service.OnClearFromNotificationService"/>
     </application>
 
 </manifest>

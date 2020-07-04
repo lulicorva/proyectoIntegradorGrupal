@@ -1,11 +1,20 @@
 package com.example.proyectointegradorgrupal.view;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -22,6 +31,7 @@ import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
@@ -54,10 +64,15 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     public static final String QUERY = "query";
     public static final String FAVORITO = "favorito";
     private FragmentTuBiblioteca fragmentTuBiblioteca;
+    private CreateNotification createNotification;
+
+    private NotificationManager notificationManager;
+
+    private Bundle bundleDesdeReprAct;
+
 
     @Override
-//TODO me parece que el FavoritosFragment deveria ser un FragmentPantallaInicio y dentro de ese poner 3 recyclerview, uno de favoritos, otro de
-//tus playlists y otro de recomendados, todos dentro del mismo fragment
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -182,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
     @Override
     public void onClickTrackDesdeSearch(List<Track> trackList, int position) {
         abrirReproductorActivity(trackList, position);
@@ -201,8 +215,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
 
     }
-
-
 
 
     /**
@@ -324,8 +336,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
-
     private void abrirReproductorActivity(List<Track> trackList, int position) {
         Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
         Bundle bundle = new Bundle();
@@ -334,7 +344,143 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         bundle.putInt("position", position);
         bundle.putSerializable("trackList", track);
         intent.putExtras(bundle);
-        startActivity(intent);
+
+        startActivityForResult(intent, 10);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        /*
+         */
+/**
+ * Notificacion usa metodo createChannel
+ * *//*
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            startService(new Intent(MainActivity.this, OnClearFromNotificationService.class));
+
+        }
+*/
+
+    }
+
+
+    //NOTIFICACIONES PRUEBA
+
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
+
+            String action = intent.getExtras().getString("actionName");
+
+
+            //Bundle bundle = broadcastReceiver.getResultExtras(true);
+            Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
+            int position = bundleDesdeReprAct.getInt("position");
+
+            switch (action) {
+
+                case CreateNotification.NEXT_TRACK:
+                    String previewNext = trackList.getData().get(position + 1).getPreview();
+                    Uri uriTrackNext = Uri.parse(previewNext);
+
+
+                    reproductorSingleton.setNewMediaPlayer();
+                    reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackNext);
+                    reproductorSingleton.getMediaPlayer().start();
+
+                    // onClickNext();
+                    break;
+                case CreateNotification.PREVIOUS_TRACK:
+                    String previewPrevious = trackList.getData().get(position - 1).getPreview();
+                    Uri uriTrackPrevious = Uri.parse(previewPrevious);
+
+
+                    reproductorSingleton.setNewMediaPlayer();
+                    reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackPrevious);
+                    reproductorSingleton.getMediaPlayer().start();
+
+
+                    // onClickPrevious();
+                    break;
+
+                case CreateNotification.PLAYPAUSE:
+                    reproductorSingleton = ReproductorSingleton.getInstance();
+                    if (reproductorSingleton.getMediaPlayer().isPlaying()) {
+
+                        reproductorSingleton.getMediaPlayer().pause();
+
+                    } else {
+
+                        reproductorSingleton.getMediaPlayer().start();
+
+                    }
+
+                    break;
+
+
+            }
+
+
+        }
+    };
+
+
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Jaxoo", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = getSystemService(NotificationManager.class);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        bundleDesdeReprAct = data.getExtras();
+        Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
+        int position = bundleDesdeReprAct.getInt("position");
+
+
+        //PendingIntent pendingDataIntent = PendingIntent.getBroadcast(MainActivity.this, 0, data, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+//        broadcastReceiver.setResultExtras(bundle);
+
+
+        createNotification = CreateNotification.getInstance();
+        createNotification.createNotificacion(MainActivity.this,
+                trackList.getData().get(position),
+                R.drawable.ic_baseline_play_circle_outline_24, 1,
+                trackList.getData().size());
+
+
+        /**
+         * Notificacion usa metodo createChannel
+         * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+
+            startService(new Intent(MainActivity.this, OnClearFromNotificationService.class));
+
+            // broadcastReceiver.setResult(requestCode, "bundle", bundle);
+        }
+
+
     }
 }
 

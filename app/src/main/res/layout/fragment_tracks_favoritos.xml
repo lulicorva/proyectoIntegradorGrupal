@@ -10,9 +10,9 @@
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:paddingLeft="10dp"
         android:textSize="30dp"
-        android:textColor="#FFF"
+        android:textColor="#C8F1EBEB"
         android:text="Canciones">
 
     </com.google.android.material.textview.MaterialTextView>

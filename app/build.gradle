@@ -52,4 +52,7 @@ dependencies {
 
     //libreria de Google
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
+
+    //libreria para notificaciones
+    implementation 'androidx.media:media:1.1.0'
 }

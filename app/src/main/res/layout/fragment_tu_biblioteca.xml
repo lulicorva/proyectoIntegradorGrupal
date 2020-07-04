@@ -13,7 +13,7 @@
     android:layout_height="wrap_content"
     android:textAlignment="center"
     android:textSize="40dp"
-    android:textColor="#FFF"
+    android:textColor="#C8F1EBEB"
     android:text="Tu biblioteca">
 
 </com.google.android.material.textview.MaterialTextView>

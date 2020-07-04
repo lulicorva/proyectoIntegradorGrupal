@@ -1,0 +1,38 @@
+
+=	java:S131ð""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
+W	java:S125è"<This block of commented-out lines of code should be removed.(ßÙåàþÿÿÿÿ
+Y	java:S125É"<This block of commented-out lines of code should be removed.(Âú«ó8¯ù„º±.
+P	java:S1108"<This class has 9 parents which is greater than 5 authorized.(­¬
+>
+java:S1185à"(Remove this method to simply inherit it.(ºŠñ=
+O
+java:S1128"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš
+P	java:S125e"<This block of commented-out lines of code should be removed.(¾­‚
+x
+java:S1450E"bRemove the "notificationManager" field and declare it as a local variable in the relevant methods.(–š¼Ë
+`
+java:S1192Ø"IDefine a constant instead of duplicating this literal "position" 3 times.(ðÕ‹¡
+_
+java:S1854d"IRemove this useless assignment to local variable "actionBarDrawerToggle".(±Ó»¢
+y
+java:S1450<"cRemove the "bottomNavigationView" field and declare it as a local variable in the relevant methods.(ê¥ÎÚ
+^	java:S125à"<This block of commented-out lines of code should be removed.(ýÿ¬ýÿÿÿÿ8Å²Ø¸±.
+‚
+java:S1128'"lRemove this unused import 'com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton'.(™©ŠÝ
+P
+java:S1481d":Remove this unused "actionBarDrawerToggle" local variable.(±Ó»¢
+w
+java:S1450C"aRemove the "createNotification" field and declare it as a local variable in the relevant methods.(¥€Èê
+^	java:S125ÿ"<This block of commented-out lines of code should be removed.(Ð¥ðÌùÿÿÿÿ8“ˆ¦º±.
+W	java:S125Ž"<This block of commented-out lines of code should be removed.(Ñ¢ÅÏýÿÿÿÿ
+g
+java:S1301ð"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
+=	java:S131ƒ""Add a default case to this switch.(ë´åÝþÿÿÿÿ
+^	java:S125Ì"<This block of commented-out lines of code should be removed.(ú¡óŒøÿÿÿÿ8ûÐ£º±.
+N
+java:S1068<"8Remove this unused "bottomNavigationView" private field.(ê¥ÎÚ
+f
+java:S1192Ù"JDefine a constant instead of duplicating this literal "trackList" 3 times.(˜·¬²þÿÿÿÿ
+S
+java:S2209Ð"5Change this instance-reference to a static reference.(÷†Ì8Å²Ø¸±.
+R	java:S125š"<This block of commented-out lines of code should be removed.(Æ®‡

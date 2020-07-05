@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
@@ -51,6 +52,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private DatosUsuariosController datosUsuariosController;
 
 
     @Override
@@ -104,22 +106,17 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
             @Override
             public void onClick(View v) {
                 if (mAuth.getCurrentUser() != null) {
-                    db.collection(LoginActivity.DATOS_USUARIO)
-                            .document(currentUser.getUid())
-                            .update("albumesFavoritos", FieldValue.arrayUnion(album))
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getActivity(), "Album gregado a favoritos", Toast.LENGTH_SHORT).show();
-                                    albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                    datosUsuariosController = new DatosUsuariosController(getContext());
+                    datosUsuariosController.setAlbumFavorito(album, new ResultListener<Album>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Salio mal agregar album", Toast.LENGTH_SHORT).show();
+                        public void onFinish(Album result) {
+                            Toast.makeText(getActivity(), "Album gregado a favoritos", Toast.LENGTH_SHORT).show();
+                            albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
                         }
                     });
+
+
                 } else {
                     Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
                 }

@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
-
 
 import java.util.ArrayList;
 import java.util.List;

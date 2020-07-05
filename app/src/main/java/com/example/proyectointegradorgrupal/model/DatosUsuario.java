@@ -1,9 +1,18 @@
 package com.example.proyectointegradorgrupal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public class DatosUsuario implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idROOM;
+
+
     private List<Track> tracksFavoritos;
     private List<Album> albumesFavoritos;
     private List<Artist> artistasFavoritos;

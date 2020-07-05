@@ -1,5 +1,9 @@
 package com.example.proyectointegradorgrupal.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -7,19 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+
+@Entity
 public class Track implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idROOM;
 
     @SerializedName("data")
     private List<Track> data;
     private String id;
 
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     private String title;
 
-
+    @ColumnInfo(name = "duration")
     private Double duration;
     private Double trackPosition;
+
+    @ColumnInfo(name = "preview")
     private String preview;
+
 
     @SerializedName("album")
     private Album album;

@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.DatosUsuario;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +39,7 @@ public class FragmentTracksFavoritos extends Fragment {
     private RecyclerView recyclerView;
     private List<Track> trackListFavoritos;
     private FragmentTracksFavoritosListener fragmentTracksFavoritosListener;
+    private DatosUsuariosController datosUsuariosController;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -61,7 +64,39 @@ public class FragmentTracksFavoritos extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerTracksFavoritos);
 
-        db.collection(LoginActivity.DATOS_USUARIO)
+        datosUsuariosController = new DatosUsuariosController(getContext());
+        datosUsuariosController.getDatosUsuario(new ResultListener<DatosUsuario>() {
+            @Override
+            public void onFinish(DatosUsuario result) {
+
+                if (result.getTracksFavoritos() != null) {
+
+                    trackListFavoritos = result.getTracksFavoritos();
+                    trackAdapter = new TrackAdapter(trackListFavoritos, new TrackAdapter.TrackAdapterListener() {
+                        @Override
+                        public void onClick(List<Track> trackList, int position) {
+                            fragmentTracksFavoritosListener.onClickTrackFavoritos(trackList, position);
+                        }
+
+                    });
+
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(trackAdapter);
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+
+
+       /* db.collection(LoginActivity.DATOS_USUARIO)
                 .document(mAuth.getCurrentUser().getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -101,7 +136,7 @@ public class FragmentTracksFavoritos extends Fragment {
                 Toast.makeText(getActivity(), "Error al importar lista", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
 
 
         return view;

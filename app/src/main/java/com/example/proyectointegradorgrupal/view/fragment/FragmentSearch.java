@@ -54,7 +54,7 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
         String query = (String) bundle.getSerializable(MainActivity.QUERY);
 
 
-        searchController = new SearchController();
+        searchController = new SearchController(getContext());
         searchController.getSearch(query, new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {

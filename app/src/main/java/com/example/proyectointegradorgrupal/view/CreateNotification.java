@@ -3,6 +3,7 @@ package com.example.proyectointegradorgrupal.view;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.ReproductorActivity;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.service.NotificationActionService;
 
@@ -52,7 +54,7 @@ public class CreateNotification {
             MediaSessionCompat mediaSessionCompat = new MediaSessionCompat(context, "tag");
 
             //el id deberia ser track.getCover() (deberia ser un int)
-            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.jaxoo);
+            Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.jaxoologin);
 
 
             PendingIntent pendingIntentPrevious;
@@ -94,6 +96,15 @@ public class CreateNotification {
             }
 
 
+            //prueba para que al hacer click sobre la noti me abra el reproductor
+           /* Intent resultIntent = new Intent(context, ReproductorActivity.class);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            stackBuilder.addNextIntentWithParentStack(resultIntent);
+
+            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+*/
+
+
             //creo la notificacion
             notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_music_note_24)
@@ -105,6 +116,9 @@ public class CreateNotification {
                     .addAction(drw_previous, "Previous", pendingIntentPrevious)
                     .addAction(playButtonID, "Play", pendingIntentPlayPause)
                     .addAction(drw_next, "Next", pendingIntentNext)
+
+                  //  .setContentIntent(resultPendingIntent) //prueba reproductor activity
+
                     .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
                             .setShowActionsInCompactView(0, 1, 2)
                             .setMediaSession(mediaSessionCompat.getSessionToken()))

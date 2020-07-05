@@ -1,11 +1,19 @@
 package com.example.proyectointegradorgrupal.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Entity
 public class Album implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idROOM;
+
     private Integer id;
     private String title;
     private String link;

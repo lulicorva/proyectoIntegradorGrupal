@@ -17,7 +17,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.DatosUsuario;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,10 +27,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -59,6 +59,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseUser currentUser;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1;
+
+    private DatosUsuariosController datosUsuariosController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +162,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            crearBaseDeDatosUsuario(user);
+                            crearBaseDeDatosUsuario();
                             updateUI(user);
                         } else {
                             Toast.makeText(LoginActivity.this, "Usuario ya registrado",
@@ -285,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            crearBaseDeDatosUsuario(user);
+                            crearBaseDeDatosUsuario();
                             updateUI(user);
                         } else {
                             Snackbar.make(findViewById(R.id.loginActivity), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
@@ -316,11 +319,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private void crearBaseDeDatosUsuario(FirebaseUser currentUser) {
-        DatosUsuario datosUsuario = new DatosUsuario(null, null, null, null);
+    private void crearBaseDeDatosUsuario() {
 
 
-        db.collection(DATOS_USUARIO)
+
+    datosUsuariosController = new DatosUsuariosController(this);
+    datosUsuariosController.setDatosUsuario(new ResultListener<DatosUsuario>() {
+        @Override
+        public void onFinish(DatosUsuario result) {
+            Toast.makeText(LoginActivity.this, "Funcionoooo", Toast.LENGTH_SHORT).show();
+
+
+        }
+    });
+
+
+        /*db.collection(DATOS_USUARIO)
                 .document(currentUser.getUid())
                 .set(datosUsuario)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -334,7 +348,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(LoginActivity.this, "Error al crear base de datos", Toast.LENGTH_SHORT).show();
             }
         });
-
+*/
 
     }
 }

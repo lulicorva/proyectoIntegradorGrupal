@@ -15,9 +15,11 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.DatosUsuario;
 import com.example.proyectointegradorgrupal.model.Playlist;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter;
 import com.example.proyectointegradorgrupal.view.adapter.PlaylistAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,6 +41,7 @@ public class FragmentPLaylistsFavoritos extends Fragment {
     private PlaylistAdapter playlistAdapter;
     private List<Playlist> playlistFavoritosList;
     private FragmentPlaylistsFavoritosListener fragmentPlaylistsFavoritosListener;
+    private DatosUsuariosController datosUsuariosController;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -64,7 +67,34 @@ public class FragmentPLaylistsFavoritos extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerPlaylistsFavoritos);
 
-        db.collection(LoginActivity.DATOS_USUARIO)
+        datosUsuariosController = new DatosUsuariosController(getContext());
+        datosUsuariosController.getDatosUsuario(new ResultListener<DatosUsuario>() {
+            @Override
+            public void onFinish(DatosUsuario result) {
+                if (result.getPlaylistsFavoritos() != null) {
+
+                    playlistFavoritosList = result.getPlaylistsFavoritos();
+                    playlistAdapter = new PlaylistAdapter(playlistFavoritosList, new PlaylistAdapter.PlaylistAdapterListener() {
+                        @Override
+                        public void onClick(Playlist playlist) {
+                            fragmentPlaylistsFavoritosListener.onClickPlaylistFavorito(playlist);
+                        }
+                    }, R.layout.celda_playlist_favoritos);
+
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+
+                    recyclerView.setLayoutManager(linearLayoutManager);
+                    recyclerView.setAdapter(playlistAdapter);
+
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+       /* db.collection(LoginActivity.DATOS_USUARIO)
                 .document(mAuth.getCurrentUser().getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -104,7 +134,7 @@ public class FragmentPLaylistsFavoritos extends Fragment {
 
             }
         });
-
+*/
 
 
         return view;

@@ -23,7 +23,9 @@ import android.widget.Toast;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +66,7 @@ public class FragmentReproductorSingleton extends Fragment {
     private FirebaseUser currentUser;
 
     private FragmentReproductorSingletonListener fragmentReproductorSingletonListener;
+    private DatosUsuariosController datosUsuariosController;
 
 
     public FragmentReproductorSingleton() {
@@ -166,22 +169,18 @@ public class FragmentReproductorSingleton extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mAuth.getCurrentUser() != null) {
-                    db.collection(LoginActivity.DATOS_USUARIO)
-                            .document(currentUser.getUid())
-                            .update("tracksFavoritos", FieldValue.arrayUnion(track))
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getActivity(), "Track gregado a favoritos", Toast.LENGTH_SHORT).show();
-                                    botonFavoritos.setImageResource(R.drawable.ic_favorite);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+
+                    datosUsuariosController = new DatosUsuariosController(getContext());
+                    datosUsuariosController.setTrackFavorito(track, new ResultListener<Track>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Salio mal agregar favorito", Toast.LENGTH_SHORT).show();
+                        public void onFinish(Track result) {
+                            Toast.makeText(getActivity(), "Track gregado a favoritos", Toast.LENGTH_SHORT).show();
+                            botonFavoritos.setImageResource(R.drawable.ic_favorite);
                         }
                     });
+
+
                 } else {
                     Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
                 }

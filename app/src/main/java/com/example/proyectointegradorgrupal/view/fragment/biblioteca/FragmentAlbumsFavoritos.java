@@ -15,8 +15,10 @@ import android.widget.Toast;
 
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.DatosUsuario;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +39,7 @@ public class FragmentAlbumsFavoritos extends Fragment {
     private AlbumAdapter albumAdapter;
     private List<Album> albumsFavoritosList;
     private FragmentAlbumsFavoritosListener fragmentAlbumsFavoritosListener;
+    private DatosUsuariosController datosUsuariosController;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -60,20 +63,18 @@ public class FragmentAlbumsFavoritos extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerAlbumsFavoritos);
 
 
-        db.collection(LoginActivity.DATOS_USUARIO)
-                .document(mAuth.getCurrentUser().getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        datosUsuariosController = new DatosUsuariosController(getContext());
+        datosUsuariosController.getDatosUsuario(new ResultListener<DatosUsuario>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onFinish(DatosUsuario result) {
+                if (result.getAlbumesFavoritos() != null) {
 
-                DatosUsuario datosUsuario = documentSnapshot.toObject(DatosUsuario.class);
-                if (datosUsuario.getTracksFavoritos() != null) {
 
-                    albumsFavoritosList = datosUsuario.getAlbumesFavoritos();
+                    albumsFavoritosList = result.getAlbumesFavoritos();
                     albumAdapter = new AlbumAdapter(albumsFavoritosList, new AlbumAdapter.AlbumAdapterListener() {
                         @Override
                         public void onClick(Album album) {
-                          fragmentAlbumsFavoritosListener.onClickAlbumFavorito(album);
+                            fragmentAlbumsFavoritosListener.onClickAlbumFavorito(album);
                         }
 
                     }, R.layout.celda_albums_favoritos);
@@ -89,18 +90,9 @@ public class FragmentAlbumsFavoritos extends Fragment {
                     Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
 
                 }
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Toast.makeText(getActivity(), "Error al importar lista", Toast.LENGTH_SHORT).show();
-
             }
         });
+
 
 
 

@@ -1,6 +1,8 @@
 package com.example.proyectointegradorgrupal.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -8,13 +10,23 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
+@Entity(tableName = "albumsFavoritos")
 public class Album implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int idROOM;
 
+    public int getIdROOM() {
+        return idROOM;
+    }
+
+    public void setIdROOM(int idROOM) {
+        this.idROOM = idROOM;
+    }
+
     private Integer id;
+
+    @ColumnInfo(name = "title")
     private String title;
     private String link;
     private String cover;
@@ -30,7 +42,7 @@ public class Album implements Serializable {
     public Album() {
 
     }
-
+@Ignore
     public Album(Integer id, String title, String link, String cover, Integer duration, Integer rating, String tracklist,String coverXL) {
         this.id = id;
         this.title = title;

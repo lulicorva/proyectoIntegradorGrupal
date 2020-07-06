@@ -1,0 +1,20 @@
+
+œ
+java:S11864"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñµÚœıÿÿÿÿ
+c
+java:S1128"MRemove this unused import 'com.example.proyectointegradorgrupal.model.Album'.(ÊİÒµ
+J
+java:S1068'"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ
+v
+java:S1128"[Remove this unused import 'com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter'.(‚Óëşşÿÿÿÿ
+l
+java:S1450%"QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ
+H
+java:S1068%"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8À§².
+]	java:S125c"<This block of commented-out lines of code should be removed.(ÛØÎ‰ÿÿÿÿÿ8À§².
+j
+java:S1450&"TRemove the "mAuth" field and declare it as a local variable in the relevant methods.(ªĞ”’
+ƒ
+java:S1450,"fRemove the "datosUsuariosController" field and declare it as a local variable in the relevant methods.(‹²‰½8¤Ö¨².
+u
+java:S1450'"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ

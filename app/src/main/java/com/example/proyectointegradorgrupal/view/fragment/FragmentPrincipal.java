@@ -1,5 +1,6 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -53,6 +54,11 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
         View view = inflater.inflate(R.layout.fragment_principal, container, false);
 
 
+        final ProgressDialog mDialog = new ProgressDialog(getActivity());
+        mDialog.setMessage("Loading...");
+        mDialog.setCancelable(true);
+        mDialog.show();
+
         /**
          * FAVORITOS (ALBUM)
          * */
@@ -68,6 +74,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
                 recyclerViewFavoritos.setLayoutManager(linearLayoutManager);
                 recyclerViewFavoritos.setAdapter(albumAdapter);
 
+                mDialog.dismiss();
             }
         });
 

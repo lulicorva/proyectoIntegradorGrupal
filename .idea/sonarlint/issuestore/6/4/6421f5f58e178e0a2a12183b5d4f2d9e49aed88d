@@ -1,0 +1,9 @@
+
+S
+java:S18749"6Remove this use of "ProgressDialog"; it is deprecated.(§Šñ¾8ÃÒ‹ƒ².
+S
+java:S18749"6Remove this use of "ProgressDialog"; it is deprecated.(§Šñ¾8ÃÒ‹ƒ².
+O
+java:S1874:"2Remove this use of "setMessage"; it is deprecated.(ð†û‚8ÃÒ‹ƒ².
+}
+java:S1450$"gRemove the "recyclerViewRecomendados" field and declare it as a local variable in the relevant methods.(Ð­€ã

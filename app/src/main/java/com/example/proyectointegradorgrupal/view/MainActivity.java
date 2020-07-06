@@ -143,9 +143,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     private void abrirAlbumTracks(Album album) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(MainActivity.FAVORITO, album);
-
-
+        bundle.putSerializable(FAVORITO, album);
         FragmentAlbumTracks fragmentAlbumTracks = new FragmentAlbumTracks();
         fragmentAlbumTracks.setArguments(bundle);
         pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);

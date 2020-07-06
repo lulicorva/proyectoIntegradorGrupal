@@ -1,0 +1,9 @@
+
+F
+java:S1128	"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+q
+java:S1128"VRemove this unused import 'com.example.proyectointegradorgrupal.model.AlbumContainer'.(ÇãÌôûÿÿÿÿ
+X
+java:S1172"=Remove this unused method parameter "resultListenerFromView".(‡ÅÕÆùÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¥»÷Æ

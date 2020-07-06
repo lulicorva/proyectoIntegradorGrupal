@@ -20,10 +20,16 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyectointegradorgrupal.controller.LyricsController;
+import com.example.proyectointegradorgrupal.model.Example;
+import com.example.proyectointegradorgrupal.model.Lyrics;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
@@ -34,6 +40,8 @@ public class ReproductorActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private ViewPagerAdapter viewPagerAdapter;
     private Uri uriTrack;
+    private ExtendedFloatingActionButton botonFlotante;
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,7 +52,7 @@ public class ReproductorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        Track track = (Track) bundle.get("track");
+        final Track track = (Track) bundle.get("track");
         final String preview = track.getPreview();
         uriTrack = Uri.parse(preview);
 
@@ -56,8 +64,28 @@ public class ReproductorActivity extends AppCompatActivity {
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion);
         viewPager.setAdapter(viewPagerAdapter);
 
+        botonFlotante = findViewById(R.id.botonletras);
 
-    }
+        botonFlotante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent unIntent = new Intent(ReproductorActivity.this, PopUpLetras.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("track", track);
+
+                unIntent.putExtras(bundle);
+
+                startActivity(unIntent);
+
+                    }
+                });
 
 
-}
+
+            }
+        }
+
+
+
+
+

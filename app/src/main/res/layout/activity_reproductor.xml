@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ReproductorActivity"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
 
    <androidx.viewpager.widget.ViewPager
+       android:id="@+id/activityReproductorViewPager"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/activityReproductorViewPager"/>
+       android:layout_height="match_parent" />
+
+   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom|end"
+       android:layout_marginBottom="100dp"
+       android:layout_marginRight="20dp"
+       android:id="@+id/botonletras"
+       android:backgroundTint="#000"
+       app:icon="@drawable/ic_baseline_queue_music_24"
+       app:iconTint="#FFF"
+       android:text="LYRICS"
+       android:textAlignment="viewEnd"
+       android:textColor="#FFF"
+       android:elevation="6dp"
+       />
 
 
-</LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

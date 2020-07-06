@@ -62,7 +62,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         fragmentListadoCancionesArtista.setText(album.getTitle());
 
         albumController = new AlbumController();
-        albumController.getAlbumTracks(album.getId().toString(), new ResultListener<Track>() {
+        albumController.getAlbumTracks(album.getId().toString(),new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
                 trackAdapter = new TrackAdapter(result.getData(), FragmentAlbumTracks.this);

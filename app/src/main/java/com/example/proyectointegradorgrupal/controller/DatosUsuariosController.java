@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
+import androidx.room.Dao;
+
 import com.example.proyectointegradorgrupal.configuration.AppDatabase;
 import com.example.proyectointegradorgrupal.dao.DatosUsuarioDaoFirebase;
 import com.example.proyectointegradorgrupal.dao.DatosUsuarioDaoRoom;
@@ -64,8 +66,8 @@ public class DatosUsuariosController {
 
     }
 
-    public void setDatosUsuario(final ResultListener<DatosUsuario> resultListenerFromView) {
-        datosUsuarioDaoFirebase.setDatosUsuario(new DatosUsuario(), new ResultListener<DatosUsuario>() {
+    public void setDatosUsuario(DatosUsuario datosUsuario, final ResultListener<DatosUsuario> resultListenerFromView) {
+        datosUsuarioDaoFirebase.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
             @Override
             public void onFinish(DatosUsuario result) {
 

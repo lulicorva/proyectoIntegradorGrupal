@@ -1,37 +1,39 @@
 
+P	java:S125h"<This block of commented-out lines of code should be removed.(¾­‚
+S
+java:S2209š"5Change this instance-reference to a static reference.(÷†Ì8–×ê².
+S
+java:S2209µ"5Change this instance-reference to a static reference.(÷†Ì8–×ê².
+f
+java:S1192Ü"JDefine a constant instead of duplicating this literal "trackList" 3 times.(˜·¬²şÿÿÿÿ
+=	java:S131ò""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
 y
 java:S1450<"cRemove the "bottomNavigationView" field and declare it as a local variable in the relevant methods.(ê¥ÎÚ
-S
-java:S2209µ"5Change this instance-reference to a static reference.(÷†Ì8Òæ‡ƒ².
-g
-java:S1301ñ"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
-f
-java:S1192Ú"JDefine a constant instead of duplicating this literal "trackList" 3 times.(˜·¬²şÿÿÿÿ
-x
-java:S1450E"bRemove the "notificationManager" field and declare it as a local variable in the relevant methods.(–š¼Ë
-R	java:S125 "<This block of commented-out lines of code should be removed.(Æ®‡
-P
-java:S1481g":Remove this unused "actionBarDrawerToggle" local variable.(±Ó»¢
-O
-java:S1128"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš
 N
 java:S1068<"8Remove this unused "bottomNavigationView" private field.(ê¥ÎÚ
-=	java:S131ñ""Add a default case to this switch.(ë´åİşÿÿÿÿ
+P	java:S1108"<This class has 9 parents which is greater than 5 authorized.(­¬
+W	java:S125ˆ"<This block of commented-out lines of code should be removed.(Ñ¢ÅÏıÿÿÿÿ
+g
+java:S1301ò"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
+S
+java:S2209İ"5Change this instance-reference to a static reference.(÷†Ì8–×ê².
 ‚
 java:S1128'"lRemove this unused import 'com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton'.(™©Šİ
 S
-java:S1128"6Remove this unused import 'android.app.PendingIntent'.(šºŞ—8Òæ‡ƒ².
+java:S2209‚"5Change this instance-reference to a static reference.(÷†Ì8–×ê².
+P
+java:S1481g":Remove this unused "actionBarDrawerToggle" local variable.(±Ó»¢
+c
+java:S1192e"FDefine a constant instead of duplicating this literal "Jaxoo" 3 times.(Ú¼çÍ8õ±ê².
+R	java:S125 "<This block of commented-out lines of code should be removed.(Æ®‡
 _
 java:S1854g"IRemove this useless assignment to local variable "actionBarDrawerToggle".(±Ó»¢
-P	java:S125h"<This block of commented-out lines of code should be removed.(¾­‚
-P	java:S1108"<This class has 9 parents which is greater than 5 authorized.(­¬
+=	java:S131ñ""Add a default case to this switch.(ë´åİşÿÿÿÿ
 S
-java:S2209‚"5Change this instance-reference to a static reference.(÷†Ì8Å²Ø¸±.
+java:S2209ª"5Change this instance-reference to a static reference.(÷†Ì8–×ê².
+O
+java:S1128"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš
 S
-java:S2209ª"5Change this instance-reference to a static reference.(÷†Ì8Òæ‡ƒ².
-=	java:S131ñ""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
-S
-java:S2209š"5Change this instance-reference to a static reference.(÷†Ì8Òæ‡ƒ².
-S
-java:S2209à"5Change this instance-reference to a static reference.(÷†Ì8Òæ‡ƒ².
-W	java:S125ˆ"<This block of commented-out lines of code should be removed.(Ñ¢ÅÏıÿÿÿÿ
+java:S1128"6Remove this unused import 'android.app.PendingIntent'.(šºŞ—8Òæ‡ƒ².
+x
+java:S1450E"bRemove the "notificationManager" field and declare it as a local variable in the relevant methods.(–š¼Ë

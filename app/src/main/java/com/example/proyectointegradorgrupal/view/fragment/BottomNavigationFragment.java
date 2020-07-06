@@ -55,7 +55,7 @@ public class BottomNavigationFragment extends Fragment{
                         break;
                     case R.id.menuTuBiblioteca:
                         fragmentBottomNavigationListener.onClickTuBiblioteca();
-                        //Toast.makeText(getContext(), "Tu Biblioteca", Toast.LENGTH_SHORT).show();
+
                         break;
                     case R.id.menuPerfil:
                         fragmentBottomNavigationListener.onCLickPerfil();

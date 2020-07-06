@@ -57,11 +57,9 @@ public class FragmentReproductorSingleton extends Fragment {
 
 
     private ReproductorSingleton reproductorSingleton;
-    private AlbumController albumController;
-    private ArrayList<Track> trackList;
-    private ArrayList<String> listPreviews;
 
-    private FirebaseFirestore db;
+
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -96,7 +94,8 @@ public class FragmentReproductorSingleton extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reproductor_singleton, container, false);
 
-        db = FirebaseFirestore.getInstance();
+
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 

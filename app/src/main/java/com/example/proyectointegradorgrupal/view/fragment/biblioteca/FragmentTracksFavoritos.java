@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,14 +35,15 @@ import java.util.List;
 
 public class FragmentTracksFavoritos extends Fragment {
 
-    private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+
     private TrackAdapter trackAdapter;
     private RecyclerView recyclerView;
     private List<Track> trackListFavoritos;
     private FragmentTracksFavoritosListener fragmentTracksFavoritosListener;
     private DatosUsuariosController datosUsuariosController;
+
+    private DatosUsuario datosUsuario;
+    private Track deletedTrack;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,9 +62,6 @@ public class FragmentTracksFavoritos extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_tracks_favoritos, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
 
         recyclerView = view.findViewById(R.id.recyclerTracksFavoritos);
 
@@ -68,7 +69,7 @@ public class FragmentTracksFavoritos extends Fragment {
         datosUsuariosController.getDatosUsuario(new ResultListener<DatosUsuario>() {
             @Override
             public void onFinish(DatosUsuario result) {
-
+                datosUsuario = result;
                 if (result.getTracksFavoritos() != null) {
 
                     trackListFavoritos = result.getTracksFavoritos();
@@ -88,59 +89,63 @@ public class FragmentTracksFavoritos extends Fragment {
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
 
-
-
-       /* db.collection(LoginActivity.DATOS_USUARIO)
-                .document(mAuth.getCurrentUser().getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                DatosUsuario datosUsuario = documentSnapshot.toObject(DatosUsuario.class);
-                if (datosUsuario.getTracksFavoritos() != null) {
-
-                    trackListFavoritos = datosUsuario.getTracksFavoritos();
-                    trackAdapter = new TrackAdapter(trackListFavoritos, new TrackAdapter.TrackAdapterListener() {
-                        @Override
-                        public void onClick(List<Track> trackList, int position) {
-                            fragmentTracksFavoritosListener.onClickTrackFavoritos(trackList, position);
-                        }
-
-                    });
-
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-
-                    recyclerView.setLayoutManager(linearLayoutManager);
-                    recyclerView.setAdapter(trackAdapter);
-
-
-                } else {
-
-                    Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Toast.makeText(getActivity(), "Error al importar lista", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
         return view;
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+            ItemTouchHelper.START |
+            ItemTouchHelper.END,
+            ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+
+            deletedTrack = trackListFavoritos.get(position);
+            trackListFavoritos.remove(deletedTrack);
+
+            trackAdapter.notifyItemRemoved(position);
+            Snackbar.make(recyclerView, "Track eliminado", BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction("Deshacer", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            trackListFavoritos.add(position, deletedTrack);
+                            trackAdapter.notifyItemInserted(position);
+
+                            datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
+                                @Override
+                                public void onFinish(DatosUsuario result) {
+                                    Toast.makeText(getActivity(), "Oleee", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                    }).show();
+
+            datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
+                @Override
+                public void onFinish(DatosUsuario result) {
+                    Toast.makeText(getActivity(), "Lista Actualizada", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    };
+
 
     public interface FragmentTracksFavoritosListener {
 

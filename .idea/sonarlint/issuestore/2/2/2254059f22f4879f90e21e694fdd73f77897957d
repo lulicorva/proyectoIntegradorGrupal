@@ -1,21 +1,22 @@
 
+J
+java:S1068%"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ
+m
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8øúŒ‚².
+h
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8øúŒ‚².
+H
+java:S1068#"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8ÍÜª².
+q
+java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8øúŒ‚².
 m
 java:S1128"KRemove this unused import 'com.google.firebase.firestore.DocumentSnapshot'.(´Ëá¿ÿÿÿÿÿ8øúŒ‚².
 j
 java:S1450$"TRemove the "mAuth" field and declare it as a local variable in the relevant methods.(ªĞ”’
 l
 java:S1450#"QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ
-u
-java:S1450%"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ
-q
-java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8øúŒ‚².
-h
-java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8øúŒ‚².
 ƒ
 java:S1450*"fRemove the "datosUsuariosController" field and declare it as a local variable in the relevant methods.(‹²‰½8ú’¬².
-H
-java:S1068#"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8ÍÜª².
-m
-java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8øúŒ‚².
-J
-java:S1068%"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ
+u
+java:S1450%"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ
+X	java:S125Z"<This block of commented-out lines of code should be removed.(¿öŠ8ö°ñ².

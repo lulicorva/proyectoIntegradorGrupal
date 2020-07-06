@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,8 @@ import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,6 +44,9 @@ public class FragmentAlbumsFavoritos extends Fragment {
     private FragmentAlbumsFavoritosListener fragmentAlbumsFavoritosListener;
     private DatosUsuariosController datosUsuariosController;
 
+    private DatosUsuario datosUsuario;
+    private Album deletedAlbum;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -57,9 +63,7 @@ public class FragmentAlbumsFavoritos extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_albums_favoritos, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+
         recyclerView = view.findViewById(R.id.recyclerAlbumsFavoritos);
 
 
@@ -69,7 +73,7 @@ public class FragmentAlbumsFavoritos extends Fragment {
             public void onFinish(DatosUsuario result) {
                 if (result.getAlbumesFavoritos() != null) {
 
-
+                    datosUsuario = result;
                     albumsFavoritosList = result.getAlbumesFavoritos();
                     albumAdapter = new AlbumAdapter(albumsFavoritosList, new AlbumAdapter.AlbumAdapterListener() {
                         @Override
@@ -87,20 +91,66 @@ public class FragmentAlbumsFavoritos extends Fragment {
 
                 } else {
 
-                    Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Aun no tienes favoritos", Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
 
 
-
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
         return view;
     }
 
-    public interface FragmentAlbumsFavoritosListener{
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+            ItemTouchHelper.START |
+            ItemTouchHelper.END,
+            ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            final int position = viewHolder.getAdapterPosition();
+
+            deletedAlbum = albumsFavoritosList.get(position);
+            albumsFavoritosList.remove(deletedAlbum);
+
+            albumAdapter.notifyItemRemoved(position);
+            Snackbar.make(recyclerView, "Album eliminado", BaseTransientBottomBar.LENGTH_LONG)
+                    .setAction("Deshacer", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            albumsFavoritosList.add(position, deletedAlbum);
+                            albumAdapter.notifyItemInserted(position);
+
+                            datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
+                                @Override
+                                public void onFinish(DatosUsuario result) {
+                                    Toast.makeText(getActivity(), "Oleee", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                    }).show();
+
+            datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
+                @Override
+                public void onFinish(DatosUsuario result) {
+                    Toast.makeText(getActivity(), "Lista Actualizada", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        }
+    };
+
+    public interface FragmentAlbumsFavoritosListener {
         public void onClickAlbumFavorito(Album album);
     }
 }

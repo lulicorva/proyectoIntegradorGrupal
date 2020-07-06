@@ -1,13 +1,11 @@
 
 E
-java:S1068"0Remove this unused "firebaseUser" private field.(©™Š
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8Å™‚‡².
-U
-java:S1874s"3Remove this use of "NetworkInfo"; it is deprecated.(ó¥›’þÿÿÿÿ8œ¶³ƒ².
+java:S1068"0Remove this unused "firebaseUser" private field.(©™Š
+A
+java:S1068"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ
 U
 java:S1874u"3Remove this use of "isConnected"; it is deprecated.(§©Ò½ûÿÿÿÿ8œ¶³ƒ².
+U
+java:S1874s"3Remove this use of "NetworkInfo"; it is deprecated.(ó¥›’þÿÿÿÿ8œ¶³ƒ².
 ^
 java:S1874s"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(ó¥›’þÿÿÿÿ8œ¶³ƒ².
-A
-java:S1068"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ

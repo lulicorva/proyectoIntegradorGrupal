@@ -27,6 +27,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.ReproductorActivity;
+import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Recomendados;
@@ -92,7 +94,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
         findViewsById();
         configuracionToolbar();
-        pegarFragmentsMainActivity();
+
+
+
+            pegarFragmentsMainActivity();
 
     }
 
@@ -114,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             finish();
 
         } else {
+            toolbar.setTitle("Jaxoo");
             super.onBackPressed();
 
         }
@@ -163,7 +169,13 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     private void pegarFragmentsMainActivity() {
 
-        pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+
+        DatosUsuariosController datosUsuariosController = new DatosUsuariosController(getApplicationContext());
+        if(datosUsuariosController.hayInternet()) {
+            pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+        } else {
+            Toast.makeText(this, "Desgraciadamente no hay internet", Toast.LENGTH_SHORT).show();
+        }
 
         //Este siempre esta, va cambiando el de arriba
         pegarFragment(new BottomNavigationFragment(), R.id.activityMainContenedorFragmentBottomNavigation);
@@ -304,6 +316,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     @Override
     public void onClickTuBiblioteca() {
+        toolbar.setTitle("Tu biblioteca");
         pegarFragment(fragmentTuBiblioteca, R.id.activityMainContenedorPrincipal);
 
 
@@ -364,13 +377,11 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
 
 
-
-
             switch (action) {
 
                 case CreateNotification.NEXT_TRACK:
 
-                    if(position + 1 < trackList.getData().size()) {
+                    if (position + 1 < trackList.getData().size()) {
                         position = position + 1;
                         reproductorSingleton = ReproductorSingleton.getInstance();
                         reproductorSingleton.getMediaPlayer().pause();
@@ -473,9 +484,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         position = bundleDesdeReprAct.getInt("position");
 
 
-
-
-
         createNotification = CreateNotification.getInstance();
         createNotification.createNotificacion(MainActivity.this,
                 trackList.getData().get(position),
@@ -498,5 +506,8 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
 
     }
+
+
 }
+
 

@@ -1,3 +1,7 @@
 
-U
-java:S1128"8Remove this unused import 'androidx.room.TypeConverter'.(ïèÃˆ8Œä”†².
+P
+java:S1128"3Remove this unused import 'androidx.room.Embedded'.(ãœÉ“8³þ©Œ².
+W
+java:S1128"5Remove this unused import 'androidx.room.ColumnInfo'.(µá™Àýÿÿÿÿ8òï¾‹².
+z
+java:S1128"]Remove this unused import 'com.google.android.gms.common.internal.safeparcel.SafeParcelable'.(ÿò¹Ò8ñàˆŒ².

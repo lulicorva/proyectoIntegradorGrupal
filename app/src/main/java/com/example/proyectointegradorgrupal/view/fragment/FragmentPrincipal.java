@@ -55,7 +55,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
 
 
         final ProgressDialog mDialog = new ProgressDialog(getActivity());
-        mDialog.setMessage("Loading...");
+        mDialog.setMessage("Cargando...");
         mDialog.setCancelable(true);
         mDialog.show();
 

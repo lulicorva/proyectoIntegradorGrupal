@@ -44,7 +44,7 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
     private TrackAdapter trackAdapter;
     private ImageButton botonPlaylistFavorito;
 
-    private FirebaseFirestore db;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -71,9 +71,10 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
         recyclerView = view.findViewById(R.id.fragmentPlaylistRecycler);
         botonPlaylistFavorito = view.findViewById(R.id.playlistBotonFavoritos);
 
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+
 
         Bundle bundle = getArguments();
 

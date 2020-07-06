@@ -19,9 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class FragmentTuBiblioteca extends Fragment {
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
-    private FirebaseFirestore db;
+
 
     private ViewPager viewPager;
     private ViewPagerAdapterTuBiblioteca viewPagerAdapter;
@@ -36,9 +34,6 @@ public class FragmentTuBiblioteca extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tu_biblioteca, container, false);
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
 
 
         viewPager = view.findViewById(R.id.fragmentTuBibliotecaViewPager);

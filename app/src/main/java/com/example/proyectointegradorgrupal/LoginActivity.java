@@ -324,7 +324,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     datosUsuariosController = new DatosUsuariosController(this);
-    datosUsuariosController.setDatosUsuario(new ResultListener<DatosUsuario>() {
+    datosUsuariosController.setDatosUsuario(new DatosUsuario(), new ResultListener<DatosUsuario>() {
         @Override
         public void onFinish(DatosUsuario result) {
             Toast.makeText(LoginActivity.this, "Funcionoooo", Toast.LENGTH_SHORT).show();
@@ -334,21 +334,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     });
 
 
-        /*db.collection(DATOS_USUARIO)
-                .document(currentUser.getUid())
-                .set(datosUsuario)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(LoginActivity.this, "Se creo base de datos", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(LoginActivity.this, "Error al crear base de datos", Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
+
 
     }
 }

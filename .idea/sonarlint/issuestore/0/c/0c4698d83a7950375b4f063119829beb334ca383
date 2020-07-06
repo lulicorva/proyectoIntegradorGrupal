@@ -1,16 +1,17 @@
 
-J
-java:S1068%"/Remove this unused "currentUser" private field.(”Ωµ«ψÿÿÿÿ
-l
-java:S1450#"QRemove the "db" field and declare it as a local variable in the relevant methods.(ξ–ζ‡όÿÿÿÿ
-ƒ
-java:S1450*"fRemove the "datosUsuariosController" field and declare it as a local variable in the relevant methods.(‹²‰½8©².
+u
+java:S1450%"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ωµ«ψÿÿÿÿ
 —
 java:S11862"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Υίε
 j
 java:S1450$"TRemove the "mAuth" field and declare it as a local variable in the relevant methods.(ªΠ”’
+l
+java:S1450#"QRemove the "db" field and declare it as a local variable in the relevant methods.(ξ–ζ‡όÿÿÿÿ
+ƒ
+java:S1450*"fRemove the "datosUsuariosController" field and declare it as a local variable in the relevant methods.(‹²‰½8©².
+J
+java:S1068%"/Remove this unused "currentUser" private field.(”Ωµ«ψÿÿÿÿ
+]	java:S125e"<This block of commented-out lines of code should be removed.(ΫΨΞ‰ÿÿÿÿÿ8ΐ›².
 H
 java:S1068#"&Remove this unused "db" private field.(ξ–ζ‡όÿÿÿÿ8ΐ›².
-]	java:S125e"<This block of commented-out lines of code should be removed.(ΫΨΞ‰ÿÿÿÿÿ8ΐ›².
-u
-java:S1450%"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ωµ«ψÿÿÿÿ
+X	java:S125["<This block of commented-out lines of code should be removed.(Ώφ8ΟΜπ².

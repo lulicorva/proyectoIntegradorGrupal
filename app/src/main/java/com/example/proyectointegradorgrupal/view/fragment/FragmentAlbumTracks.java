@@ -49,7 +49,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
 
     private Album album;
 
-    private FirebaseFirestore db;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatosUsuariosController datosUsuariosController;
@@ -75,9 +75,10 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         albumFavoritoButtom = view.findViewById(R.id.albumBotonFavoritos);
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
 
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+
 
         Bundle bundle = getArguments();
         album = (Album) bundle.getSerializable(MainActivity.FAVORITO);

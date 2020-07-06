@@ -27,8 +27,6 @@ lapp/src/main/java/com/example/proyectointegradorgrupal/view/fragment/biblioteca
 ]app/src/main/java/com/example/proyectointegradorgrupal/view/fragment/FragmentAlbumTracks.java,1\7\17b2779893f1d26a69e6e478e887fa10ff45a470
 ~
 Napp/src/main/java/com/example/proyectointegradorgrupal/model/DatosUsuario.java,9\9\99d1989f538e11b21fe7f137efa5661784bd1a3e
-‚
-Rapp/src/main/java/com/example/proyectointegradorgrupal/dao/room/DataConverter.java,8\b\8b3a7fb48ce791314a4f1ec29d71b2de21d2b887
 y
 Iapp/src/main/java/com/example/proyectointegradorgrupal/LoginActivity.java,a\2\a2c10aa92ab983064cac858dc01c5253631c67d1
 ‹
@@ -45,9 +43,19 @@ w
 Gapp/src/main/java/com/example/proyectointegradorgrupal/model/Track.java,f\f\ff54a9522889ab20185d650528c8d3c309f4161e
 ‡
 Wapp/src/main/java/com/example/proyectointegradorgrupal/dao/DatosUsuarioDaoFirebase.java,d\6\d6c940241c44680ba91df3cb128c930ec1c6b5f7
-ˆ
-Xapp/src/main/java/com/example/proyectointegradorgrupal/dao/room/DatosUsuarioDaoRoom.java,d\8\d8102b7902c90786d44a4f9d5df3cc7bd992dc06
 Ž
 ^app/src/main/java/com/example/proyectointegradorgrupal/controller/DatosUsuariosController.java,8\6\86c4af965342e97cbc16255a813595b24ef18979
 …
 Uapp/src/main/java/com/example/proyectointegradorgrupal/configuration/AppDatabase.java,e\f\efac1ffe20605b2a9682acebced7ac26a9892635
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+z
+Japp/src/main/java/com/example/proyectointegradorgrupal/model/Playlist.java,a\b\ab5aa47991e38c088b190e343cf44336000a56b1
+}
+Mapp/src/main/java/com/example/proyectointegradorgrupal/dao/DataConverter.java,d\3\d37b69e12d89dded20bada4f21038a7e970c7736
+’
+bapp/src/main/java/com/example/proyectointegradorgrupal/view/fragment/BottomNavigationFragment.java,f\b\fb44b58ca95b320f37059af78b8071c9cf9fa3ff
+•
+eapp/src/main/java/com/example/proyectointegradorgrupal/view/adapter/ViewPagerAdapterTuBiblioteca.java,6\f\6fb3c1f0ab52d568145c3790888c30dad5e49d47
+ƒ
+Sapp/src/main/java/com/example/proyectointegradorgrupal/dao/DatosUsuarioDaoRoom.java,a\8\a8872b1aee56e3b1fccb9e2628e0b0c99902a2cc

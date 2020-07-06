@@ -1,5 +1,10 @@
 package com.example.proyectointegradorgrupal.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -7,27 +12,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
+
+@Entity(tableName = "tracksFavoritos")
 public class Track implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    private int idROOM;
+
+    public int getIdROOM() {
+        return idROOM;
+    }
+
+    public void setIdROOM(int idROOM) {
+        this.idROOM = idROOM;
+    }
+
     @SerializedName("data")
-    private ArrayList<Track> data;
+    @Ignore
+    private List<Track> data;
     private String id;
 
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     private String title;
 
-
+    @ColumnInfo(name = "duration")
     private Double duration;
     private Double trackPosition;
+
+    @ColumnInfo(name = "preview")
     private String preview;
 
+
     @SerializedName("album")
+    @Ignore
     private Album album;
 
     @SerializedName("title_short")
     private String titleShort;
 
     @SerializedName("artist")
+    @Ignore
     private Artist artist;
 
     public Artist getArtist() {
@@ -46,11 +71,11 @@ public class Track implements Serializable {
         this.titleShort = titleShort;
     }
 
-    public ArrayList<Track> getData() {
+    public List<Track> getData() {
         return data;
     }
 
-    public void setTrackList(ArrayList<Track> data) {
+    public void setTrackList(List<Track> data) {
         this.data = data;
     }
 
@@ -94,7 +119,7 @@ public class Track implements Serializable {
         this.preview = preview;
     }
 
-    public void setData(ArrayList<Track> data) {
+    public void setData(List<Track> data) {
         this.data = data;
     }
 
@@ -106,7 +131,8 @@ public class Track implements Serializable {
         this.album = album;
     }
 
-    public Track(ArrayList<Track> data, String id, String title, Double duration, Double trackPosition, String preview, Album album, String titleShort, Artist artist) {
+    @Ignore
+    public Track(List<Track> data, String id, String title, Double duration, Double trackPosition, String preview, Album album, String titleShort, Artist artist) {
         this.data = data;
         this.id = id;
         this.title = title;

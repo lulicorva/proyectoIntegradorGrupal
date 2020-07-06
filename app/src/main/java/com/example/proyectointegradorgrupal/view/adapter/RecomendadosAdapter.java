@@ -29,7 +29,7 @@ public class RecomendadosAdapter extends RecyclerView.Adapter<RecomendadosAdapte
     public ViewHolderRecomendados onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.ceda_recomendados,parent,false);
+        View view = layoutInflater.inflate(R.layout.ceda_recomendados_inicio,parent,false);
 
         return new ViewHolderRecomendados(view);
     }

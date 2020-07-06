@@ -17,10 +17,10 @@ import java.util.List;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTrack> {
 
-    private ArrayList<Track> trackList;
+    private List<Track> trackList;
     private TrackAdapterListener trackAdapterListener;
 
-    public TrackAdapter(ArrayList<Track> trackList, TrackAdapterListener listener) {
+    public TrackAdapter(List<Track> trackList, TrackAdapterListener listener) {
         this.trackList = trackList;
         this.trackAdapterListener = listener;
     }
@@ -64,8 +64,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Track track = trackList.get(getAdapterPosition());
-                    trackAdapterListener.onClick(track);
+                    trackAdapterListener.onClick(trackList, getAdapterPosition());
                 }
             });
 
@@ -80,7 +79,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
             nombreTrack.setText(track.getTitleShort());
             duracion.setText(totalTime);
 
-            if(track.getAlbum() != null){
+            if (track.getAlbum() != null) {
                 albumCancion.setText(track.getAlbum().getTitle());
 
             }
@@ -89,27 +88,27 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.ViewHolderTr
     }
 
 
-
-
-
-    private String segundosTotalesAMinutosYSegundos(Double tsegundos){
+    private String segundosTotalesAMinutosYSegundos(Double tsegundos) {
+        String tiempoTotal;
 
         int horas = (int) (tsegundos / 3600);
-        int minutos = (int) ((tsegundos-horas*3600)/60);
-        int segundos =(int) (tsegundos-(horas*3600+minutos*60));
+        int minutos = (int) ((tsegundos - horas * 3600) / 60);
+        int segundos = (int) (tsegundos - (horas * 3600 + minutos * 60));
 
-        String tiempoTotal = minutos + ":" + segundos;
+        if (segundos < 10) {
+            tiempoTotal = minutos + ":0" + segundos;
+        } else {
 
+            tiempoTotal = minutos + ":" + segundos;
+        }
         return tiempoTotal;
     }
 
 
-
-
     public interface TrackAdapterListener {
-        public void onClick(Track track);
-    }
+        public void onClick(List<Track> trackList, int position);
 
+    }
 
 
 }

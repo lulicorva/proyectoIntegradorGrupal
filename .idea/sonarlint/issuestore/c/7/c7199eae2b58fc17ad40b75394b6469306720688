@@ -1,0 +1,25 @@
+
+s
+java:S1450@"QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ8üËò².
+m
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8ğ‘‹‚².
+Q
+java:S1068B"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ8üËò².
+H
+java:S1068<"3Remove this unused "albumController" private field.(”ó¦4
+h
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8ğ‘‹‚².
+F
+java:S1068>"0Remove this unused "listPreviews" private field.(ÂÌšÉ
+G
+java:S10687",Remove this unused "uriTrack" private field.(îøŸÌûÿÿÿÿ
+b
+java:S1128#"ERemove this unused import 'com.google.firebase.firestore.FieldValue'.(ş•Õ8ğ‘‹‚².
+q
+java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8ğ‘‹‚².
+H
+java:S1068@"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8üËò².
+H
+java:S1068="-Remove this unused "trackList" private field.(ÃÁì©ıÿÿÿÿ
+|
+java:S1450B"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ8üËò².

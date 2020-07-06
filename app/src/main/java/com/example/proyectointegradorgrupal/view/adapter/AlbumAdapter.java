@@ -1,5 +1,6 @@
 package com.example.proyectointegradorgrupal.view.adapter;
 
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolderAl
 
     private List<Album> albums;
     private AlbumAdapterListener albumAdapterListener;
+    private int celda_album;
 
-    public AlbumAdapter(List<Album> albums, AlbumAdapterListener listener) {
+
+    public AlbumAdapter(List<Album> albums, AlbumAdapterListener listener, int celda_album) {
         this.albums = albums;
         this.albumAdapterListener = listener;
+        this.celda_album = celda_album;
     }
 
     @NonNull
@@ -31,7 +35,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolderAl
     public ViewHolderAlbum onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.celda_favoritos, parent, false);
+        View view = layoutInflater.inflate(celda_album, parent, false);
+
+
+
 
         return new ViewHolderAlbum(view);
     }

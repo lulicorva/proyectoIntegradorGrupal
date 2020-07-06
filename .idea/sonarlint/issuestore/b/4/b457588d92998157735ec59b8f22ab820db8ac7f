@@ -1,0 +1,19 @@
+
+m
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(οΏήήϊÿÿÿÿ8½ς‚².
+h
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(νε΅8½ς‚².
+b
+java:S1128!"ERemove this unused import 'com.google.firebase.firestore.FieldValue'.(ώ•Υ8½ς‚².
+H
+java:S1068/"&Remove this unused "db" private field.(ξ–ζ‡όÿÿÿÿ8—Ώ‚².
+Q
+java:S10681"/Remove this unused "currentUser" private field.(”Ωµ«ψÿÿÿÿ8—Ώ‚².
+s
+java:S1450/"QRemove the "db" field and declare it as a local variable in the relevant methods.(ξ–ζ‡όÿÿÿÿ8—Ώ‚².
+|
+java:S14501"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ωµ«ψÿÿÿÿ8—Ώ‚².
+q
+java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(γώτηώÿÿÿÿ8½ς‚².
+w
+java:S1450*"aRemove the "playlistController" field and declare it as a local variable in the relevant methods.(χισ

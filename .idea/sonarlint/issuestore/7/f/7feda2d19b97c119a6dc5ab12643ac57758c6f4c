@@ -1,0 +1,17 @@
+
+J
+java:S1068"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ
+s
+java:S1450"XRemove the "viewPager" field and declare it as a local variable in the relevant methods.(åÙ¬Ïûÿÿÿÿ
+j
+java:S1450"TRemove the "mAuth" field and declare it as a local variable in the relevant methods.(ªÐ”’
+z
+java:S1450"_Remove the "viewPagerAdapter" field and declare it as a local variable in the relevant methods.(ß¥ð®ÿÿÿÿÿ
+A
+java:S1068"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(€¸Ä•ýÿÿÿÿ
+l
+java:S1450"QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ
+u
+java:S1450"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ

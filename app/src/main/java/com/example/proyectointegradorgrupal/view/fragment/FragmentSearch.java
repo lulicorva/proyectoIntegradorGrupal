@@ -19,6 +19,8 @@ import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.adapter.TrackAdapter;
 
+import java.util.List;
+
 
 public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapterListener {
 
@@ -48,11 +50,11 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
         recyclerViewSearchList = view.findViewById(R.id.fragmentListadoSearch);
 
         Bundle bundle = getArguments();
-        //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
+
         String query = (String) bundle.getSerializable(MainActivity.QUERY);
 
 
-        searchController = new SearchController();
+        searchController = new SearchController(getContext());
         searchController.getSearch(query, new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
@@ -69,13 +71,18 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
         return view;
     }
 
+
     @Override
-    public void onClick(Track track) {
-        fragmentSearchListener.onClickTrackDesdeSearch(track);
+    public void onClick(List<Track> trackList, int position) {
+        fragmentSearchListener.onClickTrackDesdeSearch(trackList, position);
     }
 
+
+
     public interface FragmentSearchListener {
-        public void onClickTrackDesdeSearch(Track track);
+
+
+        public void onClickTrackDesdeSearch(List<Track> trackList, int position);
 
     }
 }

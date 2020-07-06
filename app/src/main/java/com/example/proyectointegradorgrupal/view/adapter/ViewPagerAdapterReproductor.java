@@ -5,23 +5,29 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
+import com.example.proyectointegradorgrupal.model.Track;
+
+import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapterReproductor extends FragmentStatePagerAdapter {
 
 
     private List<Fragment> fragmentList;
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior, Fragment fragment1, Fragment fragment2) {
+
+    public ViewPagerAdapterReproductor(@NonNull FragmentManager fm, int behavior, List<Track> trackList) {
         super(fm, behavior);
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(fragment1);
-        fragmentList.add(fragment2);
+
+        for (Track track : trackList) {
+            fragmentList.add(FragmentReproductorSingleton.getFragmentReproductorSingleton(track));
+
+        }
+
 
     }
 

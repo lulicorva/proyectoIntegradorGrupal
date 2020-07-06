@@ -1,47 +1,51 @@
 package com.example.proyectointegradorgrupal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.controller.LyricsController;
 import com.example.proyectointegradorgrupal.model.Example;
 import com.example.proyectointegradorgrupal.model.Lyrics;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
+import com.example.proyectointegradorgrupal.view.CreateNotification;
+import com.example.proyectointegradorgrupal.view.MainActivity;
+import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
+import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterReproductor;
+import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.example.proyectointegradorgrupal.util.ResultListener;
-import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapter;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentDetalleCancion;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductor;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
-
-public class ReproductorActivity extends AppCompatActivity {
+public class ReproductorActivity extends AppCompatActivity implements FragmentReproductorSingleton.FragmentReproductorSingletonListener {
 
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
-    private Uri uriTrack;
-    private ExtendedFloatingActionButton botonFlotante;
+    private ViewPagerAdapterReproductor viewPagerAdapterReproductor;
 
+    public int posicionAlScrollear;
+    public Track trackList;
+    public ReproductorSingleton reproductorSingleton;
+
+    private NotificationManager notificationManager;
+    private CreateNotification createNotification;
+    private ExtendedFloatingActionButton botonFlotante;
+    private Uri uriTrack;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -52,20 +56,75 @@ public class ReproductorActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        trackList = (Track) bundle.get("trackList");
         final Track track = (Track) bundle.get("track");
         final String preview = track.getPreview();
         uriTrack = Uri.parse(preview);
 
-        FragmentDetalleCancion fragmentDetalleCancion = new FragmentDetalleCancion();
-        FragmentReproductor fragmentReproductor = new FragmentReproductor();
-        fragmentReproductor.setArguments(bundle);
+        //Posicion del track al que hacen click
+        int position = bundle.getInt("position");
 
         viewPager = findViewById(R.id.activityReproductorViewPager);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 2, fragmentReproductor, fragmentDetalleCancion);
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPagerAdapterReproductor = new ViewPagerAdapterReproductor(getSupportFragmentManager(), 2, trackList.getData());
+        viewPager.setAdapter(viewPagerAdapterReproductor);
+        viewPager.setCurrentItem(position);
+        reproductorSingleton = ReproductorSingleton.getInstance();
 
         botonFlotante = findViewById(R.id.botonletras);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                posicionAlScrollear = position;
+
+                reproductorSingleton.getMediaPlayer().pause();
+
+                String preview = trackList.getData().get(position).getPreview();
+                Uri uriTrack = Uri.parse(preview);
+
+                reproductorSingleton.setNewMediaPlayer();
+                reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
+                reproductorSingleton.getMediaPlayer().start();
+
+                FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(position);
+                fragmentReproductorSingleton.updateSeekBar();
+                fragmentReproductorSingleton.setPlayPause();
+
+
+
+
+                createNotification = CreateNotification.getInstance();
+                createNotification.createNotificacion(ReproductorActivity.this,
+                        trackList.getData().get(position),
+                        R.drawable.ic_pause_circle_filled, 1,
+                        trackList.getData().size());
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+/**
+ * Notificacion usa metodo createChannel
+ * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            startService(new Intent(ReproductorActivity.this, OnClearFromNotificationService.class));
+
+        }
+
+
+    }
         botonFlotante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,8 +132,148 @@ public class ReproductorActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("track", track);
 
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Jaxoo", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = getSystemService(NotificationManager.class);
                 unIntent.putExtras(bundle);
 
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+        }
+
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getExtras().getString("actionName");
+
+            switch (action) {
+
+                case CreateNotification.NEXT_TRACK:
+                    onClickNext();
+                    break;
+                case CreateNotification.PREVIOUS_TRACK:
+                    onClickPrevious();
+                    break;
+
+                case CreateNotification.PLAYPAUSE:
+
+                    if (reproductorSingleton.getMediaPlayer().isPlaying()) {
+                        reproductorSingleton.getMediaPlayer().pause();
+
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(ReproductorActivity.this,
+                                trackList.getData().get(posicionAlScrollear),
+                                R.drawable.ic_play_circle_filled, 1,
+                                trackList.getData().size());
+
+
+
+                    } else {
+                        reproductorSingleton.getMediaPlayer().start();
+
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(ReproductorActivity.this,
+                                trackList.getData().get(posicionAlScrollear),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+
+                    }
+                    break;
+
+
+            }
+
+
+        }
+    };
+
+
+    @Override
+    public void onClickNext() {
+        viewPager.setCurrentItem(posicionAlScrollear + 1);
+        ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
+        reproductorSingleton.getMediaPlayer().pause();
+
+        String preview = trackList.getData().get(posicionAlScrollear + 1).getPreview();
+        Uri uriTrack = Uri.parse(preview);
+
+
+        reproductorSingleton.setNewMediaPlayer();
+        reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
+        reproductorSingleton.getMediaPlayer().start();
+
+        FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(posicionAlScrollear + 1);
+        fragmentReproductorSingleton.updateSeekBar();
+        fragmentReproductorSingleton.setPlayPause();
+
+    }
+
+    @Override
+    public void onClickPrevious() {
+        viewPager.setCurrentItem(posicionAlScrollear - 1);
+
+        ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
+        reproductorSingleton.getMediaPlayer().pause();
+
+        String preview = trackList.getData().get(posicionAlScrollear - 1).getPreview();
+        Uri uriTrack = Uri.parse(preview);
+
+
+        reproductorSingleton.setNewMediaPlayer();
+        reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
+        reproductorSingleton.getMediaPlayer().start();
+
+        FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(posicionAlScrollear - 1);
+        fragmentReproductorSingleton.updateSeekBar();
+        fragmentReproductorSingleton.setPlayPause();
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notificationManager.cancelAll();
+        }
+        unregisterReceiver(broadcastReceiver);
+
+*/
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent data = new Intent();
+
+
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("trackList", trackList);
+        bundle.putInt("position", posicionAlScrollear);
+        data.putExtras(bundle);
+
+
+        setResult(10, data);
+
+        super.onBackPressed();
+
+    }
+
+
+
+
+
+}
                 startActivity(unIntent);
 
                     }

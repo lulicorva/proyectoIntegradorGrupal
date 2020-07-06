@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.fragment.biblioteca.FragmentTuBiblioteca">
-
+    tools:context=".view.fragment.biblioteca.FragmentTuBiblioteca"
+    android:background="@drawable/gradient_background">
 
 
 
@@ -14,7 +14,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/fragmentTuBibliotecaViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"/>
 
 
 

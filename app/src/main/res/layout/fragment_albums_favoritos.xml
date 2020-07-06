@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.biblioteca.FragmentAlbumsFavoritos"
+
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:textSize="30dp"
+        android:textColor="#C8F1EBEB"
+        android:text="Albums">
+
+    </com.google.android.material.textview.MaterialTextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerAlbumsFavoritos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="10dp"/>
+
+</LinearLayout>

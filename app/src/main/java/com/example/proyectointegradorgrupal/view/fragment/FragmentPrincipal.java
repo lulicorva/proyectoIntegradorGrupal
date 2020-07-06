@@ -1,5 +1,6 @@
 package com.example.proyectointegradorgrupal.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -53,6 +54,11 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
         View view = inflater.inflate(R.layout.fragment_principal, container, false);
 
 
+        final ProgressDialog mDialog = new ProgressDialog(getActivity());
+        mDialog.setMessage("Cargando...");
+        mDialog.setCancelable(true);
+        mDialog.show();
+
         /**
          * FAVORITOS (ALBUM)
          * */
@@ -62,12 +68,13 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
             @Override
             public void onFinish(List<Album> result) {
 
-                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipal.this);
+                AlbumAdapter albumAdapter = new AlbumAdapter(result, FragmentPrincipal.this, R.layout.celda_albums_inicio);
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
                 recyclerViewFavoritos.setLayoutManager(linearLayoutManager);
                 recyclerViewFavoritos.setAdapter(albumAdapter);
 
+                mDialog.dismiss();
             }
         });
 
@@ -80,7 +87,7 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
         playlistController.getPlaylistPorSearch("Cumbia", new ResultListener<List<Playlist>>() {
             @Override
             public void onFinish(List<Playlist> result) {
-                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this);
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter(result, FragmentPrincipal.this, R.layout.celda_playlist_inicio);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
                 recyclerViewPlaylist.setLayoutManager(linearLayoutManager);
                 recyclerViewPlaylist.setAdapter(playlistAdapter);

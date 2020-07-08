@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onClickTrackFavoritos(List<Track> trackList, int position) {
-        abrirReproductorActivity(trackList, position);
+        //abrirReproductorActivity(trackList, position);
     }
 
     @Override

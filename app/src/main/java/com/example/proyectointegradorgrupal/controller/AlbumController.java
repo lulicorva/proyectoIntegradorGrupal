@@ -21,7 +21,7 @@ public class AlbumController {
         albumDao.getAlbumById(id, new ResultListener<Album>() {
             @Override
             public void onFinish(Album result) {
-
+                resultListenerFromView.onFinish(result);
             }
         });
     }
@@ -35,7 +35,7 @@ public class AlbumController {
         });
     }
 
-    public void getAlbumTracks(String id, final ResultListener<Track> resultListenerFromView){
+    public void getAlbumTracks(String id, final ResultListener<Track> resultListenerFromView) {
         albumDao.getAlbumTracks(id, new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -20,10 +21,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
+import com.example.proyectointegradorgrupal.controller.SearchController;
+import com.example.proyectointegradorgrupal.controller.TrackController;
+import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
@@ -47,6 +52,7 @@ public class FragmentReproductorSingleton extends Fragment {
     private TextView currentTime;
     private TextView duration;
     private SeekBar seekBar;
+    private ImageView imagenAlbum;
     private ImageButton botonFavoritos;
     private MaterialTextView nombreTrack;
     private MaterialTextView nombreArtista;
@@ -59,12 +65,14 @@ public class FragmentReproductorSingleton extends Fragment {
     private ReproductorSingleton reproductorSingleton;
 
 
-
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
     private FragmentReproductorSingletonListener fragmentReproductorSingletonListener;
     private DatosUsuariosController datosUsuariosController;
+    private AlbumController albumController;
+    private TrackController trackController;
+
 
 
     public FragmentReproductorSingleton() {
@@ -95,7 +103,6 @@ public class FragmentReproductorSingleton extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reproductor_singleton, container, false);
 
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -104,6 +111,28 @@ public class FragmentReproductorSingleton extends Fragment {
 
         Bundle bundle = getArguments();
         track = (Track) bundle.get("track");
+
+        albumController = new AlbumController();
+        trackController = new TrackController();
+        trackController.getTrackById(track.getId(), new ResultListener<Track>() {
+            @Override
+            public void onFinish(Track result) {
+                albumController.getAlbumById(result.getAlbum().getId(), new ResultListener<Album>() {
+                    @Override
+                    public void onFinish(Album result) {
+                        Glide.with(nombreArtista.getContext())
+                                .load(result.getCoverXL())
+                                .into(imagenAlbum);
+                    }
+                });
+
+
+            }
+        });
+
+
+
+
 
 
         nombreArtista.setText(track.getArtist().getName());
@@ -228,6 +257,7 @@ public class FragmentReproductorSingleton extends Fragment {
         botonFavoritos = view.findViewById(R.id.reproductorFavoritos);
         botonNextTrack = view.findViewById(R.id.botonNextTrack);
         botonPreviousTrack = view.findViewById(R.id.botonPreviousTrack);
+        imagenAlbum = view.findViewById(R.id.fragmentReproductorImgeView);
     }
 
 
@@ -277,6 +307,7 @@ public class FragmentReproductorSingleton extends Fragment {
 
     public interface FragmentReproductorSingletonListener {
         public void onClickNext();
+
         public void onClickPrevious();
     }
 

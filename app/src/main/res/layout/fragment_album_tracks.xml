@@ -60,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-
+                        android:singleLine="true"
                         android:text="Vulfpeck"
                         android:textAlignment="center"
                         android:textColor="#FFFF"
@@ -76,9 +76,8 @@
                         android:background="#00FFFFFF"
                         android:src="@drawable/ic_favorite_border"
                         app:layout_constraintBottom_toBottomOf="parent"
-                       app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/botonaleatorio"
-                       />
+                        app:layout_constraintRight_toRightOf="parent" />
 
                     <Button
                         android:id="@+id/botonaleatorio"

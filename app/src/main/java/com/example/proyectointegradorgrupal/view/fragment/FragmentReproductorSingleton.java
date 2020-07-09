@@ -11,6 +11,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -74,7 +76,6 @@ public class FragmentReproductorSingleton extends Fragment {
     private TrackController trackController;
 
 
-
     public FragmentReproductorSingleton() {
         // Required empty public constructor
     }
@@ -129,10 +130,6 @@ public class FragmentReproductorSingleton extends Fragment {
 
             }
         });
-
-
-
-
 
 
         nombreArtista.setText(track.getArtist().getName());
@@ -252,6 +249,7 @@ public class FragmentReproductorSingleton extends Fragment {
         currentTime = view.findViewById(R.id.fragmentReproductorCurrentTime);
         duration = view.findViewById(R.id.fragmentReproductorDuration);
         nombreTrack = view.findViewById(R.id.fragmentReproductorNombreTrack);
+        nombreTrack.setSelected(true);
         nombreArtista = view.findViewById(R.id.fragmentReproductorNombreArtista);
         seekBar = view.findViewById(R.id.fragmentReproductorSeekBar);
         botonFavoritos = view.findViewById(R.id.reproductorFavoritos);

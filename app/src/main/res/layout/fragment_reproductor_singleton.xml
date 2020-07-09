@@ -52,6 +52,7 @@
                 android:id="@+id/fragmentReproductorNombreArtista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text="Artista"
                 android:textAlignment="center"
                 android:textColor="#FFFF"
@@ -62,18 +63,31 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/fragmentReproductorNombreTrack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NombreTrack"
-                android:textAlignment="center"
-                android:textColor="#FFFF"
-                android:textSize="40dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
 
-                app:layout_constraintRight_toRightOf="parent" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/fragmentReproductorNombreTrack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    android:text="NombreTrack"
+
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+
+                    android:scrollHorizontally="true"
+
+
+                    android:singleLine="true"
+
+
+
+
+                    android:textAlignment="center"
+                    android:textColor="#FFFF"
+                    android:textSize="40dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

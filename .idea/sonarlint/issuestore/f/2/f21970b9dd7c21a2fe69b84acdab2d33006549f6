@@ -1,8 +1,8 @@
 
+i
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ–îä
 Q
 java:S2696:"6Make the enclosing method "static" or remove this set.(Ñ“Ô«ýÿÿÿÿ
 V	java:S125."<This block of commented-out lines of code should be removed.(çúÄ±ûÿÿÿÿ
 [
 java:S1124"EReorder the modifiers to comply with the Java Language Specification.(Þ•Ä
-i
-java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ–îä

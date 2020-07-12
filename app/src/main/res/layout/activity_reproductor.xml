@@ -17,18 +17,17 @@
    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_gravity="bottom|end"
-       android:layout_marginBottom="200dp"
-       android:layout_marginRight="20dp"
+       android:layout_gravity="bottom|center"
+       android:layout_marginBottom="230dp"
+
        android:id="@+id/botonletras"
        android:backgroundTint="#000"
        app:icon="@drawable/ic_baseline_queue_music_24"
        app:iconTint="#FFF"
        android:text="LYRICS"
-       android:textAlignment="viewEnd"
+
        android:textColor="#FFF"
-       android:elevation="6dp"
-       />
+       android:elevation="6dp"       />
 
 
 

@@ -112,7 +112,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
                     datosUsuariosController.setAlbumFavorito(album, new ResultListener<Album>() {
                         @Override
                         public void onFinish(Album result) {
-                            Toast.makeText(getActivity(), "Album agregado a favoritos", Toast.LENGTH_SHORT).show();
+
                             albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
                         }
                     });

@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
+
 
                 Bundle bundle = new Bundle();
                 bundle.putString(MainActivity.QUERY, query);
@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(MainActivity.this, newText, Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     private void logOutFirebaseUser() {
         mAuth.signOut();
-        Toast.makeText(this, "Cerrar sesión", Toast.LENGTH_SHORT).show();
+
     }
 
     private void logOutGoogle() {

@@ -200,7 +200,7 @@ public class FragmentReproductorSingleton extends Fragment {
                     datosUsuariosController.setTrackFavorito(track, new ResultListener<Track>() {
                         @Override
                         public void onFinish(Track result) {
-                            Toast.makeText(getActivity(), "Track gregado a favoritos", Toast.LENGTH_SHORT).show();
+
                             botonFavoritos.setImageResource(R.drawable.ic_favorite);
                         }
                     });

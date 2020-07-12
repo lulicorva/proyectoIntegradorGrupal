@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
         android:textSize="30dp"
+        android:textAlignment="center"
         android:textColor="#C8F1EBEB"
         android:text="Playlists">
 

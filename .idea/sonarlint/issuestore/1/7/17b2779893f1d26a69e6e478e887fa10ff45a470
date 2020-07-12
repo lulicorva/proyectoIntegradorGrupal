@@ -1,19 +1,17 @@
 
-Q
-java:S10686"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ8êÈÖ².
-s
-java:S1450."^Remove the "albumController" field and declare it as a local variable in the relevant methods.(”ó¦4
-s
-java:S14504"QRemove the "db" field and declare it as a local variable in the relevant methods.(î–æ‡üÿÿÿÿ8êÈÖ².
-|
-java:S14506"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ8êÈÖ².
+i
+java:S1128""LRemove this unused import 'com.google.firebase.firestore.FirebaseFirestore'.(§ä…ª8¹…¦ù².
 b
 java:S1128!"ERemove this unused import 'com.google.firebase.firestore.FieldValue'.(ş•Õ8Õ©‹‚².
+s
+java:S1450."^Remove the "albumController" field and declare it as a local variable in the relevant methods.(”ó¦4
+|
+java:S14506"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ8êÈÖ².
 m
 java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8Õ©‹‚².
-h
-java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8Õ©‹‚².
-H
-java:S10684"&Remove this unused "db" private field.(î–æ‡üÿÿÿÿ8êÈÖ².
 q
 java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8Õ©‹‚².
+h
+java:S1128"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8Õ©‹‚².
+Q
+java:S10686"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ8êÈÖ².

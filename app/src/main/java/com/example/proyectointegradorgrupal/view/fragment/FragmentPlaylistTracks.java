@@ -111,7 +111,7 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
                     datosUsuariosController.setPlaylistFavorita(playlist, new ResultListener<Playlist>() {
                         @Override
                         public void onFinish(Playlist result) {
-                            Toast.makeText(getActivity(), "Playlist agregada a favoritos", Toast.LENGTH_SHORT).show();
+
                             botonPlaylistFavorito.setImageResource(R.drawable.ic_favorite);
                         }
                     });

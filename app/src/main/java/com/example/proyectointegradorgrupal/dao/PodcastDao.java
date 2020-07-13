@@ -3,6 +3,7 @@ package com.example.proyectointegradorgrupal.dao;
 import com.example.proyectointegradorgrupal.model.PodcastContainer;
 import com.example.proyectointegradorgrupal.service.PodcastService;
 import com.example.proyectointegradorgrupal.util.ResultListener;
+import com.google.gson.stream.JsonReader;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,6 +23,7 @@ public class PodcastDao extends RetrofitPodcastDao {
             @Override
             public void onResponse(Call<PodcastContainer> call, Response<PodcastContainer> response) {
                 if (response.isSuccessful()) {
+
                     PodcastContainer contenedorObtenido = response.body();
                     resultListenerFromController.onFinish(contenedorObtenido);
                 } else {

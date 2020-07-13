@@ -14,7 +14,7 @@ public class Podcast implements Serializable {
     private String audio;
     @SerializedName("image")
     private String image;
-    @SerializedName("podcast_image")
+    @SerializedName("title")
     private String podcastTitle;
     @SerializedName("thumbnail")
     private String thumbnail;

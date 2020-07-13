@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.util.ResultListener;
@@ -48,9 +49,10 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
 
     private Album album;
 
-    private FirebaseFirestore db;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private DatosUsuariosController datosUsuariosController;
 
 
     @Override
@@ -73,9 +75,10 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         albumFavoritoButtom = view.findViewById(R.id.albumBotonFavoritos);
         recyclerViewListaCanciones = view.findViewById(R.id.fragmentListadoCancionesRecycler);
 
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+
 
         Bundle bundle = getArguments();
         album = (Album) bundle.getSerializable(MainActivity.FAVORITO);
@@ -85,7 +88,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         fragmentListadoCancionesArtista.setText(album.getTitle());
 
         albumController = new AlbumController();
-        albumController.getAlbumTracks(album.getId().toString(), new ResultListener<Track>() {
+        albumController.getAlbumTracks(album.getId(),new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
                 trackAdapter = new TrackAdapter(result.getData(), FragmentAlbumTracks.this);
@@ -104,22 +107,17 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
             @Override
             public void onClick(View v) {
                 if (mAuth.getCurrentUser() != null) {
-                    db.collection(LoginActivity.DATOS_USUARIO)
-                            .document(currentUser.getUid())
-                            .update("albumesFavoritos", FieldValue.arrayUnion(album))
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getActivity(), "Album gregado a favoritos", Toast.LENGTH_SHORT).show();
-                                    albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                    datosUsuariosController = new DatosUsuariosController(getContext());
+                    datosUsuariosController.setAlbumFavorito(album, new ResultListener<Album>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Salio mal agregar album", Toast.LENGTH_SHORT).show();
+                        public void onFinish(Album result) {
+
+                            albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
                         }
                     });
+
+
                 } else {
                     Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
                 }
@@ -138,6 +136,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     public void onClick(List<Track> trackList, int position) {
         fragmentListaCancionesListener.onClickTrackDesdeAlbum(trackList, position);
     }
+
 
 
 

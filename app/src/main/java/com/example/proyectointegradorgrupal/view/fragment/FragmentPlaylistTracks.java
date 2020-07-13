@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.controller.PlaylistController;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Track;
@@ -43,11 +44,12 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
     private TrackAdapter trackAdapter;
     private ImageButton botonPlaylistFavorito;
 
-    private FirebaseFirestore db;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
     private Playlist playlist;
+    private DatosUsuariosController datosUsuariosController;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -69,9 +71,10 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
         recyclerView = view.findViewById(R.id.fragmentPlaylistRecycler);
         botonPlaylistFavorito = view.findViewById(R.id.playlistBotonFavoritos);
 
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
+
 
         Bundle bundle = getArguments();
 
@@ -103,22 +106,16 @@ public class FragmentPlaylistTracks extends Fragment implements TrackAdapter.Tra
             @Override
             public void onClick(View v) {
                 if (mAuth.getCurrentUser() != null) {
-                    db.collection(LoginActivity.DATOS_USUARIO)
-                            .document(currentUser.getUid())
-                            .update("playlistsFavoritos", FieldValue.arrayUnion(playlist))
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getActivity(), "Playlist agregada a favoritos", Toast.LENGTH_SHORT).show();
-                                    botonPlaylistFavorito.setImageResource(R.drawable.ic_favorite);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
+                    datosUsuariosController = new DatosUsuariosController(getContext());
+                    datosUsuariosController.setPlaylistFavorita(playlist, new ResultListener<Playlist>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Salio mal agregar playlist", Toast.LENGTH_SHORT).show();
+                        public void onFinish(Playlist result) {
+
+                            botonPlaylistFavorito.setImageResource(R.drawable.ic_favorite);
                         }
                     });
+
                 } else {
                     Toast.makeText(getActivity(), "Accede a tu cuenta para agregar favoritos", Toast.LENGTH_SHORT).show();
                 }

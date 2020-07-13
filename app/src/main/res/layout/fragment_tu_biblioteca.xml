@@ -8,15 +8,6 @@
     tools:context=".view.fragment.biblioteca.FragmentTuBiblioteca"
     android:background="@drawable/gradient_background">
 
-<com.google.android.material.textview.MaterialTextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:textSize="40dp"
-    android:textColor="#FFF"
-    android:text="Tu biblioteca">
-
-</com.google.android.material.textview.MaterialTextView>
 
 
 

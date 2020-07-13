@@ -8,7 +8,7 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="115dp"
         android:layout_height="115dp"
-        android:src="@drawable/vulfpeck"
+        android:src="@drawable/cargando"
         android:id="@+id/favoritosImageView"/>
 
     <com.google.android.material.textview.MaterialTextView

@@ -13,7 +13,7 @@
     android:orientation="vertical">
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/celdaNombreCancion"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:text="Nombre Cancion"
         android:textSize="15dp"
@@ -22,7 +22,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/celdaAlbumCancion"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:textSize="12dp"
         android:textColor="#F1EEEE"/>

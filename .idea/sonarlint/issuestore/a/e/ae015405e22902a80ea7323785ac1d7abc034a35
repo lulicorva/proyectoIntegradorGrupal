@@ -1,0 +1,42 @@
+
+S
+java:S2209¥"5Change this instance-reference to a static reference.(÷†Ì8Šçû³.
+P	java:S110:"<This class has 9 parents which is greater than 5 authorized.(­¬
+‚
+java:S1128)"lRemove this unused import 'com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton'.(™©Šİ
+_
+java:S1854l"IRemove this useless assignment to local variable "actionBarDrawerToggle".(±Ó»¢
+g
+java:S1301ı"KReplace this "switch" statement by "if" statements to increase readability.(øå´¡ÿÿÿÿÿ
+O
+java:S1128"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš
+x
+java:S1450G"bRemove the "notificationManager" field and declare it as a local variable in the relevant methods.(–š¼Ë
+^	java:S125Ò"<This block of commented-out lines of code should be removed.(åøûÃıÿÿÿÿ8±õï³.
+N
+java:S1068>"8Remove this unused "bottomNavigationView" private field.(ê¥ÎÚ
+S
+java:S2209µ"5Change this instance-reference to a static reference.(÷†Ì8Šçû³.
+=	java:S131ı""Add a default case to this switch.(øå´¡ÿÿÿÿÿ
+~
+java:S1128"\Remove this unused import 'com.example.proyectointegradorgrupal.controller.AlbumController'.(‰®à€ÿÿÿÿÿ8‘¬Âø².
+^	java:S125“"<This block of commented-out lines of code should be removed.(Ñ¢ÅÏıÿÿÿÿ8Šçû³.
+P	java:S125m"<This block of commented-out lines of code should be removed.(¾­‚
+P
+java:S1481l":Remove this unused "actionBarDrawerToggle" local variable.(±Ó»¢
+S
+java:S1128"6Remove this unused import 'android.app.PendingIntent'.(šºŞ—8Òæ‡ƒ².
+S
+java:S2209è"5Change this instance-reference to a static reference.(÷†Ì8Šçû³.
+Y	java:S125«"<This block of commented-out lines of code should be removed.(Æ®‡8Šçû³.
+y
+java:S1450>"cRemove the "bottomNavigationView" field and declare it as a local variable in the relevant methods.(ê¥ÎÚ
+m
+java:S1192ç"JDefine a constant instead of duplicating this literal "trackList" 3 times.(˜·¬²şÿÿÿÿ8Šçû³.
+c
+java:S1192j"FDefine a constant instead of duplicating this literal "Jaxoo" 3 times.(Ú¼çÍ8õ±ê².
+S
+java:S2209À"5Change this instance-reference to a static reference.(÷†Ì8Šçû³.
+D	java:S131ü""Add a default case to this switch.(ë´åİşÿÿÿÿ8Šçû³.
+S
+java:S2209"5Change this instance-reference to a static reference.(÷†Ì8Šçû³.

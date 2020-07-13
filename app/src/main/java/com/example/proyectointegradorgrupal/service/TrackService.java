@@ -1,6 +1,7 @@
 package com.example.proyectointegradorgrupal.service;
 
 import com.example.proyectointegradorgrupal.model.Album;
+import com.example.proyectointegradorgrupal.model.Track;
 
 
 import retrofit2.Call;
@@ -12,10 +13,8 @@ import retrofit2.http.Path;
 public interface TrackService {
 
     //Metodo para consultar 1 solo album
-    //@GET("track/{id}")
-    //Call<Track> getTrack(@Path("id") String id);
+    @GET("track/{id}")
+    Call<Track> getTrackById(@Path("id") String id);
 
 
-    @GET("album/{id}/tracks")
-    Call<Object> getAlbumTracks(@Path("id") String id);
 }

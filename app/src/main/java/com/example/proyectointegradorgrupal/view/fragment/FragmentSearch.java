@@ -50,11 +50,11 @@ public class FragmentSearch extends Fragment implements TrackAdapter.TrackAdapte
         recyclerViewSearchList = view.findViewById(R.id.fragmentListadoSearch);
 
         Bundle bundle = getArguments();
-        //Favoritos favoritos = (Favoritos) bundle.getSerializable("favorito");
+
         String query = (String) bundle.getSerializable(MainActivity.QUERY);
 
 
-        searchController = new SearchController();
+        searchController = new SearchController(getContext());
         searchController.getSearch(query, new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {

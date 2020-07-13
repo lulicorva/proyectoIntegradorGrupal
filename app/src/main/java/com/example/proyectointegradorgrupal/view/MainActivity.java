@@ -1,11 +1,20 @@
 package com.example.proyectointegradorgrupal.view;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -18,10 +27,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.proyectointegradorgrupal.LoginActivity;
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.ReproductorActivity;
+import com.example.proyectointegradorgrupal.controller.AlbumController;
+import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
 import com.example.proyectointegradorgrupal.model.Podcast;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
@@ -53,10 +65,18 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     public static final String QUERY = "query";
     public static final String FAVORITO = "favorito";
     private FragmentTuBiblioteca fragmentTuBiblioteca;
+    private CreateNotification createNotification;
+
+    private NotificationManager notificationManager;
+
+    private ReproductorSingleton reproductorSingleton;
+    //Este bundle me lo trae el metodo onActivityResult(), de ahi saco la trackList y la posicion
+    private Bundle bundleDesdeReprAct;
+    private int position;
+
 
     @Override
-//TODO me parece que el FavoritosFragment deveria ser un FragmentPantallaInicio y dentro de ese poner 3 recyclerview, uno de favoritos, otro de
-//tus playlists y otro de recomendados, todos dentro del mismo fragment
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,7 +93,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
         findViewsById();
         configuracionToolbar();
-        pegarFragmentsMainActivity();
+
+
+
+            pegarFragmentsMainActivity();
 
     }
 
@@ -95,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
             finish();
 
         } else {
+            toolbar.setTitle("Jaxoo");
             super.onBackPressed();
 
         }
@@ -124,9 +148,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     private void abrirAlbumTracks(Album album) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(MainActivity.FAVORITO, album);
-
-
+        bundle.putSerializable(FAVORITO, album);
         FragmentAlbumTracks fragmentAlbumTracks = new FragmentAlbumTracks();
         fragmentAlbumTracks.setArguments(bundle);
         pegarFragment(fragmentAlbumTracks, R.id.activityMainContenedorPrincipal);
@@ -146,7 +168,13 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     private void pegarFragmentsMainActivity() {
 
-        pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+
+        DatosUsuariosController datosUsuariosController = new DatosUsuariosController(getApplicationContext());
+        if(datosUsuariosController.hayInternet()) {
+            pegarFragment(new FragmentPrincipal(), R.id.activityMainContenedorPrincipal);
+        } else {
+            Toast.makeText(this, "Desgraciadamente no hay internet", Toast.LENGTH_SHORT).show();
+        }
 
         //Este siempre esta, va cambiando el de arriba
         pegarFragment(new BottomNavigationFragment(), R.id.activityMainContenedorFragmentBottomNavigation);
@@ -197,8 +225,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
-
     /**
      * Configuracion del Appbar superior, Buscador y Configuracion - CHEQUEAR color
      *
@@ -238,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
+
 
                 Bundle bundle = new Bundle();
                 bundle.putString(MainActivity.QUERY, query);
@@ -251,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(MainActivity.this, newText, Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -262,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     private void logOutFirebaseUser() {
         mAuth.signOut();
-        Toast.makeText(this, "Cerrar sesión", Toast.LENGTH_SHORT).show();
+
     }
 
     private void logOutGoogle() {
@@ -285,6 +311,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
      */
     @Override
     public void onClickTuBiblioteca() {
+        toolbar.setTitle("Tu biblioteca");
         pegarFragment(fragmentTuBiblioteca, R.id.activityMainContenedorPrincipal);
 
 
@@ -303,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onClickTrackFavoritos(List<Track> trackList, int position) {
-        abrirReproductorActivity(trackList, position);
+        //abrirReproductorActivity(trackList, position);
     }
 
     @Override
@@ -318,8 +345,6 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     }
 
 
-
-
     private void abrirReproductorActivity(List<Track> trackList, int position) {
         Intent intent = new Intent(MainActivity.this, ReproductorActivity.class);
         Bundle bundle = new Bundle();
@@ -328,7 +353,156 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         bundle.putInt("position", position);
         bundle.putSerializable("trackList", track);
         intent.putExtras(bundle);
-        startActivity(intent);
+
+        startActivityForResult(intent, 10);
     }
+
+
+    //NOTIFICACIONES PRUEBA
+
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+            String action = intent.getExtras().getString("actionName");
+
+
+            Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
+
+
+            switch (action) {
+
+                case CreateNotification.NEXT_TRACK:
+
+                    if (position + 1 < trackList.getData().size()) {
+                        position = position + 1;
+                        reproductorSingleton = ReproductorSingleton.getInstance();
+                        reproductorSingleton.getMediaPlayer().pause();
+                        String previewNext = trackList.getData().get(position).getPreview();
+                        Uri uriTrackNext = Uri.parse(previewNext);
+
+
+                        reproductorSingleton.setNewMediaPlayer();
+                        reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackNext);
+                        reproductorSingleton.getMediaPlayer().start();
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+                    }
+
+                    // onClickNext();
+                    break;
+                case CreateNotification.PREVIOUS_TRACK:
+
+                    if (position > 0) {
+                        position = position - 1;
+                        reproductorSingleton = ReproductorSingleton.getInstance();
+                        reproductorSingleton.getMediaPlayer().pause();
+                        String previewPrevious = trackList.getData().get(position).getPreview();
+                        Uri uriTrackPrevious = Uri.parse(previewPrevious);
+
+
+                        reproductorSingleton.setNewMediaPlayer();
+                        reproductorSingleton.prepareMediaPlayer(MainActivity.this, uriTrackPrevious);
+                        reproductorSingleton.getMediaPlayer().start();
+
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+                    }
+
+                    // onClickPrevious();
+                    break;
+
+                case CreateNotification.PLAYPAUSE:
+                    reproductorSingleton = ReproductorSingleton.getInstance();
+                    if (reproductorSingleton.getMediaPlayer().isPlaying()) {
+
+                        reproductorSingleton.getMediaPlayer().pause();
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_play_circle_filled, 1,
+                                trackList.getData().size());
+
+
+                    } else {
+
+                        reproductorSingleton.getMediaPlayer().start();
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(MainActivity.this,
+                                trackList.getData().get(position),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+
+                    }
+
+                    break;
+
+
+            }
+
+
+        }
+    };
+
+
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Jaxoo", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = getSystemService(NotificationManager.class);
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        bundleDesdeReprAct = data.getExtras();
+        Track trackList = (Track) bundleDesdeReprAct.getSerializable("trackList");
+        position = bundleDesdeReprAct.getInt("position");
+
+
+        createNotification = CreateNotification.getInstance();
+        createNotification.createNotificacion(MainActivity.this,
+                trackList.getData().get(position),
+                R.drawable.ic_pause_circle_filled, 1,
+                trackList.getData().size());
+
+
+        /**
+         * Notificacion usa metodo createChannel
+         * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+
+            startService(new Intent(MainActivity.this, OnClearFromNotificationService.class));
+
+
+        }
+
+
+    }
+
+
 }
+
 

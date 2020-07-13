@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -15,18 +16,17 @@
         android:textColor="#FFF"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReproductorActivity"></activity>
+        <activity android:name=".PopUpLetras"
+            android:theme="@style/AppTheme.TemaPopUp"></activity>
+        <activity android:name=".ReproductorActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".view.MainActivity">
-
-        </activity>
+        <activity android:name=".view.MainActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -40,8 +40,6 @@
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
-
-
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -51,10 +49,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity">
-
-
-
         </activity>
+
+        <receiver android:name=".service.NotificationActionService"/>
+        <service android:name=".service.OnClearFromNotificationService"/>
     </application>
 
 </manifest>

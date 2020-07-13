@@ -1,27 +1,51 @@
 package com.example.proyectointegradorgrupal;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.example.proyectointegradorgrupal.controller.LyricsController;
+import com.example.proyectointegradorgrupal.model.Example;
+import com.example.proyectointegradorgrupal.model.Lyrics;
 import com.example.proyectointegradorgrupal.model.Track;
+import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
+import com.example.proyectointegradorgrupal.view.CreateNotification;
+import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterReproductor;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.example.proyectointegradorgrupal.util.ResultListener;
+
 
 public class ReproductorActivity extends AppCompatActivity implements FragmentReproductorSingleton.FragmentReproductorSingletonListener {
 
     private ViewPager viewPager;
     private ViewPagerAdapterReproductor viewPagerAdapterReproductor;
 
-    private int posicionAlScrollear;
-    private Track trackList;
+    public int posicionAlScrollear;
+    public Track trackList;
+    public ReproductorSingleton reproductorSingleton;
 
+    private NotificationManager notificationManager;
+    private CreateNotification createNotification;
+    private ExtendedFloatingActionButton botonFlotante;
+    private Uri uriTrack;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -33,14 +57,21 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         trackList = (Track) bundle.get("trackList");
+        final Track track = trackList.getData().get(posicionAlScrollear);
+        final String preview = track.getPreview();
+        uriTrack = Uri.parse(preview);
 
         //Posicion del track al que hacen click
-       int position = bundle.getInt("position");
+        int position = bundle.getInt("position");
 
+
+        botonFlotante = findViewById(R.id.botonletras);
         viewPager = findViewById(R.id.activityReproductorViewPager);
         viewPagerAdapterReproductor = new ViewPagerAdapterReproductor(getSupportFragmentManager(), 2, trackList.getData());
         viewPager.setAdapter(viewPagerAdapterReproductor);
         viewPager.setCurrentItem(position);
+        reproductorSingleton = ReproductorSingleton.getInstance();
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -48,11 +79,24 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
                 posicionAlScrollear = position;
 
-                ReproductorSingleton reproductorSingleton = ReproductorSingleton.getInstance();
                 reproductorSingleton.getMediaPlayer().pause();
+
+                final Track track1 = trackList.getData().get(posicionAlScrollear);
 
                 String preview = trackList.getData().get(position).getPreview();
                 Uri uriTrack = Uri.parse(preview);
+
+                botonFlotante.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent unIntent = new Intent(ReproductorActivity.this, PopUpLetras.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("track", track1);
+                        unIntent.putExtras(bundle);
+                        startActivity(unIntent);
+
+                    }
+                });
 
 
                 reproductorSingleton.setNewMediaPlayer();
@@ -62,6 +106,15 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
                 FragmentReproductorSingleton fragmentReproductorSingleton = (FragmentReproductorSingleton) viewPagerAdapterReproductor.getItem(position);
                 fragmentReproductorSingleton.updateSeekBar();
                 fragmentReproductorSingleton.setPlayPause();
+
+
+
+
+                createNotification = CreateNotification.getInstance();
+                createNotification.createNotificacion(ReproductorActivity.this,
+                        trackList.getData().get(position),
+                        R.drawable.ic_pause_circle_filled, 1,
+                        trackList.getData().size());
 
             }
 
@@ -77,8 +130,82 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
             }
         });
 
+/**
+ * Notificacion usa metodo createChannel
+ * */
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+            registerReceiver(broadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            startService(new Intent(ReproductorActivity.this, OnClearFromNotificationService.class));
+
+        }
+
 
     }
+
+
+    private void createChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Jaxoo", NotificationManager.IMPORTANCE_LOW);
+            notificationManager = getSystemService(NotificationManager.class);
+
+
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
+            }
+
+        }
+
+    }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getExtras().getString("actionName");
+
+            switch (action) {
+
+                case CreateNotification.NEXT_TRACK:
+                    onClickNext();
+                    break;
+                case CreateNotification.PREVIOUS_TRACK:
+                    onClickPrevious();
+                    break;
+
+                case CreateNotification.PLAYPAUSE:
+
+                    if (reproductorSingleton.getMediaPlayer().isPlaying()) {
+                        reproductorSingleton.getMediaPlayer().pause();
+
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(ReproductorActivity.this,
+                                trackList.getData().get(posicionAlScrollear),
+                                R.drawable.ic_play_circle_filled, 1,
+                                trackList.getData().size());
+
+
+
+                    } else {
+                        reproductorSingleton.getMediaPlayer().start();
+
+
+                        createNotification = CreateNotification.getInstance();
+                        createNotification.createNotificacion(ReproductorActivity.this,
+                                trackList.getData().get(posicionAlScrollear),
+                                R.drawable.ic_pause_circle_filled, 1,
+                                trackList.getData().size());
+
+                    }
+                    break;
+
+
+            }
+
+
+        }
+    };
 
 
     @Override
@@ -122,4 +249,48 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            notificationManager.cancelAll();
+        }
+        unregisterReceiver(broadcastReceiver);
+
+*/
+
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent data = new Intent();
+
+
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("trackList", trackList);
+        bundle.putInt("position", posicionAlScrollear);
+        data.putExtras(bundle);
+
+
+        setResult(10, data);
+
+        super.onBackPressed();
+
+    }
+
+
+
+
+
 }
+
+
+
+
+
+
+
+

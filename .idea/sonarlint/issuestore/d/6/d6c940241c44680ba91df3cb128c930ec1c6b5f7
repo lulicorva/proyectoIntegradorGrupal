@@ -1,0 +1,15 @@
+
+S
+java:S1128"1Remove this unused import 'android.widget.Toast'.(©›ïÍúÿÿÿÿ8ÍéÉ².
+N
+java:S1128"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ
+g
+java:S1128"LRemove this unused import 'com.google.android.gms.tasks.OnCompleteListener'.(Çğ¸Òÿÿÿÿÿ
+J
+java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è
+T
+java:S1128">Remove this unused import 'com.google.android.gms.tasks.Task'.(¦âÏô
+e
+java:S1128	"CRemove this unused import 'com.example.proyectointegradorgrupal.R'.(¸®‹‰ûÿÿÿÿ8Æ¢î².
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ

@@ -1,0 +1,57 @@
+
+X	java:S110$"<This class has 9 parents which is greater than 5 authorized.(¾ö›Ã8÷ÙÍø².
+l
+java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.model.Example'.(ñ”¬È8÷ÙÍø².
+y
+java:S14500"WRemove the "uriTrack" field and declare it as a local variable in the relevant methods.(îøŸÌûÿÿÿÿ8÷ÙÍø².
+Z
+java:S1117Ú"<Rename "uriTrack" which hides the field declared at line 48.(ÁíÀ¢8÷ÙÍø².
+w
+java:S1104*"UMake trackList a static final constant or non-public and provide accessors if needed.(ÌÛÍ²ùÿÿÿÿ8÷ÙÍø².
+S
+java:S2209·"5Change this instance-reference to a static reference.(¦‚ÉĞ8·Ğ­ù².
+u
+java:S1128"SRemove this unused import 'com.example.proyectointegradorgrupal.view.MainActivity'.(œËËúÿÿÿÿ8÷ÙÍø².
+N
+java:S1128"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ
+S
+java:S1128
+"6Remove this unused import 'android.app.PendingIntent'.(šºŞ—8ˆå¹±.
+j
+java:S1128"NRemove this unused import 'com.example.proyectointegradorgrupal.model.Lyrics'.(¥‡óH8÷ÙÍø².
+¤
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(™Î«şÿÿÿÿ8÷ÙÍø².
+|
+java:S1104)"_Make posicionAlScrollear a static final constant or non-public and provide accessors if needed.(¼Š8÷ÙÍø².
+R
+java:S1128"5Remove this unused import 'com.bumptech.glide.Glide'.(Ñˆ…Ë8÷ÙÍø².
+„
+java:S1128"bRemove this unused import 'com.google.android.material.floatingactionbutton.FloatingActionButton'.(ôˆêãÿÿÿÿÿ8÷ÙÍø².
+F
+java:S1185ş"(Remove this method to simply inherit it.(ÍÙ÷¢8÷ÙÍø².
+
+java:S1128"]Remove this unused import 'com.example.proyectointegradorgrupal.controller.LyricsController'.(À˜•Şùÿÿÿÿ8÷ÙÍø².
+N
+java:S10680",Remove this unused "uriTrack" private field.(îøŸÌûÿÿÿÿ8÷ÙÍø².
+^	java:S125€"<This block of commented-out lines of code should be removed.(õÉí´ıÿÿÿÿ8÷ÙÍø².
+}
+java:S1104+"`Make reproductorSingleton a static final constant or non-public and provide accessors if needed.(¨çÌ8÷ÙÍø².
+f
+java:S1117ë"HRename "reproductorSingleton" which hides the field declared at line 43.(—²Ûä8÷ÙÍø².
+w
+java:S1128!"URemove this unused import 'com.example.proyectointegradorgrupal.util.ResultListener'.(Ò¼²ıÿÿÿÿÿ8÷ÙÍø².
+
+java:S1450-"bRemove the "notificationManager" field and declare it as a local variable in the relevant methods.(–š¼Ë8÷ÙÍø².
+R
+java:S2209r"5Change this instance-reference to a static reference.(¦‚ÉĞ8·Ğ­ù².
+D	java:S131§""Add a default case to this switch.(ë´åİşÿÿÿÿ8÷ÙÍø².
+f
+java:S1117Ö"HRename "reproductorSingleton" which hides the field declared at line 43.(—²Ûä8÷ÙÍø².
+S
+java:S2209Ã"5Change this instance-reference to a static reference.(¦‚ÉĞ8·Ğ­ù².
+£
+java:S1186z"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÿİç›üÿÿÿÿ8÷ÙÍø².
+Y
+java:S1117W"<Rename "uriTrack" which hides the field declared at line 48.(ÁíÀ¢8÷ÙÍø².
+Z
+java:S1117ï"<Rename "uriTrack" which hides the field declared at line 48.(ÁíÀ¢8÷ÙÍø².

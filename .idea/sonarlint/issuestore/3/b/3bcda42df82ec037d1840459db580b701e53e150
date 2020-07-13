@@ -1,0 +1,18 @@
+
+M
+java:S1444"2Make this "public static notification" field final(Þß£éùÿÿÿÿ
+k	java:S117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôÜ­žøÿÿÿÿ
+k	java:S117U"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Êð­‡üÿÿÿÿ
+s
+java:S1104"XMake notification a static final constant or non-public and provide accessors if needed.(Þß£éùÿÿÿÿ
+W
+java:S1128"<Remove this unused import 'android.app.NotificationManager'.(¸˜ùÑûÿÿÿÿ
+L
+java:S1128
+"6Remove this unused import 'android.media.MediaPlayer'.(Ýã¦
+h
+java:S3008"SRename this field "INSTANCE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×Ôœ-
+U
+java:S1118":Add a private constructor to hide the implicit public one.(§ÜƒÃýÿÿÿÿ
+[
+java:S1124""EReorder the modifiers to comply with the Java Language Specification.(Þ•Ä

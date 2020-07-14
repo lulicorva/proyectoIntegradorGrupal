@@ -15,7 +15,12 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.example.proyectointegradorgrupal.controller.LyricsController;
+import com.example.proyectointegradorgrupal.model.Example;
+import com.example.proyectointegradorgrupal.model.Lyrics;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
 import com.example.proyectointegradorgrupal.view.CreateNotification;
@@ -23,6 +28,10 @@ import com.example.proyectointegradorgrupal.view.MainActivity;
 import com.example.proyectointegradorgrupal.view.ReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.adapter.ViewPagerAdapterReproductor;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.example.proyectointegradorgrupal.util.ResultListener;
+
 
 public class ReproductorActivity extends AppCompatActivity implements FragmentReproductorSingleton.FragmentReproductorSingletonListener {
 
@@ -35,8 +44,8 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
     private NotificationManager notificationManager;
     private CreateNotification createNotification;
-
-
+    private ExtendedFloatingActionButton botonFlotante;
+    private Uri uriTrack;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -48,15 +57,21 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         trackList = (Track) bundle.get("trackList");
+        final Track track = trackList.getData().get(posicionAlScrollear);
+        final String preview = track.getPreview();
+        uriTrack = Uri.parse(preview);
 
         //Posicion del track al que hacen click
         int position = bundle.getInt("position");
 
+
+        botonFlotante = findViewById(R.id.botonletras);
         viewPager = findViewById(R.id.activityReproductorViewPager);
         viewPagerAdapterReproductor = new ViewPagerAdapterReproductor(getSupportFragmentManager(), 2, trackList.getData());
         viewPager.setAdapter(viewPagerAdapterReproductor);
         viewPager.setCurrentItem(position);
         reproductorSingleton = ReproductorSingleton.getInstance();
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -66,8 +81,23 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
                 reproductorSingleton.getMediaPlayer().pause();
 
+                final Track track1 = trackList.getData().get(posicionAlScrollear);
+
                 String preview = trackList.getData().get(position).getPreview();
                 Uri uriTrack = Uri.parse(preview);
+
+                botonFlotante.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent unIntent = new Intent(ReproductorActivity.this, PopUpLetras.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("track", track1);
+                        unIntent.putExtras(bundle);
+                        startActivity(unIntent);
+
+                    }
+                });
+
 
                 reproductorSingleton.setNewMediaPlayer();
                 reproductorSingleton.prepareMediaPlayer(ReproductorActivity.this, uriTrack);
@@ -113,10 +143,12 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
     }
 
+
     private void createChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(CreateNotification.CHANNEL_ID, "Jaxoo", NotificationManager.IMPORTANCE_LOW);
             notificationManager = getSystemService(NotificationManager.class);
+
 
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(notificationChannel);
@@ -254,3 +286,11 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
 
 
 }
+
+
+
+
+
+
+
+

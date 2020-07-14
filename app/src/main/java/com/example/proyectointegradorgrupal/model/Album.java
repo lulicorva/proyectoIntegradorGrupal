@@ -24,7 +24,7 @@ public class Album implements Serializable {
         this.idROOM = idROOM;
     }
 
-    private Integer id;
+    private String id;
 
     @ColumnInfo(name = "title")
     private String title;
@@ -38,12 +38,12 @@ public class Album implements Serializable {
     private String coverXL;
 
 
-
     public Album() {
 
     }
-@Ignore
-    public Album(Integer id, String title, String link, String cover, Integer duration, Integer rating, String tracklist,String coverXL) {
+
+    @Ignore
+    public Album(String id, String title, String link, String cover, Integer duration, Integer rating, String tracklist, String coverXL) {
         this.id = id;
         this.title = title;
         this.link = link;
@@ -64,11 +64,11 @@ public class Album implements Serializable {
         this.coverXL = coverXL;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

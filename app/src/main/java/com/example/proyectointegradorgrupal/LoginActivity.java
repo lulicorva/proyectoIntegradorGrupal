@@ -148,6 +148,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * *Validación para campos vacios
+     * */
+
+ /*   public void validarCamposVacios() {
+        if (editTextEmail.getText().toString().trim().length() == 0 || editTextPassword.getText().toString().trim().length() == 0) {
+            Toast.makeText(getApplicationContext(),"Por favor ingrese los datos faltantes", Toast.LENGTH_LONG).show();
+
+        }
+    }*/
+
+
 
     /**
      * Metodo para Registrar Usuario
@@ -211,14 +223,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.loginActivityButtonLogIn:
+                if (editTextEmail.getText().toString().trim().length() == 0 || editTextPassword.getText().toString().trim().length() == 0) {
+                    Toast.makeText(getApplicationContext(),"Por favor ingrese los datos faltantes", Toast.LENGTH_LONG).show();}else{
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                loguearUsuario(email, password);
+                loguearUsuario(email, password);}
                 break;
             case R.id.loginActivityButtonRegister:
+                if (editTextEmail.getText().toString().trim().length() == 0 || editTextPassword.getText().toString().trim().length() == 0) {
+                    Toast.makeText(getApplicationContext(),"Por favor ingrese los datos faltantes", Toast.LENGTH_LONG).show();}else{
                 String emailNuevo = editTextEmail.getText().toString();
                 String passwordNuevo = editTextPassword.getText().toString();
-                registrarUsuario(emailNuevo, passwordNuevo);
+                registrarUsuario(emailNuevo, passwordNuevo);}
                 break;
             case R.id.loginActivityBotonGoogle:
                 signIn();

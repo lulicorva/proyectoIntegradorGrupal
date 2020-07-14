@@ -88,7 +88,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
         fragmentListadoCancionesArtista.setText(album.getTitle());
 
         albumController = new AlbumController();
-        albumController.getAlbumTracks(album.getId().toString(), new ResultListener<Track>() {
+        albumController.getAlbumTracks(album.getId(),new ResultListener<Track>() {
             @Override
             public void onFinish(Track result) {
                 trackAdapter = new TrackAdapter(result.getData(), FragmentAlbumTracks.this);
@@ -112,7 +112,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
                     datosUsuariosController.setAlbumFavorito(album, new ResultListener<Album>() {
                         @Override
                         public void onFinish(Album result) {
-                            Toast.makeText(getActivity(), "Album gregado a favoritos", Toast.LENGTH_SHORT).show();
+
                             albumFavoritoButtom.setImageResource(R.drawable.ic_favorite);
                         }
                     });
@@ -136,6 +136,7 @@ public class FragmentAlbumTracks extends Fragment implements TrackAdapter.TrackA
     public void onClick(List<Track> trackList, int position) {
         fragmentListaCancionesListener.onClickTrackDesdeAlbum(trackList, position);
     }
+
 
 
 

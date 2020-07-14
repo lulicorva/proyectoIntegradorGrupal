@@ -31,8 +31,6 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     }
 
-
-
     @NonNull
     @Override
     public ViewHolderPlaylist onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

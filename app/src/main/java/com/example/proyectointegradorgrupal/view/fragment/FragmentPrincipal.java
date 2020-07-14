@@ -3,37 +3,37 @@ package com.example.proyectointegradorgrupal.view.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.proyectointegradorgrupal.R;
 import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.controller.PlaylistController;
-import com.example.proyectointegradorgrupal.dao.RecomendadosDao;
+import com.example.proyectointegradorgrupal.controller.PodcastController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
-import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.model.Podcast;
+import com.example.proyectointegradorgrupal.model.PodcastContainer;
 import com.example.proyectointegradorgrupal.util.ResultListener;
 import com.example.proyectointegradorgrupal.view.adapter.AlbumAdapter;
 import com.example.proyectointegradorgrupal.view.adapter.PlaylistAdapter;
-import com.example.proyectointegradorgrupal.view.adapter.RecomendadosAdapter;
+import com.example.proyectointegradorgrupal.view.adapter.PodcastAdapter;
 
 import java.util.List;
 
 
-public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAdapterListener, PlaylistAdapter.PlaylistAdapterListener, RecomendadosAdapter.RecomendadosAdapterListener {
+public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAdapterListener, PlaylistAdapter.PlaylistAdapterListener, PodcastAdapter.PodcastAdapterListener {
 
 
     private RecyclerView recyclerViewFavoritos;
     private RecyclerView recyclerViewPlaylist;
-    private RecyclerView recyclerViewRecomendados;
+    private RecyclerView recyclerViewPodcasts;
 
     private FragmentPrincipalListener fragmentPrincipalListener;
 
@@ -96,18 +96,19 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
         });
 
         /**
-         * RECOMENDADOS (SIGUE HARDCODEADO)
+         * PODCASTS
          * */
-        List<Recomendados> recomendadosList = RecomendadosDao.getRecomendados();
-
-        recyclerViewRecomendados = view.findViewById(R.id.fragmentRecycleRecomendados);
-
-        RecomendadosAdapter recomendadosAdapter = new RecomendadosAdapter(recomendadosList, FragmentPrincipal.this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false);
-
-        recyclerViewRecomendados.setLayoutManager(linearLayoutManager);
-        recyclerViewRecomendados.setAdapter(recomendadosAdapter);
-
+        recyclerViewPodcasts = view.findViewById(R.id.fragmentRecyclerPodcasts);
+        PodcastController podcastController = new PodcastController();
+        podcastController.getPodcastRecomendados("914a9deafa5340eeaa2859c77f275799", new ResultListener<PodcastContainer>() {
+            @Override
+            public void onFinish(PodcastContainer result) {
+                PodcastAdapter podcastAdapter = new PodcastAdapter(result.getRecommendations(), FragmentPrincipal.this, R.layout.ceda_recomendados_inicio);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+                recyclerViewPodcasts.setLayoutManager(linearLayoutManager);
+                recyclerViewPodcasts.setAdapter(podcastAdapter);
+            }
+        });
 
         return view;
     }
@@ -123,16 +124,18 @@ public class FragmentPrincipal extends Fragment implements AlbumAdapter.AlbumAda
     }
 
     @Override
-    public void onClick(Recomendados recomendados) {
-        fragmentPrincipalListener.onClickRecomendado(recomendados);
+    public void onClick(Podcast podcast) {
+        fragmentPrincipalListener.onClickPodcast(podcast);
     }
+
+
 
     public interface FragmentPrincipalListener {
         public void onClickAlbum(Album album);
 
         public void onClickPlaylist(Playlist playlist);
 
-        public void onClickRecomendado(Recomendados recomendados);
+        public void onClickPodcast(Podcast podcast);
 
     }
 }

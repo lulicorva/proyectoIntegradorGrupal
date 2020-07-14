@@ -31,14 +31,13 @@ import com.example.proyectointegradorgrupal.controller.AlbumController;
 import com.example.proyectointegradorgrupal.controller.DatosUsuariosController;
 import com.example.proyectointegradorgrupal.model.Album;
 import com.example.proyectointegradorgrupal.model.Playlist;
-import com.example.proyectointegradorgrupal.model.Recomendados;
+import com.example.proyectointegradorgrupal.model.Podcast;
 import com.example.proyectointegradorgrupal.model.Track;
 import com.example.proyectointegradorgrupal.service.OnClearFromNotificationService;
 import com.example.proyectointegradorgrupal.view.fragment.BottomNavigationFragment;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentAlbumTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPlaylistTracks;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentPrincipal;
-import com.example.proyectointegradorgrupal.view.fragment.FragmentReproductorSingleton;
 import com.example.proyectointegradorgrupal.view.fragment.FragmentSearch;
 import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentAlbumsFavoritos;
 import com.example.proyectointegradorgrupal.view.fragment.biblioteca.FragmentPLaylistsFavoritos;
@@ -201,14 +200,10 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
-    /**
-     * onCLick FragmentPrincipal
-     */
     @Override
-    public void onClickRecomendado(Recomendados recomendados) {
-        //abrir fragment con recomendados
-    }
+    public void onClickPodcast(Podcast podcast) {
 
+    }
 
     @Override
     public void onClickTrackDesdeSearch(List<Track> trackList, int position) {
@@ -269,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this, "Boton Buscar", Toast.LENGTH_SHORT).show();
+
 
                 Bundle bundle = new Bundle();
                 bundle.putString(MainActivity.QUERY, query);
@@ -282,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Toast.makeText(MainActivity.this, newText, Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -293,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     private void logOutFirebaseUser() {
         mAuth.signOut();
-        Toast.makeText(this, "Cerrar sesión", Toast.LENGTH_SHORT).show();
+
     }
 
     private void logOutGoogle() {
@@ -335,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     @Override
     public void onClickTrackFavoritos(List<Track> trackList, int position) {
-        abrirReproductorActivity(trackList, position);
+        //abrirReproductorActivity(trackList, position);
     }
 
     @Override

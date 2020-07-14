@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.text.method.MovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -134,14 +135,17 @@ public class FragmentReproductorSingleton extends Fragment {
 
         nombreArtista.setText(track.getArtist().getName());
         nombreTrack.setText(track.getTitleShort());
+
+        nombreTrack.setFocusable(false);
+
         seekBar.setMax(100);
 
 
         reproductorSingleton = ReproductorSingleton.getInstance();
 
 
-        long durationMediaPlayer = reproductorSingleton.getMediaPlayer().getDuration();
-        duration.setText(millisecondsToTimer(durationMediaPlayer));
+       // long durationMediaPlayer = reproductorSingleton.getMediaPlayer().getDuration();
+        duration.setText("0:30");
 
         imageViewPlayPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +221,7 @@ public class FragmentReproductorSingleton extends Fragment {
         botonNextTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 fragmentReproductorSingletonListener.onClickNext();
             }
         });

@@ -57,10 +57,7 @@ public class BottomNavigationFragment extends Fragment{
                         fragmentBottomNavigationListener.onClickTuBiblioteca();
 
                         break;
-                    case R.id.menuPerfil:
-                        fragmentBottomNavigationListener.onCLickPerfil();
-                        Toast.makeText(getContext(), "Mi Perfil", Toast.LENGTH_SHORT).show();
-                        break;
+
                 }
                 return true;
             }
@@ -73,7 +70,7 @@ public class BottomNavigationFragment extends Fragment{
 
     public interface FragmentBottomNavigationListener{
         public void onClickTuBiblioteca();
-        public void onCLickPerfil();
+
 
     }
 

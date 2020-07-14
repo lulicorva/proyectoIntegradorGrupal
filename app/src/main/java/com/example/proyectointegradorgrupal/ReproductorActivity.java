@@ -253,12 +253,12 @@ public class ReproductorActivity extends AppCompatActivity implements FragmentRe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             notificationManager.cancelAll();
-        }
+        }*/
         unregisterReceiver(broadcastReceiver);
 
-*/
+
 
     }
 

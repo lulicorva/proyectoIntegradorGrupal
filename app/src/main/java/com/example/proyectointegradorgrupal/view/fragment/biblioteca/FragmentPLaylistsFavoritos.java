@@ -133,7 +133,7 @@ public class FragmentPLaylistsFavoritos extends Fragment {
                             datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
                                 @Override
                                 public void onFinish(DatosUsuario result) {
-                                    Toast.makeText(getActivity(), "Oleee", Toast.LENGTH_SHORT).show();
+
                                 }
                             });
 
@@ -143,7 +143,7 @@ public class FragmentPLaylistsFavoritos extends Fragment {
             datosUsuariosController.setDatosUsuario(datosUsuario, new ResultListener<DatosUsuario>() {
                 @Override
                 public void onFinish(DatosUsuario result) {
-                    Toast.makeText(getActivity(), "Lista Actualizada", Toast.LENGTH_SHORT).show();
+
                 }
             });
 

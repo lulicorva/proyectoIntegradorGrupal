@@ -203,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
     @Override
     public void onClickPodcast(Podcast podcast) {
 
+        Toast.makeText(this, "En construccion", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -317,11 +318,7 @@ public class MainActivity extends AppCompatActivity implements FragmentPrincipal
 
     }
 
-    @Override
-    public void onCLickPerfil() {
 
-        //pegar fragment Mi perfil
-    }
 
     /**
      * Interfaces de fragments dentro de TuBiblioteca

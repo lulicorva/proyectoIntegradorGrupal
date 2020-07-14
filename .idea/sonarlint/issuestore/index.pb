@@ -75,3 +75,15 @@ Papp/src/main/java/com/example/proyectointegradorgrupal/service/TrackService.jav
 Vapp/src/main/java/com/example/proyectointegradorgrupal/controller/TrackController.java,5\1\516c882d09f8efb464895ccda1be4716cc00d53a
 x
 Happ/src/main/java/com/example/proyectointegradorgrupal/dao/TrackDao.java,4\5\4507175fe05bf83af2431b994ccefe20d5c2fc4a
+‚
+Rapp/src/main/java/com/example/proyectointegradorgrupal/model/PodcastContainer.java,6\a\6a8f5a4462bc79d229640fa76502e312c3d6f32c
+ˆ
+Xapp/src/main/java/com/example/proyectointegradorgrupal/controller/PodcastController.java,9\c\9caf2e10aae2a1246c36fdba33bba0f6a76dd962
+z
+Japp/src/main/java/com/example/proyectointegradorgrupal/dao/PodcastDao.java,c\a\ca26af5e18613ac80282bc911ac8ff934b48c02f
+y
+Iapp/src/main/java/com/example/proyectointegradorgrupal/model/Podcast.java,2\0\2097dddc13e7c7f3ef0b71019f3435a95fe50fd9
+‚
+Rapp/src/main/java/com/example/proyectointegradorgrupal/service/PodcastService.java,8\b\8bde8090c30e12c77a9709e9edb0e46c107060ba
+‚
+Rapp/src/main/java/com/example/proyectointegradorgrupal/dao/RetrofitPodcastDao.java,c\1\c1638ab5f76d40c0fe67439d3b25385e37d58dc4

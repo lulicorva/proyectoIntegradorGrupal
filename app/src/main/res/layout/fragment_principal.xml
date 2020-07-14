@@ -17,7 +17,7 @@ android:orientation="vertical">
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Artistas favoritos"
+    android:text="Albums"
     android:textSize="20dp"
     android:textStyle="bold"
     android:textColor="#FFFF"
@@ -34,7 +34,7 @@ android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tus playlists"
+        android:text="Playlists"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="#FFFF"
@@ -50,7 +50,7 @@ android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Recomendados"
+        android:text="Podcasts"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="#FFFF"

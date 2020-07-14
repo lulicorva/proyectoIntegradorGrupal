@@ -1,30 +1,33 @@
 
-e
-java:S1128"HRemove this unused import 'android.text.method.ScrollingMovementMethod'.(Û™ê¡8¹òË‡³.
-m
-java:S1128%"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8ğ‘‹‚².
+^	java:S125“"<This block of commented-out lines of code should be removed.(¡‰ µüÿÿÿÿ8İíèÒ´.
 a
-java:S1128"?Remove this unused import 'android.text.method.MovementMethod'.(ÙÅ·ªÿÿÿÿÿ8¶¤¿‡³.
-|
-java:S1450G"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ8üËò².
+java:S1128"?Remove this unused import 'android.text.method.MovementMethod'.(ÙÅ·ªÿÿÿÿÿ8¶¤¿‡³.
+m
+java:S1128&"KRemove this unused import 'com.google.android.gms.tasks.OnFailureListener'.(ï¿ŞŞúÿÿÿÿ8ğ‘‹‚².
+U
+java:S1128"3Remove this unused import 'android.text.TextUtils'.(û˜½Õøÿÿÿÿ8´ÙÒ´.
+{
+java:S1450M"^Remove the "trackController" field and declare it as a local variable in the relevant methods.(Éí›º8ñÍÂ‚³.
+Q
+java:S1068H"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ8üËò².
+e
+java:S1128"HRemove this unused import 'android.text.method.ScrollingMovementMethod'.(Û™ê¡8¹òË‡³.
 `
 java:S1128
 ">Remove this unused import 'androidx.cardview.widget.CardView'.(ğÒ³ãıÿÿÿÿ8…““ù².
-G
-java:S1068?",Remove this unused "uriTrack" private field.(îøŸÌûÿÿÿÿ
-z
-java:S1128"]Remove this unused import 'com.example.proyectointegradorgrupal.controller.SearchController'.(ûë¤8Éû³ù².
-{
-java:S1450L"^Remove the "trackController" field and declare it as a local variable in the relevant methods.(Éí›º8ñÍÂ‚³.
 i
-java:S1128+"LRemove this unused import 'com.google.firebase.firestore.FirebaseFirestore'.(§ä…ª8êù€ù².
-M
-java:S1128-"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8êù€ù².
-Q
-java:S1068G"/Remove this unused "currentUser" private field.(”Ùµ«øÿÿÿÿ8üËò².
-h
-java:S1128&"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8ğ‘‹‚².
+java:S1128,"LRemove this unused import 'com.google.firebase.firestore.FirebaseFirestore'.(§ä…ª8êù€ù².
 b
-java:S1128*"ERemove this unused import 'com.google.firebase.firestore.FieldValue'.(ş•Õ8ğ‘‹‚².
+java:S1128+"ERemove this unused import 'com.google.firebase.firestore.FieldValue'.(ş•Õ8ğ‘‹‚².
+h
+java:S1128'"KRemove this unused import 'com.google.android.gms.tasks.OnSuccessListener'.(íå¡8ğ‘‹‚².
+|
+java:S1450H"ZRemove the "currentUser" field and declare it as a local variable in the relevant methods.(”Ùµ«øÿÿÿÿ8üËò².
+G
+java:S1068@",Remove this unused "uriTrack" private field.(îøŸÌûÿÿÿÿ
+z
+java:S1128 "]Remove this unused import 'com.example.proyectointegradorgrupal.controller.SearchController'.(ûë¤8Éû³ù².
+M
+java:S1128."0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8êù€ù².
 q
-java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8ğ‘‹‚².
+java:S1128"ORemove this unused import 'com.example.proyectointegradorgrupal.LoginActivity'.(ãşôçşÿÿÿÿ8ğ‘‹‚².

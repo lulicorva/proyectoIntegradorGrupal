@@ -11,8 +11,5 @@
         android:title=" "
         android:icon="@drawable/ic_format_list_bulleted_white_24dp"/>
 
-    <item
-        android:id="@+id/menuPerfil"
-        android:title=" "
-        android:icon="@drawable/ic_person_white_24dp"/>
+
 </menu>
